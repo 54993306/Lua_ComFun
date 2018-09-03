@@ -60,9 +60,11 @@ function MainScene:ctor()
 
     self:initTextures()
 
-    -- self:initDeleteFiles()
+    self:initDeleteFile()
 
-    -- self:test()
+    -- self:excuteDeleteFile()
+
+    self:test()
 end
 
 -- 初始化json文件和csb文件相关
@@ -170,9 +172,9 @@ function MainScene:initPaths(rootpath, paths , pattern)
     end
     return paths
 end
-
+-- selected01
 -- 初始化将要删除的图片
-function MainScene:initDeleteFiles()
+function MainScene:initDeleteFile()
     local str = ""
     local delete_path = io.open(r_delete_pngs, "w+")
     local textures = self:fileSaveToTable(r_fodel_Images)           -- 所有图片
@@ -180,12 +182,10 @@ function MainScene:initDeleteFiles()
     local code_pngs = self:fileSaveToTable(r_code_pngs)             -- 代码中包含的图片
     local deleteNum = 0
     for _,fodelpath in pairs(textures) do
-        str = string.gsub(fodelpath ,"\\" , "/" )
-        str = string.match(str , "hall/([%w%-%._/%s]*.png)")
-        assert(str)
         local surplus = true  -- 默认图片是多余的
-        
         for _,jsonpng in pairs(json_pngs) do
+            str = string.match(fodelpath , "hall/([%w%-%._/%s]*.png)")   -- json中不包含hall目录
+            assert(str,fodelpath)
             if str == jsonpng then
                 surplus = false  -- 判断在json文件中是否使用
             end
@@ -193,7 +193,10 @@ function MainScene:initDeleteFiles()
         
         if surplus then
             for _,codepng in pairs(code_pngs) do
-                if codepng == str then
+                if codepng == str 
+                or codepng == string.match(fodelpath , "(hall/[%w%-%._/%s]*.png)")      -- 代码中的路径有以hall开头的
+                or codepng == string.match(fodelpath , "(res/hall/[%w%-%._/%s]*.png)") 
+                then
                     surplus = false  -- 判断在代码中是否使用
                 end
             end
@@ -208,10 +211,20 @@ function MainScene:initDeleteFiles()
     print(" ----------- delete file num :" .. deleteNum)
 end
 
+-- 执行删除文件 
+function MainScene:excuteDeleteFile()
+    local delete_path = io.open(r_delete_pngs, "r")
+    for line in delete_path:lines() do
+        print("delete : " .. line)
+        os.remove(line)
+    end
+    io.close(delete_path)
+end
+
 -- 初始化纹理文件表
 function MainScene:initTextures()
-    -- self:initFolderTexture()        -- 初始化文件夹中包含的图片文件
-    -- self:initJsonTexture()          -- 初始化json中使用到的图片文件
+    self:initFolderTexture()        -- 初始化文件夹中包含的图片文件
+    self:initJsonTexture()          -- 初始化json中使用到的图片文件
     self:initCodeFilePngs()      -- 初始化代码文件中包含的png
 end
 
@@ -230,13 +243,16 @@ function MainScene:initJsonTexture()
                 assert(json_image_lines:write(line , "\n"))                 -- 记录json中包含png的行
                 local str = string.match(line , "[\"]([%w/_%.%s%-]*.png)[\"]")  -- 匹配整个模式，但是从中截取出图片路径 
                 if str then
-                    json_pngs:write(str,"\n")
-                    table.insert(json_contain_texture,str)
-                    if self:uniqInsert(json_texture,str) then -- 去重后的路径
-                        json_uniq_path:write(str,"\n")
-                    else
-                        -- print(str)
+                    for str2 in string.gmatch(line , "[\"]([%w/_%.%s%-]*.png)[\"]") do  -- 一行中有可能存在多个png的情况
+                        json_pngs:write(str2,"\n")
+                        table.insert(json_contain_texture,str2)
+                        if self:uniqInsert(json_texture,str2) then -- 去重后的路径
+                            json_uniq_path:write(str2,"\n")
+                        else
+                            -- print(str2)
+                        end
                     end
+                    
                 else
                     print("pattern dif : " .. line) -- 目标模式匹配不到的行则打印出来
                 end
@@ -263,6 +279,7 @@ function MainScene:initFolderTexture()
     local fodelTextureMd5 = {}                              -- 存在文件夹下图片的md5值
     local repeatTextures = {}                               -- 存储指定路径下重复的图片资源路径
     for _,path in pairs(files) do
+        path = string.gsub(path , "\\" , "/")               -- 把反斜杠转化为正斜杠
         fodel_Images:write(path , "\n")
         local md5 = crypto.md5file(path)                    -- 名称不同但是图片相同，路径不同但是图片相同
         if self:uniqInsert(fodelTextureMd5 , md5) then
@@ -295,12 +312,14 @@ function MainScene:initCodeFilePngs()
         for line in file:lines() do 
             if string.find(line,".png") then -- 找到json中所有的png的行
                 assert(image_lines:write(line , "\n"))   
-                local str = string.match(line , "([%w%.%-%s_/]*.png)[\"]")
-                if str and str ~= ".png" then
-                    if self:uniqInsert(code_file_texture,str) then
-                        code_pngs:write(str,"\n")
-                    else
-                        -- print("repeat code path : " .. str)
+                local str1 = string.match(line , "[\"]([%w%.%-%s_/]*.png)[\"]")
+                if str1 and str1 ~= ".png" then
+                    for str2 in string.gmatch(line , "[\"]([%w%.%-%s_/]*.png)[\"]") do  -- 一行中有可能存在多个png的情况
+                        if self:uniqInsert(code_file_texture,str2) then
+                            code_pngs:write(str2,"\n")
+                        else
+                            -- print("repeat code path : " .. str2)
+                        end
                     end
                 else
                     -- print("un catch line : " .. line)
@@ -508,6 +527,14 @@ function MainScene:charSetText()
     print("----- 捕获 : ".. str3 )
     local str4 = string.match(strmatch , "[\"]([%w/_%.]*.png)[\"]") -- 匹配整个模式，但是从中截取出图片路径
     print("----- 捕获指定内容 :" .. str4)
+
+    -- 一行中多次捕获
+    local file = io.open("res\\aaa.json", "r")
+    for line in file:lines() do
+        for path in string.gmatch(line , "([%w%.%-%s_/]*.png)[\"]") do  -- 一行中有可能存在多个png的情况
+            print(path)
+        end
+    end
 end
 
 -- 创建路径和文件，删除文件和路径
@@ -533,13 +560,15 @@ function MainScene:changeFile()
     -- self:readFileByLine("res\\aaa.json")
 
     -- "r+": 更新模式，所有之前的数据将被保存
-    -- local file = io.open(path, "r")
+    -- local file = io.open("res\\aaa.json", "r")
     -- if file then
     --     for line in file:lines() do 
     --         print(line)
     --     end
     --     io.close(file)
     -- end
+    -- os.remove("D:/Lua_ComFun/QuickDemo/demo1/res/33333.png") -- 删除文件
+    -- os.remove("D:\\Lua_ComFun\\QuickDemo\\demo1\\res\\33333.png") -- 删除文件
 end
 
 return MainScene

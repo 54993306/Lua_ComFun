@@ -1,9 +1,1 @@
-{
-  "classname": null,
-  "name": null,
-  "animation": {
-    "classname": null,
-    "name": "AnimationManager",
-    "actionlist": []
-  }
- }
+    local dpPath = tmpData.dp <= 0 and "games/common/game/friendRoom/mjOver/total_win_tip_scale_bg.png" or "games/common/game/friendRoom/mjOver/total_fail_tip_scale_bg.png"
