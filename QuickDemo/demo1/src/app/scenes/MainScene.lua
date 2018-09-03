@@ -2,11 +2,8 @@
 require "lfs"  
 
 local json = require("framework.json")
--- local model2 = ...
 
 local crypto = require "framework.crypto"
--- local crypto = import (... , "app.framework.crypto")
--- local crypto = model(model2 , "app.framework.crypto")
 
 local MainScene = class("MainScene", function()
     return display.newScene("MainScene")
@@ -14,62 +11,318 @@ end)
 
 -- 是否记录到文件中
 local RECORD_IN_FILE = true
--- json 文件路径
-local s_json_path = "D:\\Svn_2d\\UI_Shu\\Json"     -- 斜杠是转义符，表示后面的斜杠是斜杠本身 
+-- json 文件的路径
+local dir_json_path = "D:\\Svn_2d\\UI_Shu\\Json"  
 -- csb 文件路径
-local s_csb_path = "D:\\Svn_2d\\S_Resource_GD\\res\\hall"  -- 反斜杠
--- Ui图片位置
-local s_FolderTexturePath = "D:\\Svn_2d\\UI_Shu\\Resources"
+local dir_csb_path = "D:\\Svn_2d\\S_Resource_GD\\res\\hall"
+-- 代码 文件路径
+local dir_code_path = "D:\\Svn_2d\\S_Resource_GD\\src"
 -- 项目图片位置
-local s_ProjectTextures = "D:\\Svn_2d\\S_Resource_GD\\res\\hall"
+local dir_png_path = "D:\\Svn_2d\\S_Resource_GD\\res\\hall"
+-----------------------------------------------------------------
+-- 记录json文件路径
+local r_json_paths = "res\\json_path.txt"
+-- 记录csb文件路径
+local r_csb_paths  = "res\\csb_path.txt"
 -- 记录文件夹中图片md5值
-local s_Fodel_MD5 = "res\\fodel_md5.txt"
+local r_Fodel_MD5 = "res\\fodel_md5.txt"
 -- 记录json中包含的图片信息
-local s_Json_Pngs = "res\\json_pngs.txt"
+local r_json_image_lines = "res\\json_images_lines.txt"
 -- 记录从json文件中截取出来的图片路径
-local s_json_image_path = "res\\json_image_path.txt"
+local r_json_pngs = "res\\json_pngs.txt"
 -- 记录json中去重后的路径
-local s_json_uniq_path = "res\\json_uniq_path.txt"
+local r_json_pngs_uniq = "res\\json_pngs_uniq.txt"
 -- 记录文件夹中所有的图片路径
-local s_Fodel_Image_Path = "res\\fodel_image_path.txt"
+local r_fodel_Images = "res\\fodel_Images.txt"
 -- 记录文件夹中重复的图片路径
-local s_Fodel_Repeat_Image = "res\\fodel_repeat_image.txt"
--- 代码路径
-local s_code_path = "D:\\Svn_2d\\S_Resource_GD\\src"
+local r_fodel_Repeat_pngs = "res\\fodel_repeat_pngs.txt"
 -- 记录代码中包含png行内容
-local s_code_include_png_path = "res\\code_include_png_path.txt"
+local r_code_line_pngs = "res\\code_line_pngs.txt"
 -- 记录代码中png的路径
-local s_code_png_path = "res\\code_png_path.txt"
+local r_code_pngs = "res\\code_pngs.txt"
+-- 记录将要删除的图片路径
+local r_delete_pngs = "res\\delete_pngs.txt"
+
+--[[
+    -- 资源清理
+    -- 操作目录
+    -- 操作文件
+    -- 裁切字符进行匹配
+    -- 判断文件是否存在
+    -- 输出文件数量
+    -- 从json找图片，从lua中找csb
+    -- 找到某个目录下的所有的图片
+    -- 查找同名的文件都有哪些。文件名相同，但是文件不同的。
+    -- 在文件中，是否都分别使用了它们。
+]]
+function MainScene:ctor()
+    -- self:initJsonAndCsbFile()
+
+    self:initTextures()
+
+    -- self:initDeleteFiles()
+
+    -- self:test()
+end
+
+-- 初始化json文件和csb文件相关
+function MainScene:initJsonAndCsbFile()
+    self.tab_JsonFileName = {}          -- json文件名表  ， 接上路径和json可得到完整json路径
+
+    self.tab_CsbFileName = {}           -- csb文件名表
+
+    self:initCsbRecord()                -- 初始化csb文件表
+
+    self:initJsonRecord()               -- 初始化json文件表
+
+    self:compare_Json_Csb()             -- 比较csb文件和json文件的差异
+end
 
 -- 比较json和csb文件表的差异，找出差异项,json和csb应该是一一对应的
-function MainScene:compareFile()
+function MainScene:compare_Json_Csb()
     local Json_unEqual = {}
-    local num = 0
-    for _,v in pairs(self.tab_json_FileName) do
-        if not self:hasValueInTab(self.tab_csb, v) then
-            num = num + 1
+    for _,v in pairs(self.tab_JsonFileName) do
+        if not self:hasValueInTab(self.tab_CsbFileName, v) then
             self:uniqInsert(Json_unEqual , v)
         end
     end
-    for _,v in pairs(Json_unEqual) do
-        print(v)
+    if #Json_unEqual > 0 then
+        for _,v in pairs(Json_unEqual) do
+            print("------------ rich json : " .. v)
+        end
+        print("----------- rich json num : " .. #Json_unEqual)
     end
-    print("------------------unEqual json : " .. num)
+    
 
     local Csb_unEqual = {}
-    num = 0
-    for _,v in pairs(self.tab_csb) do
-        if not self:hasValueInTab(self.tab_json_FileName, v) then
-            num = num + 1
+    for _,v in pairs(self.tab_CsbFileName) do
+        if not self:hasValueInTab(self.tab_JsonFileName, v) then
             self:uniqInsert(Csb_unEqual , v)
         end
     end
-    for _,v in pairs(Csb_unEqual) do
-        print(v)
+    if #Csb_unEqual > 0 then
+        for _,v in pairs(Csb_unEqual) do
+            print("----------- rich csb : " .. v)
+        end
+        print("----------- rich csb num : " .. #Csb_unEqual)
     end
-    print("-------------------unEqual csb : " .. num)
-
     self:hasEqualValue(Json_unEqual,Csb_unEqual)
+end
+
+-- 初始化含有json文件表
+function MainScene:initJsonRecord()
+    local r_json = io.open(r_json_paths , "w+")
+    for file in lfs.dir(dir_json_path) do          -- 没有嵌套目录的情况,只读取当前目录中包含json的文件
+        if file ~= "." and file ~= ".." then
+            local filename = string.match(file , "([%w_]*).json")
+            if filename then
+                table.insert(self.tab_JsonFileName,filename)
+                r_json:write(dir_json_path,"\\",file,"\n")
+            else
+                print("catch str failed in MainScene:initJsonRecord 1 : " .. file)
+            end
+            -- print(file)
+        end
+    end
+    io.close(r_json)
+    print("------- json file num : " .. #self.tab_JsonFileName)
+end
+
+-- 初始化csb文件表
+function MainScene:initCsbRecord()
+    local r_csb = io.open(r_csb_paths , "w+")
+    for file in lfs.dir(dir_csb_path) do           -- 没有嵌套目录的情况,只读取当前目录中包含csb的文件
+        if file ~= "." and file ~= ".." then
+            local attr = lfs.attributes(dir_csb_path .. "\\" .. file)
+            assert(type(attr) == 'table')
+            if attr.mode ~= 'directory' then
+                local filename = string.match(file , "([%w_]*).csb")
+                if filename then
+                    table.insert(self.tab_CsbFileName,filename)
+                    r_csb:write(dir_csb_path,"\\",file,"\n")
+                else
+                    print("catch str failed in MainScene:initCsbRecord 2 : " .. file)
+                end
+                -- print(filename)
+            end
+        end
+    end
+    io.close(r_csb)
+    print("------- csb file num :" .. #self.tab_CsbFileName)
+end
+
+-- 目录下的所有文件存入paths中 self:initPaths('.', paths)  -- . 表示当前文件
+function MainScene:initPaths(rootpath, paths , pattern)
+    paths = paths or {}
+    for entry in lfs.dir(rootpath) do
+        if entry ~= '.' and entry ~= '..' then
+            local path = rootpath..'\\'..entry
+            local attr = lfs.attributes(path)
+            assert(type(attr) == 'table')
+            if attr.mode == 'directory' then
+                self:initPaths(path, paths , pattern)
+            else
+                if string.find(path,pattern or ".png") then
+                    table.insert(paths, path)
+                end
+            end
+        end
+    end
+    return paths
+end
+
+-- 初始化将要删除的图片
+function MainScene:initDeleteFiles()
+    local str = ""
+    local delete_path = io.open(r_delete_pngs, "w+")
+    local textures = self:fileSaveToTable(r_fodel_Images)           -- 所有图片
+    local json_pngs = self:fileSaveToTable(r_json_pngs_uniq)        -- json中包含的图片
+    local code_pngs = self:fileSaveToTable(r_code_pngs)             -- 代码中包含的图片
+    local deleteNum = 0
+    for _,fodelpath in pairs(textures) do
+        str = string.gsub(fodelpath ,"\\" , "/" )
+        str = string.match(str , "hall/([%w%-%._/%s]*.png)")
+        assert(str)
+        local surplus = true  -- 默认图片是多余的
+        
+        for _,jsonpng in pairs(json_pngs) do
+            if str == jsonpng then
+                surplus = false  -- 判断在json文件中是否使用
+            end
+        end
+        
+        if surplus then
+            for _,codepng in pairs(code_pngs) do
+                if codepng == str then
+                    surplus = false  -- 判断在代码中是否使用
+                end
+            end
+        end
+
+        if surplus then
+            deleteNum = deleteNum + 1
+            delete_path:write(fodelpath,"\n")
+        end
+    end
+    io.close(delete_path)
+    print(" ----------- delete file num :" .. deleteNum)
+end
+
+-- 初始化纹理文件表
+function MainScene:initTextures()
+    -- self:initFolderTexture()        -- 初始化文件夹中包含的图片文件
+    -- self:initJsonTexture()          -- 初始化json中使用到的图片文件
+    self:initCodeFilePngs()      -- 初始化代码文件中包含的png
+end
+
+-- 初始化json文件中的纹理文件表
+function MainScene:initJsonTexture()
+    local json_image_lines = io.open(r_json_image_lines, "w+")
+    local json_uniq_path = io.open(r_json_pngs_uniq , "w+")
+    local json_pngs = io.open(r_json_pngs,"w+")
+    local jsonFiles = io.open(r_json_paths , "r")               -- 存储json文件的路径
+    local json_contain_texture = {}                             -- json中包含png的字符串表
+    local json_texture = {}                                     -- 存储去重后json中所使用的所有图片
+    for path in jsonFiles:lines() do
+        local file = io.open(path, "r")
+        for line in file:lines() do 
+            if string.find(line,".png") and not string.find(line,":\\")then -- 找到json中所有的png的行
+                assert(json_image_lines:write(line , "\n"))                 -- 记录json中包含png的行
+                local str = string.match(line , "[\"]([%w/_%.%s%-]*.png)[\"]")  -- 匹配整个模式，但是从中截取出图片路径 
+                if str then
+                    json_pngs:write(str,"\n")
+                    table.insert(json_contain_texture,str)
+                    if self:uniqInsert(json_texture,str) then -- 去重后的路径
+                        json_uniq_path:write(str,"\n")
+                    else
+                        -- print(str)
+                    end
+                else
+                    print("pattern dif : " .. line) -- 目标模式匹配不到的行则打印出来
+                end
+            end
+            -- print(line)
+        end
+        io.close(file)
+    end
+    io.close(jsonFiles)
+    io.close(json_pngs)
+    io.close(json_uniq_path)     -- 去重后json中所使用的图片
+    io.close(json_image_lines)
+    print("----------- json has png : " .. #json_contain_texture)
+    print("----------- uniq json png num : " .. #json_texture)
+end
+
+-- 初始化文件夹中的纹理文件表
+function MainScene:initFolderTexture()
+    local files = {}
+    self:initPaths(dir_png_path, files)
+    local fodel_md5 = io.open(r_Fodel_MD5, "w+")            -- 记录去重后的md5值
+    local fodel_Images = io.open(r_fodel_Images , "w+")     -- 记录文件夹下所有的图片路径
+    local repeatfile = io.open(r_fodel_Repeat_pngs , "w+")  -- 记录文件夹下重复的图片路径
+    local fodelTextureMd5 = {}                              -- 存在文件夹下图片的md5值
+    local repeatTextures = {}                               -- 存储指定路径下重复的图片资源路径
+    for _,path in pairs(files) do
+        fodel_Images:write(path , "\n")
+        local md5 = crypto.md5file(path)                    -- 名称不同但是图片相同，路径不同但是图片相同
+        if self:uniqInsert(fodelTextureMd5 , md5) then
+            fodel_md5:write(md5 , "\n")
+        else
+            -- print(path)
+            repeatfile:write(path , "\n")  -- 用，分隔内容与用..连接内容效果一样，但是效率更高
+            table.insert(repeatTextures,path)
+        end
+    end
+    io.close(fodel_md5)
+    io.close(fodel_Images)
+    io.close(repeatfile)
+    print("----------- fodel all texture num : "..#files)
+    print("----------- repeat texture num : " .. #repeatTextures) -- 重复的文件可能在不同的地方用到了。
+    print("----------- fodel uniq md5 num : " .. #fodelTextureMd5)
+end
+
+-- 初始化代码文件中的png表
+function MainScene:initCodeFilePngs()
+    local files = {}
+    self:initPaths(dir_code_path, files , ".lua")
+    print("------------ lua files num : " .. #files )
+    local image_lines = io.open( r_code_line_pngs , "w+") 
+    local code_pngs = io.open(r_code_pngs , "w+")
+    local code_file_texture = {}                                -- 存储代码文件中的png图
+    for _,path in pairs(files) do
+        -- print(path)
+        local file = io.open(path, "r")
+        for line in file:lines() do 
+            if string.find(line,".png") then -- 找到json中所有的png的行
+                assert(image_lines:write(line , "\n"))   
+                local str = string.match(line , "([%w%.%-%s_/]*.png)[\"]")
+                if str and str ~= ".png" then
+                    if self:uniqInsert(code_file_texture,str) then
+                        code_pngs:write(str,"\n")
+                    else
+                        -- print("repeat code path : " .. str)
+                    end
+                else
+                    -- print("un catch line : " .. line)
+                end      
+            end
+        end
+        io.close(file)
+    end
+    io.close(image_lines)
+    io.close(code_pngs)
+    print(" ----------- code file has png num : " .. #code_file_texture)
+end
+
+-- 将文件中的内容存储到table中
+function MainScene:fileSaveToTable(path)
+    local tab = {}
+    local file = io.open(path , "r")
+    assert(file)
+    for line in file:lines() do
+        table.insert(tab , line)
+    end
+    return tab
 end
 
 -- 字母大小写不同也不相等 adverView_page 和 adverview_page 字母v不同大小写
@@ -116,253 +369,6 @@ function MainScene:uniqInsert(tab , value)
     end
     table.insert(tab,value)
     return true
-end
-
--- 初始化json和csb文件名表
-function MainScene:initFileNameTable()
-    -- json 文件
-    local num = 0
-    for file in lfs.dir(s_json_path) do
-        local b = string.find(file, ".json")
-        if b then
-            table.insert(self.tab_json_FileName,string.sub( file, 1, b-1))
-            num = num + 1
-        end
-        -- print(file)
-    end
-    print("------- json file num : " .. num)
-    
-    -- csb 文件
-    num = 0
-    for file in lfs.dir(s_csb_path) do
-        local b = string.find(file, ".csb")
-        if b then
-            table.insert(self.tab_csb,string.sub( file, 1, b-1))
-            num = num + 1
-        end
-        -- print(file)
-    end
-    print("------- csb file num :" .. num)
-end
-
--- 判断去重后的情况
-function MainScene:judgeUniq(tab , uniqtab)
-    local succeed = true
-    for _,v in pairs(tab) do
-        local hasstr = true
-        for _,v2 in pairs(uniqtab) do
-            if v == v2 then
-                hasstr = false
-            end
-        end
-        if hasstr then
-            print("[ ERROR ] uniq failed ... " .. v)
-            succeed = false
-        end
-    end
-    return succeed
-end
-
---[[
-    -- 资源清理
-    -- 操作目录
-    -- 操作文件
-    -- 裁切字符进行匹配
-    -- 判断文件是否存在
-    -- 输出文件数量
-    -- 从json找图片，从lua中找csb
-    -- 找到某个目录下的所有的图片
-    -- 查找同名的文件都有哪些。文件名相同，但是文件不同的。
-    -- 在文件中，是否都分别使用了它们。
-]]
-function MainScene:ctor()
-    -- crypto = require "app.framework.crypto"
-    self.tab_json_FileName = {}     -- json文件名表  ， 接上路径和json可得到完整json路径
-
-    self.tab_csb = {}               -- csb文件名表
-
-    self.textureFiles = {}   -- 指定路径下所有的图片表,存储的是绝对路径
-
-    self.fodelTextureMd5 = {} -- 存在文件夹下图片的md5值
-
-    self.repeatTextures = {}    -- 存储指定路径下重复的图片资源路径
-
-    self.json_contain_texture = {} -- json中包含png的字符串表
-
-    self.json_texture = {}      -- 存储去重后json中所使用的所有图片
-
-    self.code_file_texture = {} -- 存储代码文件中的png图
-
-    self.deleteFiles = {}        -- 多余的文件
-
-    -- self:initCodeFilePngs()     -- 初始化代码文件中包含的png
-
-    self:matchCodePng()         -- 捕获代码文件中的png内容
-
-    -- self:initFileNameTable()  -- 初始化json和csb文件名表
-
-    -- self:compareFile()  -- 比较csb文件和json文件的差异
-
-    -- self:initTextures()
-
-    -- self:surplusTexture() -- 比较json中纹理和文件夹中纹理的差异，查找多余的图片md5 比较,直接比较路径更直接
-
-    -- self:initDeleteFiles()
-
-    -- self:test()
-end
-
--- 目录下的所有文件存入pathes中
-function MainScene:getpaths(rootpath, pathes , pattern)
-    pathes = pathes or {}
-    for entry in lfs.dir(rootpath) do
-        if entry ~= '.' and entry ~= '..' then
-            local path = rootpath..'\\'..entry
-            local attr = lfs.attributes(path)
-            assert(type(attr) == 'table')
-            if attr.mode == 'directory' then
-                self:getpaths(path, pathes , pattern)
-            else
-                if string.find(path,pattern or ".png") then
-                    table.insert(pathes, path)
-                end
-            end
-        end
-    end
-    return pathes
-end
-
--- 初始化将要删除的图片
-function MainScene:initDeleteFiles()
-    local str = ""
-    for _,fodelpath in pairs(self.textureFiles) do
-        str = string.gsub(fodelpath ,"\\" , "/" )
-        str = string.match(str , "hall/([%w%-%._/%s]*.png)")
-        if not str then
-            print(" -----------error line " .. fodelpath )
-        else
-            -- print("fodel path : " .. str)
-            -- print("delete fodel path : " .. fodelpath)
-        end
-        local surplus = true
-        -- 判断在json文件中是否使用
-        for _,jsonpng in pairs(self.json_texture) do
-            if str == jsonpng then
-                surplus = false
-            end
-        end
-        -- 判断在代码中是否使用
-        if surplus then
-            -- 判断在代码中是否同样不存在该文件
-            for _,codepng in pairs(self.code_file_texture) do
-                if codepng == str then
-                    surplus = false
-                end
-            end
-        end
-
-        if surplus then
-            table.insert(self.deleteFiles , fodelpath)
-        end
-    end
-    -- for _,jsonpng in pairs(self.json_texture) do
-    --     print("json path : " .. jsonpng)
-    -- end
-    print(" ----------- delete file num :" .. #self.deleteFiles)
-end
-
--- 初始化纹理文件表
-function MainScene:initTextures()
-    self:initFolderTexture()
-    self:initJsonTexture()
-end
-
--- 初始化json文件中的纹理文件表
-function MainScene:initJsonTexture()
-    -- dump(self.tab_json_FileName)
-    local recordfile = io.open(s_Json_Pngs, "w+")
-    local json_image_file = io.open(s_json_image_path,"w+")
-    local json_uniq_path = io.open(s_json_uniq_path , "w+")
-    for _,path in pairs(self.tab_json_FileName) do
-        local _path = s_json_path .."\\".. path .. ".json"
-        local file = io.open(_path, "r")
-        if file then
-            local linenum = 0
-            for line in file:lines() do 
-                linenum = linenum + 1
-                if string.find(line,".png") and not string.find(line,":\\")then -- 找到json中所有的png的行
-                    if recordfile:write(line , "\n") == nil then 
-                        print("----- err write file initJsonTexture")
-                        return
-                    end                
-                    self:matchPngPath(json_image_file,json_uniq_path,line)
-                end
-                -- print(line)
-            end
-            io.close(file)
-        end
-    end
-    io.close(json_image_file)
-    io.close(recordfile)
-    io.close(json_uniq_path)
-    print("----------- json has png : " .. #self.json_contain_texture)
-
-    if self:judgeUniq(self.json_contain_texture,self.json_texture) then
-        print(" ----------- uniq json png num : " .. #self.json_texture)
-    end
-end
-
--- 匹配图片路径
-function MainScene:matchPngPath(recordfile , uniqfile, line)
-    local str = string.match(line , "[\"]([%w/_%.%s%-]*.png)[\"]")
-    -- local str = string.match(line , "([%w/_%.]*.png)")
-    if str then
-        recordfile:write(str,"\n")  -- 匹配整个模式，但是从中截取出图片路径   
-        table.insert(self.json_contain_texture,str)
-
-        if self:uniqInsert(self.json_texture,str) then -- 去重后的路径
-            uniqfile:write(str,"\n")
-        else
-            -- print(str)
-        end
-    else
-        print("pattern dif : " .. line) -- 目标模式匹配不到的行则打印出来
-    end
-end
-
--- 初始化文件夹中的纹理文件表
-function MainScene:initFolderTexture()
-    local pathes = {}
-    -- self:getpaths('.', pathes)  -- .表示当前文件
-    self:getpaths(s_ProjectTextures, pathes)
-    local md5file = io.open(s_Fodel_MD5, "w+")
-    local pathfile = io.open(s_Fodel_Image_Path , "w+")
-    local repeatfile = io.open(s_Fodel_Repeat_Image , "w+")
-    for i = 1, #(pathes) do
-        -- print(pathes[i])
-        table.insert(self.textureFiles,pathes[i])
-        local md5 = crypto.md5file(pathes[i])                   -- 名称不同但是图片相同，路径不同但是图片相同
-        if self:uniqInsert(self.fodelTextureMd5 , md5) then
-            md5file:write(md5 , "\n")
-            pathfile:write(pathes[i] , "\n")
-        else
-            -- print(path)
-            repeatfile:write(pathes[i] , "\n")  -- 用 ， 分隔内容与用 .. 连接内容效果一样，但是效率更高
-            table.insert(self.repeatTextures,pathes[i])
-        end
-    end
-    io.close(md5file)
-    io.close(pathfile)
-    io.close(repeatfile)
-    print("----------- fodel all texture num : "..#(pathes))
-    print("----------- repeat texture num : " .. #self.repeatTextures) -- 重复的文件可能在不同的地方用到了。
-    print("----------- fodel uniq md5 num : " .. #self.fodelTextureMd5)
-    -- dump(self.fodelTextureMd5)
-end
-
--- 纹理文件比较
-function MainScene:surplusTexture()
-
 end
 
 -- 根据切割符(flag)切割字符串str
@@ -433,8 +439,8 @@ end
 
 function MainScene:test()
     local md1 = crypto.md5file("3333.png")
-    local md2 = crypto.md5file("teg_examine.png")
-    if md1 == md2 then
+    local md2 = crypto.md5file("4444.png")
+    if md1 == md2 then  -- 文件名改变md5值不改变
         -- print("--- file md5 equal")
     end
 
@@ -534,59 +540,6 @@ function MainScene:changeFile()
     --     end
     --     io.close(file)
     -- end
-end
-
--- 初始化代码文件中的png表
-function MainScene:initCodeFilePngs()
-    local files = {}
-    self:getpaths(s_code_path, files , ".lua")
-    print("------------ lua files num : " .. #files )
-    local recordfile = io.open( s_code_include_png_path , "w+")  -- s_code_png_path
-    for _,path in pairs(files) do
-        -- print(path)
-        local file = io.open(path, "r")
-        if not file then
-            print("open file failed : " .. path)
-            return
-        end
-        for line in file:lines() do 
-            if string.find(line,".png") then -- 找到json中所有的png的行
-                if recordfile:write(line , "\n") == nil then 
-                    print("----- err write file initCodeFilePngs")
-                    return
-                end                
-            end
-        end
-        io.close(file)
-    end
-    io.close(recordfile)
-end
-
--- 捕获代码文件中的png路径
-function MainScene:matchCodePng()
-    local file = io.open( s_code_include_png_path , "r")  -- s_code_png_path
-    local recorefile = io.open(s_code_png_path , "w+")
-    if not file then
-        print(" ------------  un have code png file ")
-        return
-    end
-    local num = 0
-    for line in file:lines() do 
-        local str = string.match(line , "([%w%.%-%s_/]*.png)[\"]")
-        if str then
-            if self:uniqInsert(self.code_file_texture,str) then
-                recorefile:write(str,"\n")
-            else
-                -- print("repeat code path : " .. str)
-            end
-        else
-            -- print("un catch line : " .. line)
-        end
-    end
-    io.close(file)
-    io.close(recorefile)   -- 如果不调用该方法，有可能导致文件写入异常
-    print("code png line : " .. num)
-    print(" code file has png num : " .. #self.code_file_texture)
 end
 
 return MainScene
