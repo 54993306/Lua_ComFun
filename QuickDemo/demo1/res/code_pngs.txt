@@ -7,6 +7,7 @@ games/gamehall/image/club_bg.png
 games/gamehall/hall/login/logo.png
 EditBox.png
 GreenButton.png
+.png
 hello1.png
 frame0002.png
 Box.png

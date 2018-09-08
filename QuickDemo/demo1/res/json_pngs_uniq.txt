@@ -78,6 +78,8 @@ huanpi2/Common/btn_yqrh.png
 huanpi2/shuimonew/btn_refresh.png
 huanpi2/shuimonew/head_btn_add.png
 huanpi2/club/btn_help.png
+huanpi2/Common/icon_maj.png
+huanpi2/Common/icon_puke.png
 huanpi2/Common/line_an.png
 huanpi2/Common/frame.png
 huanpi2/Common/common_btn_yellow.png

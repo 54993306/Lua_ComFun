@@ -14,11 +14,11 @@ local RECORD_IN_FILE = true
 -- json 文件的路径
 local dir_json_path = "D:\\Svn_2d\\UI_Shu\\Json"  
 -- csb 文件路径
-local dir_csb_path = "D:\\Svn_2d\\S_Resource_GD\\res\\hall"
+local dir_csb_path = "D:\\Svn_2d\\S_Trunk_GD_Dev\\res\\hall"
 -- 代码 文件路径
-local dir_code_path = "D:\\Svn_2d\\S_Resource_GD\\src"
+local dir_code_path = "D:\\Svn_2d\\S_Trunk_GD_Dev\\src"
 -- 项目图片位置
-local dir_png_path = "D:\\Svn_2d\\S_Resource_GD\\res\\hall"
+local dir_png_path = "D:\\Svn_2d\\S_Trunk_GD_Dev\\res\\hall"
 -----------------------------------------------------------------
 -- 记录json文件路径
 local r_json_paths = "res\\json_path.txt"
@@ -38,8 +38,14 @@ local r_fodel_Images = "res\\fodel_Images.txt"
 local r_fodel_Repeat_pngs = "res\\fodel_repeat_pngs.txt"
 -- 记录代码中包含png行内容
 local r_code_line_pngs = "res\\code_line_pngs.txt"
+-- 记录代码中包含png行内容
+local r_code_line_plist = "res\\code_line_plist.txt"
 -- 记录代码中png的路径
 local r_code_pngs = "res\\code_pngs.txt"
+-- 记录代码中plist的路径
+local r_code_plist = "res\\code_plist.txt"
+-- 记录将plist转换成png后的内容
+local r_plist_to_png = "res\\code_plist_to_png.txt"
 -- 记录将要删除的图片路径
 local r_delete_pngs = "res\\delete_pngs.txt"
 
@@ -60,7 +66,7 @@ function MainScene:ctor()
 
     self:initTextures()
 
-    self:initDeleteFile()
+    -- self:initDeleteFile()
 
     -- self:excuteDeleteFile()
 
@@ -215,17 +221,20 @@ end
 function MainScene:excuteDeleteFile()
     local delete_path = io.open(r_delete_pngs, "r")
     for line in delete_path:lines() do
-        print("delete : " .. line)
-        os.remove(line)
+        if os.remove(line) then
+            print("delete : " .. line)
+        else
+            print("delete failed : " .. line)
+        end
     end
     io.close(delete_path)
 end
 
 -- 初始化纹理文件表
 function MainScene:initTextures()
-    self:initFolderTexture()        -- 初始化文件夹中包含的图片文件
-    self:initJsonTexture()          -- 初始化json中使用到的图片文件
-    self:initCodeFilePngs()      -- 初始化代码文件中包含的png
+    -- self:initFolderTexture()        -- 初始化文件夹中包含的图片文件
+    -- self:initJsonTexture()          -- 初始化json中使用到的图片文件
+    -- self:initCodeFilePngs()      -- 初始化代码文件中包含的png
 end
 
 -- 初始化json文件中的纹理文件表
@@ -241,21 +250,16 @@ function MainScene:initJsonTexture()
         for line in file:lines() do 
             if string.find(line,".png") and not string.find(line,":\\")then -- 找到json中所有的png的行
                 assert(json_image_lines:write(line , "\n"))                 -- 记录json中包含png的行
-                local str = string.match(line , "[\"]([%w/_%.%s%-]*.png)[\"]")  -- 匹配整个模式，但是从中截取出图片路径 
-                if str then
-                    for str2 in string.gmatch(line , "[\"]([%w/_%.%s%-]*.png)[\"]") do  -- 一行中有可能存在多个png的情况
-                        json_pngs:write(str2,"\n")
-                        table.insert(json_contain_texture,str2)
-                        if self:uniqInsert(json_texture,str2) then -- 去重后的路径
-                            json_uniq_path:write(str2,"\n")
-                        else
-                            -- print(str2)
-                        end
+                for str in string.gmatch(line , "[\"]([%w/_%.%s%-]*.png)[\"]") do  -- 一行中有可能存在多个png的情况
+                    json_pngs:write(str,"\n")
+                    table.insert(json_contain_texture,str)
+                    if self:uniqInsert(json_texture,str) then -- 去重后的路径
+                        json_uniq_path:write(str,"\n")
+                    else
+                        -- print(str)
                     end
-                    
-                else
-                    print("pattern dif : " .. line) -- 目标模式匹配不到的行则打印出来
                 end
+                -- self:printCantMatchline("[\"]([%w%.%-%s_/]*.png)[\"]" , line)
             end
             -- print(line)
         end
@@ -305,32 +309,95 @@ function MainScene:initCodeFilePngs()
     print("------------ lua files num : " .. #files )
     local image_lines = io.open( r_code_line_pngs , "w+") 
     local code_pngs = io.open(r_code_pngs , "w+")
+    local code_plists = io.open(r_code_plist , "w+")
+    local plist_lines = io.open(r_code_line_plist , "w+")
     local code_file_texture = {}                                -- 存储代码文件中的png图
+    local code_file_plist = {}
     for _,path in pairs(files) do
-        -- print(path)
         local file = io.open(path, "r")
         for line in file:lines() do 
             if string.find(line,".png") then -- 找到json中所有的png的行
-                assert(image_lines:write(line , "\n"))   
-                local str1 = string.match(line , "[\"]([%w%.%-%s_/]*.png)[\"]")
-                if str1 and str1 ~= ".png" then
-                    for str2 in string.gmatch(line , "[\"]([%w%.%-%s_/]*.png)[\"]") do  -- 一行中有可能存在多个png的情况
-                        if self:uniqInsert(code_file_texture,str2) then
-                            code_pngs:write(str2,"\n")
-                        else
-                            -- print("repeat code path : " .. str2)
-                        end
-                    end
-                else
-                    -- print("un catch line : " .. line)
-                end      
+                assert(image_lines:write(line , "\n")) 
+                self:matchstr(code_pngs,line,code_file_texture , "[\"]([%w%.%-%s_/]*.png)[\"]")
+            end
+
+            if string.find(line , ".plist") then  
+                assert(plist_lines:write(line , "\n"))
+                self:matchstr(code_plists,line,code_file_plist , "[\"]([%w%.%-%s_/]*.plist)[\"]")
             end
         end
         io.close(file)
     end
     io.close(image_lines)
     io.close(code_pngs)
+    io.close(code_plists)
+    io.close(plist_lines)
     print(" ----------- code file has png num : " .. #code_file_texture)
+    print(" ----------- code file has plist num : " .. #code_file_plist)
+end
+
+-- 匹配包含png的 行的内容
+function MainScene:matchstr(recordfile , line ,tab , pattern)
+    for str in string.gmatch(line ,pattern) do  -- 一行中有可能存在多个png的情况
+        if self:uniqInsert(tab,str) then
+            recordfile:write(str,"\n")
+        else
+            -- print("repeat code path : " .. str)
+        end
+    end  
+    -- self:printCantMatchline(pattern , line)
+end
+
+-- 将代码行中的plist转换成png，避免被资源清理的时候移除
+function MainScene:plistToPng()
+    local file = io.open(r_code_plist , "r")
+    if file then
+        for line in file:lines() do
+            
+        end
+    end
+    io.open(file)
+end
+
+-- 输出无法捕获的样式
+function MainScene:printCantMatchline(pattern , line)
+    if not string.match(line , pattern) then
+        print("pattern dif : " .. line) -- 目标模式匹配不到的行则打印出来
+    end
+end
+
+-- 得到文件的行数
+function MainScene:getFileLinsNum(file)
+    local file = io.open(path , "w")
+    if file then
+        local num = 0
+        for line in file:lines() do
+            num = num + 1
+        end
+        io.close(file)
+    end
+end
+
+-- 修改文件内容,直接对文件流修改会发生什么事
+function MainScene:changeFile()
+    local file = io.open("res\\aaa.json", "r")
+    if file then
+        local files = {}
+        for line in file:lines() do 
+            if string.match(line,"mjOver2") then
+                print(line)
+                line = string.gsub(line,"mjOver2" , "11111")
+                print(line)
+            end
+            table.insert(files , line)
+        end
+        io.close(file)
+        local file2 = io.open("res\\aaa.json", "w+")  -- 清理原文件内容
+        for _,v in pairs(files) do
+            file2:write(v,"\n")                        -- 将修改后的内容逐行写入到文件中
+        end
+        io.close(file2)
+    end
 end
 
 -- 将文件中的内容存储到table中
@@ -465,7 +532,7 @@ function MainScene:test()
 
     -- self:charSetText()
 
-    self:changeFile()
+    -- self:changeFile()
 
     -- self:operatePathAndFile()
 end
@@ -473,7 +540,7 @@ end
 -- 裁切字符串
 function MainScene:testCutString()
     -- 从字符串中裁切出最后的图片文件名
-    local str = "D:\\Svn_2d\\S_Resource_GD\\res\\hall\\yaoqing\\pro_front.png"
+    local str = "D:\\Svn_2d\\S_Trunk_GD_Dev\\res\\hall\\yaoqing\\pro_front.png"
     local str2 = self:cutStrByFlag(str , "\\")
     local str3 = self:cutStrByStr(str2,".png")
     -- print(str3)
@@ -548,27 +615,6 @@ function MainScene:operatePathAndFile()
 
     os.remove("res/aaa/ccc.txt") -- 删除文件
     lfs.rmdir(path)  -- 里面有文件则删除不掉路径
-end
-
--- 修改文件内容,直接对文件流修改会发生什么事
-function MainScene:changeFile()
-    -- 读取json数据并输出
-    -- local str4 = self:readFile("res\\aaa.json")  -- 读取文件时要注意路径，从src去读取是找不到的，需要加res。
-    -- print(str4)
-    -- local tb = json.decode(str4)
-    -- dump(tb)
-    -- self:readFileByLine("res\\aaa.json")
-
-    -- "r+": 更新模式，所有之前的数据将被保存
-    -- local file = io.open("res\\aaa.json", "r")
-    -- if file then
-    --     for line in file:lines() do 
-    --         print(line)
-    --     end
-    --     io.close(file)
-    -- end
-    -- os.remove("D:/Lua_ComFun/QuickDemo/demo1/res/33333.png") -- 删除文件
-    -- os.remove("D:\\Lua_ComFun\\QuickDemo\\demo1\\res\\33333.png") -- 删除文件
 end
 
 return MainScene
