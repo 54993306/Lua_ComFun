@@ -68,7 +68,7 @@ function MainScene:ctor()
 
     -- self:initDeleteFile()
 
-    -- self:excuteDeleteFile()
+    self:excuteDeleteFile()
 
     self:test()
 end
@@ -186,6 +186,7 @@ function MainScene:initDeleteFile()
     local textures = self:fileSaveToTable(r_fodel_Images)           -- 所有图片
     local json_pngs = self:fileSaveToTable(r_json_pngs_uniq)        -- json中包含的图片
     local code_pngs = self:fileSaveToTable(r_code_pngs)             -- 代码中包含的图片
+    local code_plist = self:fileSaveToTable(r_code_plist)
     local deleteNum = 0
     for _,fodelpath in pairs(textures) do
         local surplus = true  -- 默认图片是多余的
@@ -203,6 +204,14 @@ function MainScene:initDeleteFile()
                 or codepng == string.match(fodelpath , "(hall/[%w%-%._/%s]*.png)")      -- 代码中的路径有以hall开头的
                 or codepng == string.match(fodelpath , "(res/hall/[%w%-%._/%s]*.png)") 
                 then
+                    surplus = false  -- 判断在代码中是否使用
+                end
+            end
+        end
+
+        if surplus then
+            for _,codelist in pairs(code_plist) do
+                if codelist == string.match(fodelpath , "(hall/[%w%-%._/%s]*.png)") then
                     surplus = false  -- 判断在代码中是否使用
                 end
             end
@@ -232,9 +241,9 @@ end
 
 -- 初始化纹理文件表
 function MainScene:initTextures()
-    -- self:initFolderTexture()        -- 初始化文件夹中包含的图片文件
-    -- self:initJsonTexture()          -- 初始化json中使用到的图片文件
-    -- self:initCodeFilePngs()      -- 初始化代码文件中包含的png
+    self:initFolderTexture()        -- 初始化文件夹中包含的图片文件
+    self:initJsonTexture()          -- 初始化json中使用到的图片文件
+    self:initCodeFilePngs()      -- 初始化代码文件中包含的png
 end
 
 -- 初始化json文件中的纹理文件表
@@ -334,6 +343,8 @@ function MainScene:initCodeFilePngs()
     io.close(plist_lines)
     print(" ----------- code file has png num : " .. #code_file_texture)
     print(" ----------- code file has plist num : " .. #code_file_plist)
+
+    self:replacePattern(r_code_plist,".plist",".png")
 end
 
 -- 匹配包含png的 行的内容
@@ -346,17 +357,6 @@ function MainScene:matchstr(recordfile , line ,tab , pattern)
         end
     end  
     -- self:printCantMatchline(pattern , line)
-end
-
--- 将代码行中的plist转换成png，避免被资源清理的时候移除
-function MainScene:plistToPng()
-    local file = io.open(r_code_plist , "r")
-    if file then
-        for line in file:lines() do
-            
-        end
-    end
-    io.open(file)
 end
 
 -- 输出无法捕获的样式
@@ -379,25 +379,21 @@ function MainScene:getFileLinsNum(file)
 end
 
 -- 修改文件内容,直接对文件流修改会发生什么事
-function MainScene:changeFile()
-    local file = io.open("res\\aaa.json", "r")
-    if file then
-        local files = {}
-        for line in file:lines() do 
-            if string.match(line,"mjOver2") then
-                print(line)
-                line = string.gsub(line,"mjOver2" , "11111")
-                print(line)
-            end
-            table.insert(files , line)
+function MainScene:replacePattern(path , pattern , replace)
+    local files = {}
+    for line in io.lines(path) do 
+        if string.match(line,pattern) then      -- 有可能一行有多个plist的情况出现
+            print(line)
+            line = string.gsub(line, pattern , replace)
+            print(line)
         end
-        io.close(file)
-        local file2 = io.open("res\\aaa.json", "w+")  -- 清理原文件内容
-        for _,v in pairs(files) do
-            file2:write(v,"\n")                        -- 将修改后的内容逐行写入到文件中
-        end
-        io.close(file2)
+        table.insert(files , line)
     end
+    local file2 = io.open(path, "w+")              -- 存储在新的位置，或者直接改变原来的文件
+    for _,v in pairs(files) do
+        file2:write(v,"\n")                        -- 将修改后的内容逐行写入到文件中
+    end
+    io.close(file2)
 end
 
 -- 将文件中的内容存储到table中
@@ -532,9 +528,9 @@ function MainScene:test()
 
     -- self:charSetText()
 
-    -- self:changeFile()
+    -- self:operatePathAndFile()    
 
-    -- self:operatePathAndFile()
+    self:changeFile()
 end
 
 -- 裁切字符串
@@ -616,5 +612,74 @@ function MainScene:operatePathAndFile()
     os.remove("res/aaa/ccc.txt") -- 删除文件
     lfs.rmdir(path)  -- 里面有文件则删除不掉路径
 end
+
+-- 修改文件内容,直接对文件流修改会发生什么事
+function MainScene:changeFile()
+    -- local file = io.open("res\\aaa.json", "r+")
+    -- if file then
+    --     local files = {}
+    --     for line in file:lines() do 
+    --         if string.match(line,"mjOver2") then
+    --             print(file:seek())
+    --             local ctr = file:read()
+    --             -- ctr = "cccccccccccccccccc"
+    --             ctr:write("cccccccccccccccccc")
+    --             print(file:read())
+    --             file:write(string.gsub(line,"mjOver2" , "rrrrrrrrrrrr"))
+    --             print(line)
+    --             -- line = string.gsub(line,"mjOver2" , "rrrrrrrrrrrr")
+    --             -- print(line)
+    --         end
+    --         table.insert(files , line)
+    --     end
+    -- end
+
+    self:replacePattern("res\\aaa.json",".png" , ".plist")
+    -- self:replacePattern("res\\aaa.json",".plist" , ".png")
+end
+
+-- 测试seek函数
+function MainScene:seekUser()
+    -- 打开文件 
+    local myfile = io.open("seektest.txt", "w") 
+    -- 记录文件开始位置 
+    local beginpos = myfile:seek() 
+    print("file begin pos = "..beginpos) 
+    -- 向后移动100个字节 
+    local movehundred = myfile:seek("cur", 100) 
+    print("after move hundred file pos = "..movehundred) 
+    -- 回退95个字节，开始输入内容 
+    local moveback = myfile:seek("cur", -95) 
+    print("after move back file pos = "..moveback) 
+    myfile:write("file begin......................") 
+    myfile:write("................................") 
+    -- 向后移动20字节，插入内容 
+    myfile:seek("set", 20) 
+    myfile:write("\nthis is insert content\n") 
+    -- 从后回退15字节插入内容 
+    myfile:seek("end", -15) 
+    myfile:write("\nbingo end") 
+    -- 记录此文件大小 
+    local curfilesize = myfile:seek("end") 
+    print("cur file size = "..curfilesize) 
+    -- 结尾向后扩大10字节插入内容 
+    myfile:seek("end", 10) 
+    myfile:write("test") 
+    -- 记录最终文件大小作比较 
+    local finalfilesize = myfile:seek("end") 
+    print("final file size = "..finalfilesize) 
+    -- 移动文件指针到开头 
+    myfile:seek("set") 
+    myfile:write("haha ") 
+    myfile:close(); 
+    myfile = io.open("seektest.txt", "r") 
+    -- 读取文件内容 
+    local content = myfile:read("*a"); 
+    myfile:close(); 
+    -- 打印内容 
+    print("\nfile content is:") 
+    print(content)
+end
+
 
 return MainScene
