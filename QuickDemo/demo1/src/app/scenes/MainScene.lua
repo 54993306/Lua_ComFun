@@ -64,11 +64,11 @@ local r_delete_pngs = "res\\delete_pngs.txt"
 function MainScene:ctor()
     -- self:initJsonAndCsbFile()
 
-    self:initTextures()
+    -- self:initTextures()
 
     -- self:initDeleteFile()
 
-    self:excuteDeleteFile()
+    -- self:excuteDeleteFile()
 
     self:test()
 end
@@ -530,7 +530,7 @@ function MainScene:test()
 
     -- self:operatePathAndFile()    
 
-    self:changeFile()
+    self:LuaCommand()
 end
 
 -- 裁切字符串
@@ -613,31 +613,6 @@ function MainScene:operatePathAndFile()
     lfs.rmdir(path)  -- 里面有文件则删除不掉路径
 end
 
--- 修改文件内容,直接对文件流修改会发生什么事
-function MainScene:changeFile()
-    -- local file = io.open("res\\aaa.json", "r+")
-    -- if file then
-    --     local files = {}
-    --     for line in file:lines() do 
-    --         if string.match(line,"mjOver2") then
-    --             print(file:seek())
-    --             local ctr = file:read()
-    --             -- ctr = "cccccccccccccccccc"
-    --             ctr:write("cccccccccccccccccc")
-    --             print(file:read())
-    --             file:write(string.gsub(line,"mjOver2" , "rrrrrrrrrrrr"))
-    --             print(line)
-    --             -- line = string.gsub(line,"mjOver2" , "rrrrrrrrrrrr")
-    --             -- print(line)
-    --         end
-    --         table.insert(files , line)
-    --     end
-    -- end
-
-    self:replacePattern("res\\aaa.json",".png" , ".plist")
-    -- self:replacePattern("res\\aaa.json",".plist" , ".png")
-end
-
 -- 测试seek函数
 function MainScene:seekUser()
     -- 打开文件 
@@ -681,5 +656,21 @@ function MainScene:seekUser()
     print(content)
 end
 
+-- lua 命令行测试 sed/awk
+
+function MainScene:LuaCommand()
+    local t = io.popen('adb help') -- 和直接在dos界面执行命令的结果是一样的，但是这个命令的结果保存在文件当中
+    local a = t:read("*all")
+    print(a)
+    io.close(t)
+
+    -- os.execute("color 02");      -- 修改输出窗口的字体颜色
+    local originalPath = "D:\\Lua_ComFun\\QuickDemo\\demo1\\res\\3333.png"
+    local backupPath = "D:\\Lua_ComFun\\QuickDemo\\demo1\\res\\222"
+    local copyret = os.execute("copy " .. originalPath .. ",".. backupPath) -- 整个字符串是一个命令，一个dos命令
+    print("copyret = "..copyret) 
+    os.execute("pause");
+
+end
 
 return MainScene
