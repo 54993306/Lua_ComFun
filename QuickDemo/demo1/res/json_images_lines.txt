@@ -591,6 +591,7 @@
                         "path": "huanpi2/shuimonew/btn_gree.png",
                             "path": "huanpi2/shuimonew/img_qingkong.png",
                         "path": "huanpi2/shuimonew/btn_gree.png",
+                            "path": "huanpi2/shuimonew/img_shanchu.png",
                         "path": "huanpi2/shuimonew/btn_gree.png",
     "huanpi2/Common/bg.png",
     "huanpi2/Common/transparent_bg.png",

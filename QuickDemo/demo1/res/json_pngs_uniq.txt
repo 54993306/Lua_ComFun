@@ -119,6 +119,7 @@ huanpi2/shuimonew/code_8.png
 huanpi2/shuimonew/code_9.png
 huanpi2/shuimonew/code_0.png
 huanpi2/shuimonew/img_qingkong.png
+huanpi2/shuimonew/img_shanchu.png
 huanpi2/friendroomscene/btn_more_pack.png
 huanpi2/friendroomscene/btn_room_up.png
 huanpi2/newer/mask_create.png

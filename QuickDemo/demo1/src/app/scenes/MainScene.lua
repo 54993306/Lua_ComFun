@@ -52,7 +52,9 @@ local r_code_line_fnt = "res\\code_line_fnt.txt"
 local r_delete_pngs = "res\\delete_pngs.txt"
 
 -- 规则比较复杂，手动设置不删除的图片列表
-local notDelete = {"green_num_0.png" , "room_num_0.png" , "yellow_num_0.png"}
+local notDelete = {"green_num_0.png" , "room_num_0.png" , "yellow_num_0.png" , "spin0.png" , "spin1.png"}
+-- D:/Svn_2d/S_Trunk_GD_Dev/res/hall/friendRoom/spin0.png
+-- D:/Svn_2d/S_Trunk_GD_Dev/res/hall/friendRoom/spin1.png
 
 -- 工程缺少图片时的报错内容
 -- Get data from file(hall/friendRoom/img_queding.png) failed, error code is 3
@@ -70,15 +72,15 @@ local notDelete = {"green_num_0.png" , "room_num_0.png" , "yellow_num_0.png"}
     -- 在文件中，是否都分别使用了它们。
 ]]
 function MainScene:ctor()
-    self:initJsonAndCsbFile()
+    -- self:initJsonAndCsbFile()
 
-    self:initTextures()
+    -- self:initTextures()
 
-    self:initDeleteFile()
+    -- self:initDeleteFile()
 
     -- self:excuteDeleteFile()
 
-    -- self:test()
+    self:test()
 end
 -- 初始化json文件和csb文件相关
 function MainScene:initJsonAndCsbFile()
@@ -715,6 +717,34 @@ function MainScene:LuaCommand()
     print("copyret = "..copyret)
     -- os.execute("pause");
 
+    local res=lfs.attributes(originalPath)
+    dump(res)
+
+end
+
+function F.limage(path,typed)
+    --读取文件大小和图片宽高
+    reslimage = {}
+    if path then
+        --要先安装https://github.com/keplerproject/luafilesystem/
+        local lfs   = require "lfs"
+        --local filepath="./ed724426a341d666369a244a2e8c54ad.jpg"
+
+        local res=lfs.attributes(path)
+        local size = res["size"]
+        if size ~=  nil and tonumber(size) >= 0 then
+            reslimage["size"] = size
+        end
+
+        if typed == "dpi" then
+        --要先安装https://github.com/yufei6808/limage
+            local width,height=image_size(path)
+            if width and height then
+                reslimage["dpi"] = width.."x"..height
+            end
+        end
+    end
+    return reslimage
 end
 
 return MainScene

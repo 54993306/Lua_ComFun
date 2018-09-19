@@ -177,8 +177,6 @@ D:/Svn_2d/S_Trunk_GD_Dev/res/hall/friendRoom/sign.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/friendRoom/speaking_1.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/friendRoom/speaking_2.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/friendRoom/speaking_3.png
-D:/Svn_2d/S_Trunk_GD_Dev/res/hall/friendRoom/spin0.png
-D:/Svn_2d/S_Trunk_GD_Dev/res/hall/friendRoom/spin1.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/friendRoom/title_bg.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/friendRoom/title_code.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/friendRoom/title_rule.png
@@ -405,7 +403,6 @@ D:/Svn_2d/S_Trunk_GD_Dev/res/hall/huanpi2/shuimonew/combat_title_wdzj.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/huanpi2/shuimonew/img_agree.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/huanpi2/shuimonew/img_disagree.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/huanpi2/shuimonew/img_fanhui.png
-D:/Svn_2d/S_Trunk_GD_Dev/res/hall/huanpi2/shuimonew/img_shanchu.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/loginUI/bg.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/loginUI/btn_login.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/loginUI/cheak1.png
