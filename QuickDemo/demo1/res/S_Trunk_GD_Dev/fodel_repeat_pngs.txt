@@ -1,0 +1,6 @@
+D:/Svn_2d/S_Trunk_GD_Dev/res/hall/Common/name_scale_bg.png
+D:/Svn_2d/S_Trunk_GD_Dev/res/hall/friendRoom/headbg.png
+D:/Svn_2d/S_Trunk_GD_Dev/res/hall/huanpi2/Common/defaultCircleHead.png
+D:/Svn_2d/S_Trunk_GD_Dev/res/hall/huanpi2/Common/transparent_bg.png
+D:/Svn_2d/S_Trunk_GD_Dev/res/hall/huanpi2/set/btn_vol_unable.png
+D:/Svn_2d/S_Trunk_GD_Dev/res/hall/yaoqing/head_bg.png

@@ -9,47 +9,53 @@ local MainScene = class("MainScene", function()
     return display.newScene("MainScene")
 end)
 
--- 是否记录到文件中
-local RECORD_IN_FILE = true
+local ProjectPath = "S_Trunk_GD_Dev"
+
+-- local CommonPath = "D:\\Lua_ComFun\\QuickDemo\\demo1\\res\\"
+local CommonPath = "res\\" -- 相对路径可以用
+
 -- json 文件的路径
 local dir_json_path = "D:\\Svn_2d\\UI_Shu\\Json"
 -- csb 文件路径
-local dir_csb_path = "D:\\Svn_2d\\S_Trunk_GD_Dev\\res\\hall"
+local dir_csb_path = "D:\\Svn_2d\\" .. ProjectPath .."\\res\\hall"
 -- 代码 文件路径
-local dir_code_path = "D:\\Svn_2d\\S_Trunk_GD_Dev\\src"
+local dir_code_path = "D:\\Svn_2d\\" .. ProjectPath .."\\src"
 -- 项目图片位置
-local dir_png_path = "D:\\Svn_2d\\S_Trunk_GD_Dev\\res\\hall"
+local dir_png_path = "D:\\Svn_2d\\" .. ProjectPath .."\\res\\hall"
 -----------------------------------------------------------------
+-----------------------------------------------------------------
+-----------------------------------------------------------------
+-- record file num 15
 -- 记录json文件路径
-local r_json_paths = "res\\json_path.txt"
+local r_json_paths = "res\\".. ProjectPath .."\\json_path.txt"
 -- 记录csb文件路径
-local r_csb_paths  = "res\\csb_path.txt"
+local r_csb_paths  = "res\\".. ProjectPath .."\\csb_path.txt"
 -- 记录文件夹中图片md5值
-local r_Fodel_MD5 = "res\\fodel_md5.txt"
+local r_Fodel_MD5 = "res\\".. ProjectPath .."\\fodel_md5.txt"
 -- 记录json中包含的图片信息
-local r_json_image_lines = "res\\json_images_lines.txt"
+local r_json_image_lines = "res\\".. ProjectPath .."\\json_images_lines.txt"
 -- 记录从json文件中截取出来的图片路径
-local r_json_pngs = "res\\json_pngs.txt"
+local r_json_pngs = "res\\".. ProjectPath .."\\json_pngs.txt"
 -- 记录json中去重后的路径
-local r_json_pngs_uniq = "res\\json_pngs_uniq.txt"
+local r_json_pngs_uniq = "res\\".. ProjectPath .."\\json_pngs_uniq.txt"
 -- 记录文件夹中所有的图片路径
-local r_fodel_Images = "res\\fodel_Images.txt"
+local r_fodel_Images = "res\\".. ProjectPath .."\\fodel_Images.txt"
 -- 记录文件夹中重复的图片路径
-local r_fodel_Repeat_pngs = "res\\fodel_repeat_pngs.txt"
+local r_fodel_Repeat_pngs = "res\\".. ProjectPath .."\\fodel_repeat_pngs.txt"
 -- 记录代码中包含png行内容
-local r_code_line_pngs = "res\\code_line_pngs.txt"
+local r_code_line_pngs = "res\\".. ProjectPath .."\\code_line_pngs.txt"
 -- 记录代码中png的路径
-local r_code_pngs = "res\\code_pngs.txt"
+local r_code_pngs = "res\\".. ProjectPath .."\\code_pngs.txt"
 -- 记录代码中包含plist行内容
-local r_code_line_plist = "res\\code_line_plist.txt"
+local r_code_line_plist = "res\\".. ProjectPath .."\\code_line_plist.txt"
 -- 记录代码中plist的路径
-local r_code_plist = "res\\code_plist.txt"
+local r_code_plist = "res\\".. ProjectPath .."\\code_plist.txt"
 -- 记录代码中fnt的路径
-local r_code_fnt = "res\\code_fnt.txt"
+local r_code_fnt = "res\\".. ProjectPath .."\\code_fnt.txt"
 -- 记录代码中包含fnt行内容
-local r_code_line_fnt = "res\\code_line_fnt.txt"
+local r_code_line_fnt = "res\\".. ProjectPath .."\\code_line_fnt.txt"
 -- 记录将要删除的图片路径
-local r_delete_pngs = "res\\delete_pngs.txt"
+local r_delete_pngs = "res\\".. ProjectPath .."\\delete_pngs.txt"
 
 -- 规则比较复杂，手动设置不删除的图片列表
 local notDelete = {"green_num_0.png" , "room_num_0.png" , "yellow_num_0.png" , "spin0.png" , "spin1.png"}
@@ -72,16 +78,28 @@ local notDelete = {"green_num_0.png" , "room_num_0.png" , "yellow_num_0.png" , "
     -- 在文件中，是否都分别使用了它们。
 ]]
 function MainScene:ctor()
-    -- self:initJsonAndCsbFile()
+    self:createPath()
 
-    -- self:initTextures()
+    self:initJsonAndCsbFile()
 
-    -- self:initDeleteFile()
+    self:initTextures()
+
+    self:initDeleteFile()
 
     -- self:excuteDeleteFile()
-
-    self:test()
+    -- self:test()
 end
+
+-- 创建存储路径
+function MainScene:createPath()
+    local attr = lfs.attributes( CommonPath .. ProjectPath )
+    if not attr then
+        lfs.mkdir(CommonPath .. ProjectPath)
+        attr = lfs.attributes( CommonPath .. ProjectPath )
+        print(type(attr))
+    end
+end
+
 -- 初始化json文件和csb文件相关
 function MainScene:initJsonAndCsbFile()
     self.tab_JsonFileName = {}          -- json文件名表  ， 接上路径和json可得到完整json路径
@@ -250,7 +268,7 @@ function MainScene:initDeleteFile()
         end
     end
     io.close(delete_path)
-    print(" ----------- delete file num :" .. deleteNum)
+    print("----------- delete file num :" .. deleteNum)
 end
 
 -- 执行删除文件
@@ -380,8 +398,8 @@ function MainScene:initCodeFilePngs()
     io.close(plist_lines)
     io.close(code_fnt)
     io.close(fnt_lines)
-    print(" ----------- code file has png num : " .. #code_file_texture)
-    print(" ----------- code file has plist num : " .. #code_file_plist)
+    print("----------- code file has png num : " .. #code_file_texture)
+    print("----------- code file has plist num : " .. #code_file_plist)
 
     self:replacePattern(r_code_plist,".plist",".png")
     self:replacePattern(r_code_fnt,".fnt",".png")
@@ -444,7 +462,7 @@ function MainScene:fileSaveToTable(path)
     for line in file:lines() do
         table.insert(tab , line)
     end
-    print(" ------------ path : " .. path  .." " .. " num : " .. #tab)
+    print("------------ path : " .. path  .." " .. " num : " .. #tab)
     return tab
 end
 
@@ -659,6 +677,33 @@ function MainScene:operatePathAndFile()
     lfs.rmdir(path)  -- 里面有文件则删除不掉路径
 end
 
+-- 读取图片尺寸
+function MainScene:limage(path,typed)
+    --读取文件大小和图片宽高
+    reslimage = {}
+    if path then
+        --要先安装https://github.com/keplerproject/luafilesystem/
+        local lfs   = require "lfs"
+        --local filepath="./ed724426a341d666369a244a2e8c54ad.jpg"
+
+        local res=lfs.attributes(path)
+        local size = res["size"]
+        if size ~=  nil and tonumber(size) >= 0 then
+            reslimage["size"] = size
+        end
+
+        if typed == "dpi" then
+        --要先安装https://github.com/yufei6808/limage
+            local width,height=image_size(path)
+            if width and height then
+                reslimage["dpi"] = width.."x"..height
+            end
+        end
+    end
+    return reslimage
+end
+
+
 -- 测试seek函数
 function MainScene:seekUser()
     -- 打开文件
@@ -717,34 +762,10 @@ function MainScene:LuaCommand()
     print("copyret = "..copyret)
     -- os.execute("pause");
 
-    local res=lfs.attributes(originalPath)
-    dump(res)
+    local res = lfs.attributes("D:\\Lua_ComFun\\QuickDemo\\demo1\\res\\fat")
+    print(type(res))
+    -- dump(res)
 
-end
-
-function F.limage(path,typed)
-    --读取文件大小和图片宽高
-    reslimage = {}
-    if path then
-        --要先安装https://github.com/keplerproject/luafilesystem/
-        local lfs   = require "lfs"
-        --local filepath="./ed724426a341d666369a244a2e8c54ad.jpg"
-
-        local res=lfs.attributes(path)
-        local size = res["size"]
-        if size ~=  nil and tonumber(size) >= 0 then
-            reslimage["size"] = size
-        end
-
-        if typed == "dpi" then
-        --要先安装https://github.com/yufei6808/limage
-            local width,height=image_size(path)
-            if width and height then
-                reslimage["dpi"] = width.."x"..height
-            end
-        end
-    end
-    return reslimage
 end
 
 return MainScene
