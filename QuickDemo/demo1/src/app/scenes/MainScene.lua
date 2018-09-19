@@ -1,5 +1,5 @@
 
-require "lfs"  
+require "lfs"
 
 local json = require("framework.json")
 
@@ -12,7 +12,7 @@ end)
 -- 是否记录到文件中
 local RECORD_IN_FILE = true
 -- json 文件的路径
-local dir_json_path = "D:\\Svn_2d\\UI_Shu\\Json"  
+local dir_json_path = "D:\\Svn_2d\\UI_Shu\\Json"
 -- csb 文件路径
 local dir_csb_path = "D:\\Svn_2d\\S_Trunk_GD_Dev\\res\\hall"
 -- 代码 文件路径
@@ -38,16 +38,24 @@ local r_fodel_Images = "res\\fodel_Images.txt"
 local r_fodel_Repeat_pngs = "res\\fodel_repeat_pngs.txt"
 -- 记录代码中包含png行内容
 local r_code_line_pngs = "res\\code_line_pngs.txt"
--- 记录代码中包含png行内容
-local r_code_line_plist = "res\\code_line_plist.txt"
 -- 记录代码中png的路径
 local r_code_pngs = "res\\code_pngs.txt"
+-- 记录代码中包含plist行内容
+local r_code_line_plist = "res\\code_line_plist.txt"
 -- 记录代码中plist的路径
 local r_code_plist = "res\\code_plist.txt"
--- 记录将plist转换成png后的内容
-local r_plist_to_png = "res\\code_plist_to_png.txt"
+-- 记录代码中fnt的路径
+local r_code_fnt = "res\\code_fnt.txt"
+-- 记录代码中包含fnt行内容
+local r_code_line_fnt = "res\\code_line_fnt.txt"
 -- 记录将要删除的图片路径
 local r_delete_pngs = "res\\delete_pngs.txt"
+
+-- 规则比较复杂，手动设置不删除的图片列表
+local notDelete = {"green_num_0.png" , "room_num_0.png" , "yellow_num_0.png"}
+
+-- 工程缺少图片时的报错内容
+-- Get data from file(hall/friendRoom/img_queding.png) failed, error code is 3
 
 --[[
     -- 资源清理
@@ -62,17 +70,16 @@ local r_delete_pngs = "res\\delete_pngs.txt"
     -- 在文件中，是否都分别使用了它们。
 ]]
 function MainScene:ctor()
-    -- self:initJsonAndCsbFile()
+    self:initJsonAndCsbFile()
 
-    -- self:initTextures()
+    self:initTextures()
 
-    -- self:initDeleteFile()
+    self:initDeleteFile()
 
     -- self:excuteDeleteFile()
 
-    self:test()
+    -- self:test()
 end
-
 -- 初始化json文件和csb文件相关
 function MainScene:initJsonAndCsbFile()
     self.tab_JsonFileName = {}          -- json文件名表  ， 接上路径和json可得到完整json路径
@@ -100,7 +107,7 @@ function MainScene:compare_Json_Csb()
         end
         print("----------- rich json num : " .. #Json_unEqual)
     end
-    
+
 
     local Csb_unEqual = {}
     for _,v in pairs(self.tab_CsbFileName) do
@@ -186,7 +193,8 @@ function MainScene:initDeleteFile()
     local textures = self:fileSaveToTable(r_fodel_Images)           -- 所有图片
     local json_pngs = self:fileSaveToTable(r_json_pngs_uniq)        -- json中包含的图片
     local code_pngs = self:fileSaveToTable(r_code_pngs)             -- 代码中包含的图片
-    local code_plist = self:fileSaveToTable(r_code_plist)
+    local code_plist = self:fileSaveToTable(r_code_plist)           -- 代码中包含的plist
+    local code_fnt = self:fileSaveToTable(r_code_fnt)               -- 代码中包含的fnt
     local deleteNum = 0
     for _,fodelpath in pairs(textures) do
         local surplus = true  -- 默认图片是多余的
@@ -197,12 +205,12 @@ function MainScene:initDeleteFile()
                 surplus = false  -- 判断在json文件中是否使用
             end
         end
-        
+
         if surplus then
             for _,codepng in pairs(code_pngs) do
-                if codepng == str 
+                if codepng == str
                 or codepng == string.match(fodelpath , "(hall/[%w%-%._/%s]*.png)")      -- 代码中的路径有以hall开头的
-                or codepng == string.match(fodelpath , "(res/hall/[%w%-%._/%s]*.png)") 
+                or codepng == string.match(fodelpath , "(res/hall/[%w%-%._/%s]*.png)")
                 then
                     surplus = false  -- 判断在代码中是否使用
                 end
@@ -218,6 +226,23 @@ function MainScene:initDeleteFile()
         end
 
         if surplus then
+            for _,codefnt in pairs(code_fnt) do
+                if codefnt == string.match(fodelpath , "(hall/[%w%-%._/%s]*.png)") then
+                    surplus = false  -- 判断在代码中是否使用
+                end
+            end
+        end
+
+        if surplus then
+            for _,png in pairs(notDelete) do
+                if png == string.match(fodelpath , "[/\\]([%w%-%._%s]*.png)") then
+                    surplus = false  -- 判断在代码中是否使用
+                    print("-------not delete " , string.match(fodelpath , "[/\\]([%w%-%._%s]*.png)"))
+                end
+            end
+        end
+
+        if surplus then
             deleteNum = deleteNum + 1
             delete_path:write(fodelpath,"\n")
         end
@@ -226,16 +251,19 @@ function MainScene:initDeleteFile()
     print(" ----------- delete file num :" .. deleteNum)
 end
 
--- 执行删除文件 
+-- 执行删除文件
 function MainScene:excuteDeleteFile()
     local delete_path = io.open(r_delete_pngs, "r")
+    local num = 0
     for line in delete_path:lines() do
         if os.remove(line) then
             print("delete : " .. line)
+            num = num + 1
         else
             print("delete failed : " .. line)
         end
     end
+    print("------------delete num : " .. num  )
     io.close(delete_path)
 end
 
@@ -256,7 +284,7 @@ function MainScene:initJsonTexture()
     local json_texture = {}                                     -- 存储去重后json中所使用的所有图片
     for path in jsonFiles:lines() do
         local file = io.open(path, "r")
-        for line in file:lines() do 
+        for line in file:lines() do
             if string.find(line,".png") and not string.find(line,":\\")then -- 找到json中所有的png的行
                 assert(json_image_lines:write(line , "\n"))                 -- 记录json中包含png的行
                 for str in string.gmatch(line , "[\"]([%w/_%.%s%-]*.png)[\"]") do  -- 一行中有可能存在多个png的情况
@@ -316,23 +344,30 @@ function MainScene:initCodeFilePngs()
     local files = {}
     self:initPaths(dir_code_path, files , ".lua")
     print("------------ lua files num : " .. #files )
-    local image_lines = io.open( r_code_line_pngs , "w+") 
+    local image_lines = io.open( r_code_line_pngs , "w+")
     local code_pngs = io.open(r_code_pngs , "w+")
     local code_plists = io.open(r_code_plist , "w+")
+    local code_fnt = io.open(r_code_fnt , "w+")
     local plist_lines = io.open(r_code_line_plist , "w+")
+    local fnt_lines = io.open(r_code_line_fnt , "w+")
     local code_file_texture = {}                                -- 存储代码文件中的png图
     local code_file_plist = {}
     for _,path in pairs(files) do
         local file = io.open(path, "r")
-        for line in file:lines() do 
+        for line in file:lines() do
             if string.find(line,".png") then -- 找到json中所有的png的行
-                assert(image_lines:write(line , "\n")) 
+                assert(image_lines:write(line , "\n"))
                 self:matchstr(code_pngs,line,code_file_texture , "[\"]([%w%.%-%s_/]*.png)[\"]")
             end
 
-            if string.find(line , ".plist") then  
+            if string.find(line , ".plist") then
                 assert(plist_lines:write(line , "\n"))
                 self:matchstr(code_plists,line,code_file_plist , "[\"]([%w%.%-%s_/]*.plist)[\"]")
+            end
+
+            if string.find(line , ".fnt") then  -- 字体文件
+                assert(fnt_lines:write(line , "\n"))
+                self:matchstr(code_fnt,line,code_file_plist , "[\"]([%w%.%-%s_/]*.fnt)[\"]")
             end
         end
         io.close(file)
@@ -341,10 +376,13 @@ function MainScene:initCodeFilePngs()
     io.close(code_pngs)
     io.close(code_plists)
     io.close(plist_lines)
+    io.close(code_fnt)
+    io.close(fnt_lines)
     print(" ----------- code file has png num : " .. #code_file_texture)
     print(" ----------- code file has plist num : " .. #code_file_plist)
 
     self:replacePattern(r_code_plist,".plist",".png")
+    self:replacePattern(r_code_fnt,".fnt",".png")
 end
 
 -- 匹配包含png的 行的内容
@@ -355,7 +393,7 @@ function MainScene:matchstr(recordfile , line ,tab , pattern)
         else
             -- print("repeat code path : " .. str)
         end
-    end  
+    end
     -- self:printCantMatchline(pattern , line)
 end
 
@@ -381,11 +419,11 @@ end
 -- 修改文件内容,直接对文件流修改会发生什么事
 function MainScene:replacePattern(path , pattern , replace)
     local files = {}
-    for line in io.lines(path) do 
+    for line in io.lines(path) do
         if string.match(line,pattern) then      -- 有可能一行有多个plist的情况出现
-            print(line)
+            -- print(line)
             line = string.gsub(line, pattern , replace)
-            print(line)
+            -- print(line)
         end
         table.insert(files , line)
     end
@@ -404,6 +442,7 @@ function MainScene:fileSaveToTable(path)
     for line in file:lines() do
         table.insert(tab , line)
     end
+    print(" ------------ path : " .. path  .." " .. " num : " .. #tab)
     return tab
 end
 
@@ -443,7 +482,7 @@ end
 
 -- 去重插入
 function MainScene:uniqInsert(tab , value)
-    for _,v in pairs(tab)do 
+    for _,v in pairs(tab)do
         if value == v then
             -- print("-------repeat value :" .. tostring(value))
             return false
@@ -504,7 +543,7 @@ end
 function MainScene:readFileByLine(path)
     local file = io.open(path, "r")
     if file then
-        for line in file:lines() do 
+        for line in file:lines() do
             print(line)
         end
         io.close(file)
@@ -526,9 +565,9 @@ function MainScene:test()
         -- print("--- file md5 equal")
     end
 
-    -- self:charSetText()
+    self:charSetText()
 
-    -- self:operatePathAndFile()    
+    -- self:operatePathAndFile()
 
     self:LuaCommand()
 end
@@ -549,7 +588,7 @@ function MainScene:testReadLine()
     local file = io.open(jsonpath, "r")
     if file then
         local num = 0
-        for line in file:lines() do 
+        for line in file:lines() do
             if string.find(line,".png")then
                 -- print(line)
                 num = num + 1
@@ -566,6 +605,8 @@ function MainScene:charSetText()
     -- 魔法字符 () . % - + * ? [ ] $ 需要用 % 来进行转义 , \ 是默认转义字符用于转义 " " 等符号
     local strmatch = "                        \"path\": \"huanpi2/bindingPhone/red_1.png\","
     local strmatch2 = "huanpi2/bindingPhone/text_changePhone.png"
+    local strmatch3= "huanpi2/bindingPhone/text_changePhone.plist,huanpi2/bindingPhone/text_changePhone2.png"
+    local strmatch4= "huanpi2/bindingPhone/text_changePhone.fnt"
     strmatch = string.gsub(strmatch," ","") -- 去除空格
     print(strmatch)
     local cc = string.match(strmatch , "\"%a+\"")
@@ -573,13 +614,13 @@ function MainScene:charSetText()
     local bb,dd = string.find(strmatch , "\"%a+\"")  -- %a+ 表示一个或多个字母序列
     local ee = string.sub(strmatch , dd+1,string.len(strmatch))
     print(bb .. " " .. dd .. " " .. ee)
-    
+
 
     -- bb,dd = string.find("0101010101" , "[01]*")  -- [01] lua 模式匹配中字符集的使用测试 , 表示匹配0和1，只匹配一个字符，是0或1则返回
     -- 匹配大小写字母(%w),斜杠(/),下划线(_),和点(%.)，点是魔法字符需要用%转义，每个字符集匹配一个字符
     -- 最后的*表示匹配多个, .png表示直接匹配 .png
-    bb,dd = string.find(strmatch , "[%w/_%.]*.png")  
-    local str2 = string.sub(strmatch , bb , dd )      
+    bb,dd = string.find(strmatch , "[%w/_%.]*.png")
+    local str2 = string.sub(strmatch , bb , dd )
     if bb and dd then
         print("------" .. bb .. " " .. dd .. " str: " .. str2)
     end
@@ -598,6 +639,9 @@ function MainScene:charSetText()
             print(path)
         end
     end
+
+    local str5 = string.match(strmatch3 , "[\"]([%w/_%.]*.(png)|(fnt))[\"]")
+    print(str5)
 end
 
 -- 创建路径和文件，删除文件和路径
@@ -615,61 +659,61 @@ end
 
 -- 测试seek函数
 function MainScene:seekUser()
-    -- 打开文件 
-    local myfile = io.open("seektest.txt", "w") 
-    -- 记录文件开始位置 
-    local beginpos = myfile:seek() 
-    print("file begin pos = "..beginpos) 
-    -- 向后移动100个字节 
-    local movehundred = myfile:seek("cur", 100) 
-    print("after move hundred file pos = "..movehundred) 
-    -- 回退95个字节，开始输入内容 
-    local moveback = myfile:seek("cur", -95) 
-    print("after move back file pos = "..moveback) 
-    myfile:write("file begin......................") 
-    myfile:write("................................") 
-    -- 向后移动20字节，插入内容 
-    myfile:seek("set", 20) 
-    myfile:write("\nthis is insert content\n") 
-    -- 从后回退15字节插入内容 
-    myfile:seek("end", -15) 
-    myfile:write("\nbingo end") 
-    -- 记录此文件大小 
-    local curfilesize = myfile:seek("end") 
-    print("cur file size = "..curfilesize) 
-    -- 结尾向后扩大10字节插入内容 
-    myfile:seek("end", 10) 
-    myfile:write("test") 
-    -- 记录最终文件大小作比较 
-    local finalfilesize = myfile:seek("end") 
-    print("final file size = "..finalfilesize) 
-    -- 移动文件指针到开头 
-    myfile:seek("set") 
-    myfile:write("haha ") 
-    myfile:close(); 
-    myfile = io.open("seektest.txt", "r") 
-    -- 读取文件内容 
-    local content = myfile:read("*a"); 
-    myfile:close(); 
-    -- 打印内容 
-    print("\nfile content is:") 
+    -- 打开文件
+    local myfile = io.open("seektest.txt", "w")
+    -- 记录文件开始位置
+    local beginpos = myfile:seek()
+    print("file begin pos = "..beginpos)
+    -- 向后移动100个字节
+    local movehundred = myfile:seek("cur", 100)
+    print("after move hundred file pos = "..movehundred)
+    -- 回退95个字节，开始输入内容
+    local moveback = myfile:seek("cur", -95)
+    print("after move back file pos = "..moveback)
+    myfile:write("file begin......................")
+    myfile:write("................................")
+    -- 向后移动20字节，插入内容
+    myfile:seek("set", 20)
+    myfile:write("\nthis is insert content\n")
+    -- 从后回退15字节插入内容
+    myfile:seek("end", -15)
+    myfile:write("\nbingo end")
+    -- 记录此文件大小
+    local curfilesize = myfile:seek("end")
+    print("cur file size = "..curfilesize)
+    -- 结尾向后扩大10字节插入内容
+    myfile:seek("end", 10)
+    myfile:write("test")
+    -- 记录最终文件大小作比较
+    local finalfilesize = myfile:seek("end")
+    print("final file size = "..finalfilesize)
+    -- 移动文件指针到开头
+    myfile:seek("set")
+    myfile:write("haha ")
+    myfile:close();
+    myfile = io.open("seektest.txt", "r")
+    -- 读取文件内容
+    local content = myfile:read("*a");
+    myfile:close();
+    -- 打印内容
+    print("\nfile content is:")
     print(content)
 end
 
 -- lua 命令行测试 sed/awk
 
 function MainScene:LuaCommand()
-    local t = io.popen('adb help') -- 和直接在dos界面执行命令的结果是一样的，但是这个命令的结果保存在文件当中
-    local a = t:read("*all")
-    print(a)
-    io.close(t)
+    -- local t = io.popen('adb help') -- 和直接在dos界面执行命令的结果是一样的，但是这个命令的结果保存在文件当中
+    -- local a = t:read("*all")
+    -- print(a)
+    -- io.close(t)
 
     -- os.execute("color 02");      -- 修改输出窗口的字体颜色
     local originalPath = "D:\\Lua_ComFun\\QuickDemo\\demo1\\res\\3333.png"
     local backupPath = "D:\\Lua_ComFun\\QuickDemo\\demo1\\res\\222"
     local copyret = os.execute("copy " .. originalPath .. ",".. backupPath) -- 整个字符串是一个命令，一个dos命令
-    print("copyret = "..copyret) 
-    os.execute("pause");
+    print("copyret = "..copyret)
+    -- os.execute("pause");
 
 end
 

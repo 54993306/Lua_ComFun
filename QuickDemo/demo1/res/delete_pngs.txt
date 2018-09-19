@@ -3,7 +3,6 @@ D:/Svn_2d/S_Trunk_GD_Dev/res/hall/Common/10009.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/Common/area_bg.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/Common/bar1.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/Common/bar2.png
-D:/Svn_2d/S_Trunk_GD_Dev/res/hall/Common/batteryFont.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/Common/bg5.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/Common/btn1.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/Common/btn2.png
@@ -41,11 +40,9 @@ D:/Svn_2d/S_Trunk_GD_Dev/res/hall/Common/exchangelab.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/Common/fangka.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/Common/game_panel_bg.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/Common/game_x.png
-D:/Svn_2d/S_Trunk_GD_Dev/res/hall/Common/gxhd_wz.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/Common/head_btn_add.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/Common/head_frame.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/Common/homeowners.png
-D:/Svn_2d/S_Trunk_GD_Dev/res/hall/Common/huode_dk.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/Common/icon_entrance.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/Common/img_txt_tishi.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/Common/img_txt_tuichu.png
@@ -56,7 +53,6 @@ D:/Svn_2d/S_Trunk_GD_Dev/res/hall/Common/keyborad.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/Common/label_bg2.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/Common/libao.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/Common/libao_1.png
-D:/Svn_2d/S_Trunk_GD_Dev/res/hall/Common/light_effect.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/Common/light_img.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/Common/lijishanchu.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/Common/lingqu_wenzi.png
@@ -93,12 +89,6 @@ D:/Svn_2d/S_Trunk_GD_Dev/res/hall/Common/zhidaole_wenzi.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/contact_us/copywechat.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/contact_us/select_city_title.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/contact_us/title.png
-D:/Svn_2d/S_Trunk_GD_Dev/res/hall/font/green_num_0.png
-D:/Svn_2d/S_Trunk_GD_Dev/res/hall/font/green_num_big.png
-D:/Svn_2d/S_Trunk_GD_Dev/res/hall/font/room_num_0.png
-D:/Svn_2d/S_Trunk_GD_Dev/res/hall/font/yellow_num_0.png
-D:/Svn_2d/S_Trunk_GD_Dev/res/hall/font/yellow_num_big.png
-D:/Svn_2d/S_Trunk_GD_Dev/res/hall/font/yellow_num_hrl.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/friendRoom/boFang1.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/friendRoom/btn_clear.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/friendRoom/btn_delete.png
@@ -125,7 +115,6 @@ D:/Svn_2d/S_Trunk_GD_Dev/res/hall/friendRoom/help/help_word.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/friendRoom/help_word.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/friendRoom/img_fanhui.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/friendRoom/img_qingkong.png
-D:/Svn_2d/S_Trunk_GD_Dev/res/hall/friendRoom/img_queding.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/friendRoom/img_quxiao.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/friendRoom/input_bg.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/friendRoom/line1.png
@@ -365,7 +354,6 @@ D:/Svn_2d/S_Trunk_GD_Dev/res/hall/huanpi2/Common/tag_2.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/huanpi2/Common/tag_one.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/huanpi2/friendroomscene/bg_input.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/huanpi2/friendroomscene/btn_sent.png
-D:/Svn_2d/S_Trunk_GD_Dev/res/hall/huanpi2/friendroomscene/num_room.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/huanpi2/jiesuan/bg.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/huanpi2/jiesuan/bg_display.png
 D:/Svn_2d/S_Trunk_GD_Dev/res/hall/huanpi2/jiesuan/bg_summary1230x124.png

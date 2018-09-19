@@ -127,6 +127,10 @@ newer/tips_bg.png
 newer/btn_over.png
 huanpi2/friendroomscene/btn_speak.png
 huanpi2/Common/select_wight.png
+huanpi2/Common/btn_pink_bg.png
+huanpi2/Common/btn_jia.png
+huanpi2/Common/btn_gengduo.png
+huanpi2/Common/btn_shouqi.png
 GUI/button.png
 huanpi2/Common/btn_light.png
 friendRoom/ddz/black_bj.png
@@ -242,11 +246,16 @@ huanpi2/Common/img_circle_share.png
 huanpi2/Common/btn_grey.png
 huanpi/Common/btn_gray.png
 huanpi2/Common/btn_grey_3.png
+Common/light_effect.png
+Common/gxhd_wz.png
+Common/huode_dk.png
+friendRoom/img_queding.png
+Common/btn_gree.png
 quickpayment/img_rmb.png
 quickpayment/pay_zfb.png
 quickpayment/pay_wx.png
-huanpi2/bindingPhone/btn_bdsj.png
 huanpi2/Common/image_unbind.png
+huanpi2/bindingPhone/btn_bdsj.png
 huanpi2/Common/image_binded.png
 huanpi2/Common/panel_wight.png
 huanpi2/Common/btn-orange.png
@@ -308,7 +317,6 @@ main/packeg.png
 main/title_free.png
 main/invite.png
 main/dayshare.png
-Common/btn_gree.png
 main/sharefriend.png
 main/redrectangle.png
 huanpi2/Common/btn_received.png

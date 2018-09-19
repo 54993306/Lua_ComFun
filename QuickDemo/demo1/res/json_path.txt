@@ -48,6 +48,7 @@ D:\Svn_2d\UI_Shu\Json\mjRuleTips.json
 D:\Svn_2d\UI_Shu\Json\myclub.json
 D:\Svn_2d\UI_Shu\Json\null_layer.json
 D:\Svn_2d\UI_Shu\Json\obtain_diamond.json
+D:\Svn_2d\UI_Shu\Json\obtain_prop_dialog.json
 D:\Svn_2d\UI_Shu\Json\pay_select_type.json
 D:\Svn_2d\UI_Shu\Json\Playerpanel.json
 D:\Svn_2d\UI_Shu\Json\player_position_info.json
