@@ -1,0 +1,1068 @@
+local bg = {path = "res/hall/huanpi2/Common/panel_black.png", capInsets = cc.rect(10,10,20,20), minSize = cc.size(20, 20)} -- 底框的配置
+_gameTitlePath = "games/common/image/title.png";
+_gameHallAdPath = "games/shaoguanzpmj/image/ad_hall.png";
+_gameRedpacketAdPath = "games/shaoguanzpmj/i mage/ad_redPacket.png";
+GC_GameHallLogoPath = "games/shaoguanzpmj/hall/login/logo.png"
+_ClubShareBg = "games/gamehall/image/club_bg.png"
+GC_GameHallLogoPath = "games/gamehall/hall/login/logo.png"
+    image = "EditBox.png",
+        local png  = cc.ui.UIImage.new("GreenButton.png")
+        t[#t+1] = png
+            :align(display.CENTER, png:getContentSize().width/2, png:getContentSize().height/2)
+            :addTo(png)
+function CCSSceneLoader:loadTexture(plist, png)
+	if png then
+		spCache:addSpriteFrames(plist, png)
+		-- 	png = self:getTexturePng(json.texturesPng[i])
+	local png
+		png = info.dirname .. info.basename .. ".png"
+		png = info.basename .. ".png"
+	return png
+		-- 	png = self:getTexturePng(json.texturesPng[i])
+	local png
+		png = info.dirname .. info.basename .. ".png"
+		png = info.basename .. ".png"
+	return png
+function UILoaderUtilitys.loadTexture(plist, png)
+	local fullPng = fileUtil:fullPathForFilename(png)
+	if png then
+local sprite1 = display.newSprite("hello1.png")
+local sprite2 = display.newSprite("#frame0001.png")
+local frame = display.newFrame("frame0002.png")
+local sprite = display.newScale9Sprite("Box.png", 0, 0, cc.size(400, 300))
+display.addSpriteFrames("Sprites.plist", "Sprites.png")
+display.addSpriteFrames("Sprites.plist", "Sprites.png", cb)
+local imageName = "Sprites.png"
+    local sprite = display.newSprite("#Sprite0001.png")
+    local sprite = display.newSprite("#Sprite0001.png")
+display.addSpriteFrames("Sprites.plist", "Sprites.png")
+local sprite = display.newSprite("#Yes.png")
+local frameNo = display.newSpriteFrame("No.png")
+-- 创建一个数组，包含 Walk0001.png 到 Walk0008.png 的 8 个图像帧对象
+local frames = display.newFrames("Walk%04d.png", 1, 8)
+-- 创建一个数组，包含 Walk0008.png 到 Walk0001.png 的 8 个图像帧对象
+local frames = display.newFrames("Walk%04d.png", 1, 8, true)
+local frames = display.newFrames("Walk%04d.png", 1, 8)
+local frames = display.newFrames("Walk%04d.png", 1, 8)
+    end, "screen.png")
+local pathinfo  = io.pathinfo("/var/app/test/abc.png")
+-- pathinfo.filename = "abc.png"
+-- pathinfo.extname  = ".png"
+local frames = display.newFrames("Walk%04d.png", 1, 20)
+local frames = display.newFrames("Walk%04d.png", 1, 20)
+local frames = display.newFrames("Boom%04d.png", 1, 8)
+local frames = display.newFrames("Walk%04d.png", 1, 20)
+    image = "EditBox.png",
+local pai_png = {
+	{ "1w.png", "2w.png", "3w.png", "4w.png", "5w.png", "6w.png", "7w.png", "8w.png", "9w.png" },
+	{ "1t.png", "2t.png", "3t.png", "4t.png", "5t.png", "6t.png", "7t.png", "8t.png", "9t.png" },
+	{ "1b.png", "2b.png", "3b.png", "4b.png", "5b.png", "6b.png", "7b.png", "8b.png", "9b.png" },
+	{ "f_dong.png", "f_nan.png", "f_xi.png", "f_bei.png", "f_zhong.png", "f_fa.png", "f_bai.png" },
+	{ "h_chun.png", "h_xia.png", "h_qiu.png", "h_dong.png","h_mei.png", "h_lan.png", "h_ju.png", "h_zhu.png" },
+	{ "t_dabaiban.png", "t_baida.png" } -- t代表特殊 -- 
+	local pai = pai_png[math.modf(value / 10)][value % 10]
+    [1] = "hall/huanpi2/Common/diamond.png",
+    [2] = "hall/huanpi2/Common/gold_icon.png",
+    return "games/common/GUI/image.png"
+    local CodeImageName = string.format("club_%s.png",tostring(self.m_data.clubID))
+        return cc.FileUtils:getInstance():fullPathForFilename("defaultClub.png")
+local lLineFilePath = "hall/Common/line2.png"
+    local stencil = cc.Sprite:create("hall/Common/circleClipStencil.png")
+        sp = cc.Sprite:create("hall/Common/defaultCircleHead.png")
+            local headFile = "hall/Common/default_head_2.png";
+        -- local agreeFlag = cc.Sprite:create("games/common/mj/common/green_flag.png")
+local lBoxNormal = "games/common/game/drop_down_box_bg.png"
+local lBoxContentNormal = "games/common/game/drop_down_box_content_bg.png"
+local lIconNormal = "games/common/game/handle_down.png"
+local lIconShow = "games/common/game/handle_up.png"
+        local line=display.newSprite("hall/main/linellae.png")
+local lLineFilePath = "hall/Common/line2.png"
+        local line=display.newSprite("hall/Common/line2.png")
+            local line=display.newSprite("hall/main/linellae.png")
+    self.m_iconTexture[self.m_iconType.ICON_LA] = "games/common/game/common/icon_la.png"
+    self.m_iconTexture[self.m_iconType.ICON_PAO] = "games/common/game/common/icon_pao.png"
+    self.m_iconTexture[self.m_iconType.ICON_ZUO] = "games/common/game/common/icon_zuo.png"
+    self.m_iconTexture[self.m_iconType.ICON_DI] = "games/common/game/common/icon_di.png"
+    local myCards = display.newSprite("#shupaidun.png")
+    local leftCards = display.newSprite("#hengpaidun.png")
+    local otherCards = display.newSprite("#shupaidun.png")
+    local rightCards = display.newSprite("#hengpaidun.png")
+--         local dice_1_image = string.format("#00000%s.png",pointMin)
+--         local dice_2_image = string.format("#00000%s.png",pointMax)
+        local dice_1_image = string.format("#00000%s.png",pointMin)
+        local dice_2_image = string.format("#00000%s.png",pointMax)
+--    local bg = display.newSprite("games/common/mj/games/laizidi.png")
+    self._myPoker = display.newSprite("#self_poker.png")
+            laizifjaowijef = display.newSprite("games/common/mj/games/laizifjaowijef.png")
+local lLineFilePath = "hall/Common/line2.png"
+            img_bg:loadTexture("games/ddz/common/blank.png");
+        btn_face:loadTextureNormal("hall/gameCommon/face/face_" .. (index + 1) .. ".png");
+        clubBgPath = "games/common/image/club_bg.png"
+    self.m_IconFront = cc.Sprite:createWithSpriteFrameName("fanma5.png")
+    self.m_IconReverse = cc.Sprite:createWithSpriteFrameName("startFrame.png")
+    local frames = display.newFrames("fanma%d.png", 1, 5)
+    local lFrames = display.newFrames("fanmalight%d.png", 1, 14)
+    self.m_ImgTitle = cc.Sprite:create("games/common/game/fanma.png")
+    self.m_ImgTitle = cc.Sprite:create("games/common/game/fanma.png")
+        local lImgName = "hall/Common/default_head_2.png"
+    local lHeadBG = cc.Sprite:create("games/common/game/friendRoom/mjOver/bg_head.png")
+    local lBankerIcon = cc.Sprite:create("games/common/game/friendRoom/mjOver/zhuang.png")
+local lTitleFilePath = "games/common/game/catch_chicken/title_turn_chicken.png"
+        mailicon:loadTexture("hall/huanpi2/Common/mail_open_2.png")
+_gameTitlePath = "games/common/image/title.png";
+_ClubShareBg = "package_res/config/image/club_bg.png"
+_gameHallAdPath = "package_res/config/image/ad_hall.png"
+_gameRedpacketAdPath = "package_res/config/image/ad_redPacket.png"
+GC_GameHallLogoPath = "package_res/config/hall/login/logo.png"
+_WeChatNameImage = "package_res/config/image/img_wx_2.png"
+	[enMjType.EMPTY_MYSELF_GANG] = "#self_gang_poker.png", --
+	[enMjType.EMPTY_RIGHT_GANG]  = "#right_gang_poker.png",--
+	[enMjType.EMPTY_RIGHT_IDLE]  = "#right_poker.png",--
+	[enMjType.EMPTY_LEFT_GANG]   = "#left_gang_poker.png",--
+	[enMjType.EMPTY_LEFT_IDLE]   = "#left_poker.png",--
+	[enMjType.EMPTY_OTHER_GANG]  = "#other_gang_poker.png",
+	[enMjType.EMPTY_OTHER_IDLE]  = "#other_poker.png",--
+	[enMjType.EMPTY_SHU_PAI]     = "#shupaidun.png",--
+	[enMjType.EMPTY_HENG_PAI]    = "#hengpaidun.png",--
+	local spMjBg = display.newSprite("#left_out_poker.png")
+	local spMjBg = display.newSprite("#left_peng_poker.png")
+        mailicon:loadTexture("hall/huanpi2/Common/mail_open_2.png")
+	local spMjBg = display.newSprite("#left_poker_tang.png")
+	local spMjBg = display.newSprite("#self_poker.png")
+	self.spark = display.newSprite("#lightsweep_01.png")
+	data.fn = "%02d.png"
+	local spMjBg = display.newSprite("#self_out_poker.png")
+	local spMjBg = display.newSprite("#self_peng_poker.png")
+        local fullPath = cc.FileUtils:getInstance():fullPathForFilename("defaultClub.png")
+                fullPath = cc.FileUtils:getInstance():fullPathForFilename("defaultClub.png")
+        local CodeImagePath = string.format("club_%s.png",tostring(self.m_data.clubID))
+	local spMjBg = display.newSprite("#self_poker_tang.png")
+    local savePath = CACHEDIR.."club_"..tostring(clubID)..".png"  
+        savePath = CACHEDIR.."defaultClub.png"
+	local spMjBg = display.newSprite("#other_out_poker.png")
+	local spMjBg = display.newSprite("#other_peng_poker.png")
+    local CodeImageName = string.format("club_%s.png",tostring(self.m_data.clubID))
+        return cc.FileUtils:getInstance():fullPathForFilename("defaultClub.png")
+	local spMjBg = display.newSprite("#other_poker_tang.png")
+	local spMjBg = display.newSprite("#right_out_poker.png")
+	local spMjBg = display.newSprite("#right_peng_poker.png")
+	local spMjBg = display.newSprite("#right_poker_tang.png")
+    self.dismiss_btn:loadTextureNormal("games/common/game/games/menu_btn_jieshan.png")
+    local savePath = CACHEDIR.."club_"..tostring(clubID)..".png"  
+        savePath = CACHEDIR.."defaultClub.png"
+            resultImg = ccui.ImageView:create("games/common/game/games/dq_btn_wan.png");
+            resultImg = ccui.ImageView:create("games/common/game/games/dq_btn_tiao.png");
+            resultImg = ccui.ImageView:create("games/common/game/games/dq_btn_tong.png");
+            resultImg = ccui.ImageView:create("games/common/game/games/dq_img_wan.png");
+            resultImg = ccui.ImageView:create("games/common/game/games/dq_img_tiao.png");
+            resultImg = ccui.ImageView:create("games/common/game/games/dq_img_tong.png");
+    --self.ruleTextBg = ccui.Scale9Sprite:create(cc.rect(10, 10, 2, 2), "hall/Common/rule_bg.png")
+	local bgSprite = display.newSprite("hall/games/game_bg.png")
+    -- local subSprite = display.newSprite("games/common/mj/games/game_bg_wenli_1.png")
+		return "game_pic_room_cainiao.png"
+		return "game_pic_room_gaoshou.png"
+		return "game_pic_room_dashi.png"
+		return "game_pic_room_queshen.png"
+	local remainPaiCountBg = display.newSprite("#other_gang_poker.png")
+    local remainPaiCountBg_1 = display.newSprite("#other_gang_poker.png")
+	local batteryBg = display.newSprite("games/common/mj/games/game_gray_bg.png")
+	local battery = display.newSprite("games/common/mj/common/bat_bg.png")
+	self.pro_bat = cc.ProgressTimer:create(cc.Sprite:create("games/common/mj/common/bat_pro.png"))
+--         self.m_continueReadySprites[i] = display.newSprite("games/common/mj/common/text_ready.png")
+	local ting = display.newSprite("games/common/mj/games/icon_ting.png")
+        		finish = display.newSprite("#desk_task_1.png")
+	self.taskBg = cc.Sprite:create("mj/game/game_task_base.png")
+		actionPng = "action_chi.png"
+		actionPng = "action_peng.png"
+		actionPng = "action_gang.png"
+		actionPng = "action_ting.png"
+		actionPng = "action_hu.png"
+		actionPng = "action_jiabei.png"
+		local taskCardBg = display.newSprite("#game_mj_paimian.png")
+			local spwan = display.newSprite("#w_w.png")
+			local anyCard = display.newSprite("#game_task_rehepai.png")
+		local beiNum = cc.LabelAtlas:_create(string.format("%s", tostring(data.number)), "mj/game/desk_task_nuber.png", 30, 37, string.byte("0"))
+		local ci = display.newSprite("#desk_task_ci.png")
+	local taskNum = cc.LabelAtlas:_create(string.format("x:%s", tostring(data.multiple)), "mj/game/game_task_num.png", 27, 38, string.byte("2"))
+	local countDownBgSprite = display.newSprite("games/common/mj/games/match_bg.png")
+        	self.pan_notice = display.newSprite("games/common/mj/common/notice_bg.png")
+	"games/common/mj/games/clock_light_dong.png",
+	"games/common/mj/games/clock_light_nan.png",
+	"games/common/mj/games/clock_light_xi.png",
+	"games/common/mj/games/clock_light_bei.png"
+	"games/common/mj/games/clock_text_dong.png",
+	"games/common/mj/games/clock_text_nan.png",
+	"games/common/mj/games/clock_text_xi.png",
+	"games/common/mj/games/clock_text_bei.png"
+	-- self.clockButtomSprite = display.newSprite("games/common/mj/games/clock_buttom_bg.png")
+	self.clockSprite = display.newSprite("games/common/mj/games/clock_bg1.png")
+	self.timeLabel = cc.LabelAtlas:_create("00", "games/common/mj/games/game_num_clock.png", 15, 22, string.byte("0"))
+		self.m_loadingSprite = display.newSprite("games/common/mj/common/time_wait.png")
+    self.ruleTextBg = ccui.Scale9Sprite:create(cc.rect(10, 10, 2, 2), "hall/Common/rule_bg.png")
+    -- local newBg = ccui.Scale9Sprite:create(cc.rect(10, 10, 2, 2), "hall/Common/name_scale_bg.png")
+    yesBtn:loadTextureNormal("games/common/game/common/btn_yellow.png")
+    cancelBtn:loadTextureNormal("games/common/game/common/btn_gree.png")
+    local textureLeave = cc.Sprite:create("games/common/game/common/apply_leave.png")
+    local textureContinue = cc.Sprite:create("games/common/game/common/continue_game.png")
+    self.img_mic:loadTexture("hall/friendRoom/mic/" .. self.img_mic_index .. ".png");
+    ["zuo"] = "games/common/mj/games/clock_overtime_zuo.png",
+    ["dui"] = "games/common/mj/games/clock_overtime_dui.png",
+    ["you"] = "games/common/mj/games/clock_overtime_you.png",
+    ["other"] = "games/common/mj/games/clock_overtime_qita.png",
+    ["pointPath"] = "games/common/mj/games/clock_overtime_point.png"
+    local cat_bg = display.newScale9Sprite("hall/gameCommon/face/chat_bg.png",posX,posY)
+    local cat_bg = display.newScale9Sprite("hall/gameCommon/face/chat_bg.png",posX,posY)
+        self.speakingBgs[site] = display.newScale9Sprite("games/common/speaking_bg.png", 100, 50, bgSize);
+        local voice_bg = ccui.ImageView:create("games/common/speak_voice_0.png");
+        self.speakingBgs[site] = display.newScale9Sprite("games/common/speaking_bg.png", -150, 50, bgSize);
+        local voice_bg = ccui.ImageView:create("games/common/speak_voice_0.png");
+        self.speakingBgs[site] = display.newScale9Sprite("games/common/speaking_bg.png", -150, 0, bgSize);
+        local voice_bg = ccui.ImageView:create("games/common/speak_voice_0.png");
+        self.speakingBgs[site] = display.newScale9Sprite("games/common/speaking_bg.png", 100, 50, bgSize);
+         local voice_bg = ccui.ImageView:create("games/common/speak_voice_0.png");
+    local bg = ccui.Scale9Sprite:create(cc.rect(10, 10, 2, 2), "hall/Common/name_scale_bg.png")
+            imgDingque:loadTexture("games/common/mj/games/dq_icon_wan.png");
+            imgDingque:loadTexture("games/common/mj/games/dq_icon_tiao.png");
+            imgDingque:loadTexture("games/common/mj/games/dq_icon_tong.png");
+        zuoIcon:loadTexture("games/common/game/common/icon_la.png")
+        zuoIcon:loadTexture("games/common/game/common/icon_zuo.png")
+        local headFile = "hall/Common/default_head_2.png";
+        self.m_continueReadySprites[i] = display.newSprite("games/common/mj/common/text_ready.png")
+        local ip = display.newSprite("games/common/mj/common/ipxiangtong.png")
+--             image = "games/common/mj/games/game_btn_gang.png",
+--     local action = cc.ui.UIImage.new("games/common/mj/games/game_btn_gang.png")
+    display.addSpriteFrames("games/common/mj/cardlight.plist", "games/common/mj/cardlight.png")
+        -- titlePng = "games/".._gameType.."/game/fanmaTitle.png", -- 标题图片
+        gmPng = "games/common/game/verticalGreenmask.png"
+            gmPng = "games/common/game/verticalGreenmask.png"
+            gmPng = "games/common/game/horizonGreenmask.png"
+            gmPng = "games/common/game/horizonGreenmask.png"
+            gmPng = "games/common/game/verticalGreenmask.png"
+        gmPng = "games/common/game/horizonGreenmask.png"
+local kLaiziPang = "games/common/game/friendRoom/mjOver/laizi.png"
+function FriendOverView:setkLaiziPang(png)
+    kLaiziPang = png
+        startImage:loadTexture("games/common/game/friendRoom/mjOver/text_total_score.png")
+                titleBg:loadTexture("games/common/game/friendRoom/mjOver/title_bg.png")
+                -- img_title:loadTexture("games/common/game/friendRoom/mjOver/title1.png")
+                -- img_title:loadTexture("games/common/game/friendRoom/mjOver/title_bg.png")
+                titleBg:loadTexture("games/common/game/friendRoom/mjOver/title_bg2.png")
+                -- img_title:loadTexture("games/common/game/friendRoom/mjOver/title3.png")
+                -- img_title:loadTexture("games/common/game/friendRoom/mjOver/title_bg2.png")
+                titleBg:loadTexture("games/common/game/friendRoom/mjOver/title_bg2.png")
+                -- img_title:loadTexture("games/common/game/friendRoom/mjOver/title2.png")
+                -- img_title:loadTexture("games/common/game/friendRoom/mjOver/title_bg2.png")
+            img_bg:loadTexture("games/common/game/friendRoom/mjOver/bg_summary_1.png")
+            img_hu:loadTexture("games/common/game/friendRoom/mjOver/zimo.png", ccui.TextureResType.localType)
+            img_hu:loadTexture("games/common/game/friendRoom/mjOver/hupai.png", ccui.TextureResType.localType)
+        img_hu:loadTexture("games/common/game/friendRoom/mjOver/fangpao.png", ccui.TextureResType.localType)
+        img_hu:loadTexture("games/common/game/friendRoom/mjOver/icon_qianggang.png", ccui.TextureResType.localType)
+        lTipsFilePath = "games/common/mj/common/angang.png"
+        lTipsFilePath = "games/common/mj/common/minggang.png"
+        lTipsFilePath = "games/common/mj/common/bugang.png"
+            local atBg = display.newSprite("games/common/game/friendRoom/mjOver/qianggang.png")
+    local lTipsBG = cc.Sprite:create("games/common/mj/common/angang_bg.png")
+    local huIcon = display.newSprite("games/common/mj/common/icon_hu.png")
+    img_head:loadTexture("hall/Common/default_head_2.png");
+        local headFile = "hall/Common/default_head_2.png"
+        local img_host = ccui.Helper:seekWidgetByName(item, "img_host");--昵称--cc.Sprite:create("games/common/game/friendRoom/mjOver/fangzhu_tip.png")
+          return "games/common/game/friendRoom/mjOver/total_over_item_win.png"
+          return "games/common/game/friendRoom/mjOver/total_over_item_fail.png"
+          return "games/common/game/friendRoom/mjOver/total_sub_win_scale_bg.png"
+          return "games/common/game/friendRoom/mjOver/total_sub_fail_scale_bg.png"
+          return "games/common/game/friendRoom/mjOver/win_charge_tip_bg.png"
+          return "games/common/game/friendRoom/mjOver/fail_chage_tip_bg.png"
+          return "games/common/game/friendRoom/mjOver/total_win_tip_scale_bg.png"
+          return "games/common/game/friendRoom/mjOver/total_fail_tip_scale_bg.png"
+    local dyjTip = cc.Sprite:create("games/common/game/friendRoom/mjOver/text_dyj.png")
+    local scripBg = cc.Sprite:create("hall/huanpi2/Common/scrip_bg2.png")
+        local winTip = cc.Sprite:create("games/common/game/friendRoom/mjOver/win_tip.png")
+        local img_host = ccui.Helper:seekWidgetByName(item, "img_host");--昵称--cc.Sprite:create("games/common/game/friendRoom/mjOver/fangzhu_tip.png")
+        local headFile = "hall/Common/default_head_2.png";
+    -- titlePng = "games/".._gameType.."/game/fanmaTitle.png", -- 标题图片
+        local lImgName = "hall/Common/default_head_2.png"
+    local lHeadBG = cc.Sprite:create("games/common/mj/common/head_bg.png")
+    local lBankerIcon = cc.Sprite:create("games/common/game/friendRoom/mjOver/zhuang.png")
+                local fama = display.newSprite("#fanma1.png")
+    local title=display.newSprite(self.m_config.titlePng or "games/common/game/fanma/title.png")
+    local frames    = display.newFrames("fanma%d.png",1,5)
+            local lFrames = display.newFrames("fanmalight%d.png", 1, 14)
+                local fama = display.newSprite("#fanma5.png")
+                            local famaNum=display.newSprite("games/common/game/fanma/maCount"..(#v>4 and 4 or #v)..".png")
+                            -- famaNum:setTexture("games/common/game/fanma/maCount"..num..".png")
+                            local frames    = display.newFrames("explode%d.png",1,12)
+	[enOperate.OPERATE_CHI] 		= "games/common/mj/games/game_btn_chi.png",
+	[enOperate.OPERATE_PENG] 		= "games/common/mj/games/game_btn_peng.png",
+	[enOperate.OPERATE_MING_GANG] 	= "games/common/mj/games/game_btn_gang.png",
+	[enOperate.OPERATE_JIA_GANG] 	= "games/common/mj/games/game_btn_bugang.png",
+	[enOperate.OPERATE_AN_GANG] 	= "games/common/mj/games/game_btn_gang.png",
+	[enOperate.OPERATE_TING] 		= "games/common/mj/games/game_btn_ting.png",
+	[enOperate.OPERATE_DIAN_PAO_HU] = "games/common/mj/games/game_btn_hu.png",
+	[enOperate.OPERATE_ZI_MO_HU] 	= "games/common/mj/games/game_btn_zimo.png",
+	[enOperate.OPERATE_QIANG_GANG_HU] 	= "games/common/mj/games/game_btn_hu_2.png",
+	[enOperate.OPERATE_DI_HU] 		= "games/common/mj/games/game_btn_dihu.png",
+	[enOperate.OPERATE_YANGMA] 		= "games/common/mj/games/game_btn_yangma.png",
+	[enOperate.OPERATE_DIAN_DI_HU] 		= "games/common/mj/games/game_btn_dihu.png",
+	[enOperate.OPERATE_DI_XIA_HU] = "games/common/mj/games/game_btn_hu.png",
+	[enOperate.OPERATE_GANG_KAI] = "games/common/mj/games/game_btn_hu.png",
+	[enOperate.OPERATE_GUO] 		= "games/common/mj/games/game_btn_qi.png",
+	[enOperate.OPERATE_JIA_BEI] 	= "games/common/mj/games/btn_jiabei.png",
+	[enOperate.OPERATE_BU_TING] 	= "games/common/mj/games/game_btn_buting.png",
+	[enOperate.OPERATE_TIAN_TING] 	= "games/common/mj/games/game_btn_tianting.png",
+	[enOperate.OPERATE_TIAN_HU] 	= "games/common/mj/games/game_btn_tianhu.png",
+	[enOperate.OPERATE_DIAN_TIAN_HU] 	= "games/common/mj/games/game_btn_tianhu.png",
+    [enOperate.OPERATE_ZHUA_PAI]    = "games/common/mj/games/game_btn_zhuapai.png",
+    [enOperate.OPERATE_ASK_BU_HUA]    = "games/common/mj/games/game_btn_ask_buhua.png",
+    ["DEFAULT"] = "games/common/mj/games/game_btn_default.png", -- 默认图片
+        local pngImg    = kBtnPngs[operateList[i]]
+		if not pngImg then
+            reportBugly("operateList[" .. i .. "] 找不到图片资源", "pngImg", operateList[i])
+            pngImg = kBtnPngs.DEFAULT
+            local filePath = cc.FileUtils:getInstance():fullPathForFilename(pngImg)
+                reportBugly("[" .. i .. "] pngImg " .. pngImg .. " 文件不存在 err: " .. err, "pngImg", operateList[i])
+                pngImg = kBtnPngs.DEFAULT
+		local btn_operator = display.newSprite(pngImg)
+			local pngImg = kBtnPngs[enOperate.OPERATE_BU_TING]
+			self.actionBtn[tag]:setTexture(pngImg)
+			local pngImg = kBtnPngs[enOperate.OPERATE_TING]
+			self.actionBtn[tag]:setTexture(pngImg)
+			local pngImg 	= kBtnPngs[enOperate.OPERATE_BU_TING]
+			self.actionBtn[tag]:setTexture(pngImg)
+			local pngImg 	= kBtnPngs[enOperate.OPERATE_TIAN_TING]
+			self.actionBtn[tag]:setTexture(pngImg)
+	local pngImg 	= "games/common/mj/games/game_btn_qi.png"
+	local guoBtn = display.newSprite(pngImg)
+	local chiPath = "games/common/mj/games/bg_action_chi.png"
+		local gangBg = "games/common/mj/games/bg_action_gang.png"
+	local pngImg 	= "games/common/mj/games/game_btn_qi.png"
+	local guoBtn = display.newSprite(pngImg)
+                local mjLaizi = display.newSprite("#xuanzhonglaizi.png")
+                                local mjLaizi = display.newSprite("#xuanzhonglaizi.png")
+            node = display.newSprite("#self_gang_poker.png")
+                local arrow = display.newSprite("games/common/mj/games/ting_arrow.png")
+                    local arrow = display.newSprite("games/common/mj/games/ting_arrow.png")
+local kLaiziPng  = "games/common/mj/games/laizijiaobiao.png"
+	self.img_pass = display.newSprite("games/common/guopai.png")
+function HandCardsPanel:setkLaiziPng(png)
+    kLaiziPng = png
+	local pngSize 	= laiziPng:getContentSize()
+	laiziPng:setPosition(cc.p(size.width / 2 - pngSize.width / 2, size.height / 2 - pngSize.height / 2))
+    self.pointSprite = display.newSprite("games/common/mj/games/out_poker_point.png")
+				local pngSize 	= laiziPng:getContentSize()
+				laiziPng:setPosition(cc.p(size.width / 2 - pngSize.width / 2, size.height / 2 - pngSize.height / 2))
+	-- self.m_showMjBg = display.newSprite("games/common/mj/games/bg_big_out_poker.png")
+				local pngSize 	= laiziPng:getContentSize()
+				laiziPng:setPosition(cc.p(size.width / 2 - pngSize.width / 2, size.height / 2 - pngSize.height / 2))
+	-- self.m_showMjBg = display.newSprite("games/common/mj/games/bg_big_out_poker.png")
+				local pngSize 	= laiziPng:getContentSize()
+				laiziPng:setPosition(cc.p(size.width / 2 - pngSize.width / 2, size.height / 2 - pngSize.height / 2))
+	-- self.m_showMjBg = display.newSprite("games/common/mj/games/bg_big_out_poker.png")
+	local bgSprite = display.newSprite("games/common/mj/games/robot_bg.png")
+	local  btnSprite= display.newSprite("games/common/mj/common/game_btn_yellow.png")
+	local  cancelTextSprite= display.newSprite("games/common/mj/games/robot_text_cancel.png")
+	[enOperate.OPERATE_CHI] 	= "game_btn_chi.png",
+	[enOperate.OPERATE_PENG] 	= "game_btn_peng.png",
+	[enOperate.OPERATE_MING_GANG] 	= "game_btn_gang.png",
+	[enOperate.OPERATE_AN_GANG] 	= "game_btn_gang.png",
+	[enOperate.OPERATE_JIA_GANG] 	= "game_btn_bugang.png",
+	[enOperate.OPERATE_TING] 	= "game_btn_ting.png",
+	[enOperate.OPERATE_BU_TING] 	= "game_btn_buting.png",
+	[enOperate.OPERATE_DIAN_PAO_HU] 	= "game_btn_hu.png",
+	[enOperate.OPERATE_GUO] 	= "game_btn_qi.png",
+	[enOperate.OPERATE_JIA_BEI] 	= "btn_jiabei.png",
+	[enOperate.OPERATE_ZI_MO_HU] 	= "game_btn_zimo.png",
+	[enOperate.OPERATE_QIANG_GANG_HU] 	= "game_btn_hu.png",
+		local pngPath = kPngPath..kPngName[i] -- 默认是吃
+		local actSpr = display.newSprite(pngPath)
+	local videoPanel = display.newSprite("hall/friendRoom/videoPanel.png")
+    self.fastBtn:loadTextureNormal("hall/friendRoom/kuaiJin1.png")
+    local onImage 	= cc.MenuItemImage:create("hall/friendRoom/boFang.png", "hall/friendRoom/boFang.png")
+    local offImage  = cc.MenuItemImage:create("hall/friendRoom/zanTing.png", "hall/friendRoom/zanTing.png")
+    exitBtn:loadTextureNormal("hall/friendRoom/fanHui.png")
+		self.fastBtn:loadTextureNormal("hall/friendRoom/kuaiJin.png")
+		self.fastBtn:loadTextureNormal("hall/friendRoom/kuaiJin1.png")
+    local onImageMusic =  cc.MenuItemImage:create("games/common/common/common/set/set_switch_on.png", "games/common/common/common/set/set_switch_on.png")
+    local offImageMusic = cc.MenuItemImage:create("games/common/common/common/set/set_switch_off.png", "games/common/common/common/set/set_switch_off.png")
+    local onImageSound =  cc.MenuItemImage:create("games/common/common/common/set/set_switch_on.png", "games/common/common/common/set/set_switch_on.png")
+    local offImageSound = cc.MenuItemImage:create("games/common/common/common/set/set_switch_off.png", "games/common/common/common/set/set_switch_off.png")
+    local onImage2 =  cc.MenuItemImage:create("games/common/common/common/set/set_switch_on.png", "games/common/common/common/set/set_switch_on.png")
+    local offImage2 = cc.MenuItemImage:create("games/common/common/common/set/set_switch_off.png", "games/common/common/common/set/set_switch_off.png")
+    local onImage3 =  cc.MenuItemImage:create("games/common/common/common/set/set_switch_on.png", "games/common/common/common/set/set_switch_on.png")
+    local offImage3 = cc.MenuItemImage:create("games/common/common/common/set/set_switch_off.png", "games/common/common/common/set/set_switch_off.png")   
+	[enOperate.OPERATE_CHI] 	= "game_btn_chi.png",
+	[enOperate.OPERATE_PENG] 	= "game_btn_peng.png",
+	[enOperate.OPERATE_MING_GANG] 	= "game_btn_gang.png",
+	[enOperate.OPERATE_AN_GANG] 	= "game_btn_gang.png",
+	[enOperate.OPERATE_JIA_GANG] 	= "game_btn_bugang.png",
+	[enOperate.OPERATE_TING] 	= "game_btn_ting.png",
+	[enOperate.OPERATE_BU_TING] 	= "game_btn_buting.png",
+	[enOperate.OPERATE_DIAN_PAO_HU] 	= "game_btn_hu.png",
+	[enOperate.OPERATE_GUO] 	= "game_btn_qi.png",
+	[enOperate.OPERATE_JIA_BEI] 	= "btn_jiabei.png",
+	[enOperate.OPERATE_ZI_MO_HU] 	= "game_btn_zimo.png",
+	[enOperate.OPERATE_TIAN_HU] 	= "game_btn_tianhu.png",
+	[enOperate.OPERATE_DIAN_TIAN_HU] = "game_btn_tianhu.png",
+	[enOperate.OPERATE_TIAN_TING] 	= "game_btn_tianting.png",
+		local pngPath = kPngPath..kPngName[i] -- 默认是吃
+		local actSpr = display.newSprite(pngPath)
+                    pIcon:loadTexture("hall/friendRoom/zanTing.png")
+                    pIcon:loadTexture("hall/friendRoom/boFang.png")
+			self.playIcon:loadTexture("hall/friendRoom/zanTing.png")
+--             image = "games/common/mj/games/game_btn_gang.png",
+--     local action = cc.ui.UIImage.new("games/common/mj/games/game_btn_gang.png")
+    local img = "img_diamond.png"
+        img = "yuanbao.png"
+<image src='temp/001.png' size='123,421'/>
+        mailicon:loadTexture("hall/huanpi2/Common/mail_open_2.png")
+        mailicon:loadTexture("hall/huanpi2/Common/mail_open_2.png")
+            local spark = display.newSprite("hall/Common/star.png")
+    selectImg       = "hall/huanpi2/Common/btn_b_on2.png", -- 选中的图片
+    backgroundImg   = "hall/huanpi2/Common/radio_yellow_box2.png", -- 背景图片
+    local CodeImageName = string.format("club_%s.png",tostring(self.m_data.clubID))
+        return cc.FileUtils:getInstance():fullPathForFilename("defaultClub.png")
+    local CodeImageName = string.format("club_%s.png",tostring(self.m_data.clubID))
+        return cc.FileUtils:getInstance():fullPathForFilename("defaultClub.png")
+        clubBgPath = "games/common/image/club_bg.png"
+        clubBgPath = "games/common/image/club_bg.png"
+    local savePath = CACHEDIR.."club_"..tostring(clubID)..".png"  
+        savePath = CACHEDIR.."defaultClub.png"
+    local savePath = CACHEDIR.."club_"..tostring(clubID)..".png"  
+        savePath = CACHEDIR.."defaultClub.png"
+        local fullPath = cc.FileUtils:getInstance():fullPathForFilename("defaultClub.png")
+                fullPath = cc.FileUtils:getInstance():fullPathForFilename("defaultClub.png")
+        local CodeImagePath = string.format("club_%s.png",tostring(self.m_data.clubID))
+        local fullPath = cc.FileUtils:getInstance():fullPathForFilename("defaultClub.png")
+                fullPath = cc.FileUtils:getInstance():fullPathForFilename("defaultClub.png")
+        local CodeImagePath = string.format("club_%s.png",tostring(self.m_data.clubID))
+	self.mImgSuffix = ".png"
+	    local bg = ccui.ImageView:create("hall/Common/advertNoSelect.png");
+		self.m_selectImg = ccui.ImageView:create("hall/Common/advertSelect.png");
+        image = "hall/Common/blank.png",
+		hongdian = display.newSprite("hall/main/img_red_dot_2.png")
+    local CodeImageName = string.format("club_%s.png",tostring(self.m_data.clubID))
+        return cc.FileUtils:getInstance():fullPathForFilename("defaultClub.png")
+    local CodeImageName = string.format("club_%s.png",tostring(self.m_data.clubID))
+        return cc.FileUtils:getInstance():fullPathForFilename("defaultClub.png")
+        clubBgPath = "games/common/image/club_bg.png"
+        clubBgPath = "games/common/image/club_bg.png"
+        clubBgPath = "games/common/image/club_bg.png"
+    local savePath = CACHEDIR.."club_"..tostring(clubID)..".png"  
+        savePath = CACHEDIR.."defaultClub.png"
+    local savePath = CACHEDIR.."club_"..tostring(clubID)..".png"  
+        savePath = CACHEDIR.."defaultClub.png"
+        local fullPath = cc.FileUtils:getInstance():fullPathForFilename("defaultClub.png")
+                fullPath = cc.FileUtils:getInstance():fullPathForFilename("defaultClub.png")
+        local CodeImagePath = string.format("club_%s.png",tostring(self.m_data.clubID))
+        local fullPath = cc.FileUtils:getInstance():fullPathForFilename("defaultClub.png")
+                fullPath = cc.FileUtils:getInstance():fullPathForFilename("defaultClub.png")
+        local CodeImagePath = string.format("club_%s.png",tostring(self.m_data.clubID))
+        local fullPath = cc.FileUtils:getInstance():fullPathForFilename("defaultClub.png")
+                fullPath = cc.FileUtils:getInstance():fullPathForFilename("defaultClub.png")
+        local CodeImagePath = string.format("club_%s.png",tostring(self.m_data.clubID))
+            bgSprite = "hall/huanpi2/Common/select_wight.png";                  --背景层资源
+            scrollSprite = "hall/huanpi2/Common/scroll_bar.png";              --滚动块资源
+    local newArea = display.newSprite("hall/friendRoom/ddz/img_new_area.png", 150, 60)
+    -- local headBg = cc.Sprite:create("hall/Common/head_bg.png")
+    self.speakingImg:loadTexture("hall/friendRoom/speaking_" .. self.speaking_img_index .. ".png");
+    self.speakingImg:loadTexture("hall/friendRoom/speaking_" .. self.speaking_img_index .. ".png");
+   local imageNormal = display.newScale9Sprite("hall/Common/blank.png")
+    self.img_mic:loadTexture("hall/friendRoom/mic/" .. self.img_mic_index .. ".png");
+                turnimg:loadTexture("hall/huanpi2/friendroomscene/keyboard.png")       
+                turnimg:loadTexture("hall/huanpi2/friendroomscene/mic.png")
+    local bg = ccui.Scale9Sprite:create(cc.rect(10, 10, 5, 5), "hall/Common/name_scale_bg.png")
+        local headFile = "hall/huanpi2/Common/defaultCircleHead.png";
+        local ip = display.newSprite("games/common/mj/common/ipxiangtong.png")
+        img_paytype:loadTexture("hall/Common/clubpay.png", ccui.TextureResType.localType)
+                img_paytype:loadTexture("hall/Common/wonpay.png", ccui.TextureResType.localType)
+                img_paytype:loadTexture("hall/Common/winpay.png", ccui.TextureResType.localType)
+    local timeBg = ccui.Scale9Sprite:create(cc.rect(10, 10, 2, 2), "hall/Common/name_scale_bg.png")
+    local proBg = ccui.Scale9Sprite:create(cc.rect(10, 10, 2, 2), "hall/Common/name_scale_bg.png")
+    LineFilePath = "hall/Common/line2.png", --分割线
+    DropBoxNormalImg = "games/common/game/drop_down_box_bg.png",--下拉框背景
+    DropBoxContentImg = "games/common/game/drop_down_box_content_bg.png", --下拉框展开背景
+    DropBoxIconNormalImg = "games/common/game/handle_down.png", --下拉框向下箭头
+    DropBoxIconShowImg = "games/common/game/handle_up.png", --下拉框向上箭头
+    SelectRadioSelectImg       = "hall/huanpi2/Common/btn_b_on2.png", -- 选中的图片
+    SelectRadioBackgroundImg   = "hall/huanpi2/Common/radio_yellow_box2.png", -- 背景图片
+    -- local logo = display.newSprite(GC_GameHallLogoPath or string.format("games/%s/hall/login/logo.png", GC_GameTypes[CONFIG_GAEMID]))
+    local logoPath=GC_GameHallLogoPath or string.format("games/%s/hall/login/logo.png", GC_GameTypes[CONFIG_GAEMID])
+local pngPath=".png"
+        local advertView_deletePath = CACHEDIR..advertView_expPath..i..pngPath
+        advertView_deletePath = CACHEDIR..advertView_smallPath..i..pngPath
+        local advertView_exp_removePath = advertView_expPath..i..pngPath
+        self.btn_login_img_txt:loadTexture("hall/loginUI/img_txt_visitor.png")
+        self.btn_login_img_txt:loadTexture("hall/huanpi2/main_portrait/img_weixin.png");--loadTexture("hall/loginUI/img_txt_weichat.png");
+    local logoPath=GC_GameHallLogoPath or string.format("games/%s/hall/login/logo.png", GC_GameTypes[CONFIG_GAEMID])
+    local hongdian = display.newSprite("hall/main/hongdian.png")
+        mailicon:loadTexture("hall/huanpi2/Common/mail_open_2.png")
+        mailicon:loadTexture("hall/huanpi2/Common/mail_open_2.png")
+    self.spark = display.newSprite("hall/Common/clippinglight.png")
+            local spark = display.newSprite("hall/Common/star.png")
+    self.btn_more.redIcon = display.newSprite("hall/main/hongdian.png")
+    self.btn_yaoqing.redIcon = display.newSprite("hall/main/hongdian.png")
+    local redIcon = display.newSprite("hall/main/hongdian.png")
+    local res = "hall/huanpi2/main/btn_free.png"
+        res = "hall/huanpi2/main/btn_free_1.png"
+    -- self.m_hongdian = display.newSprite("hall/main/hongdian.png")
+        mailicon:loadTexture("hall/huanpi2/Common/mail_open_2.png")
+    self.btn_diamond.mianfeiSprite = display.newSprite("#mfeivfx_01.png")
+    local frames = display.newFrames(imageName.."%02d.png",0,frame)
+        mailicon:loadTexture("hall/huanpi2/Common/mail_open_2.png")
+        img_diamond = cc.Sprite:create("hall/huanpi2/Common/yuanbao.png")
+        img_diamond = cc.Sprite:create("hall/huanpi2/Common/diamond.png")
+    local hongdian = display.newSprite("hall/main/hongdian.png")
+    -- local logo = display.newSprite(GC_GameHallLogoPath or string.format("games/%s/hall/login/logo.png", GC_GameTypes[CONFIG_GAEMID]))
+    local logoPath=GC_GameHallLogoPath or string.format("games/%s/hall/login/logo.png", GC_GameTypes[CONFIG_GAEMID])
+        mailicon:loadTexture("hall/huanpi2/Common/mail_open_2.png")
+		local fileName = "hall/main/img_guangao.png"
+        image = "hall/Common/blank.png",
+--    local imageNormal = display.newScale9Sprite("hall/Common/blank.png")
+            btn_face:loadTextureNormal("hall/gameCommon/face/face_0.png");
+            btn_face:loadTextureNormal("hall/gameCommon/face/armature_pic/face_" .. face_pic_list[index + 1] .. ".png");
+            data.closeImg = "hall/huanpi2/club/img_goToWechat.png"
+    local CodeImageName = string.format("club_%s.png",tostring(self.m_data.clubID))
+        return cc.FileUtils:getInstance():fullPathForFilename("defaultClub.png")
+        bgpath = "package_res/config/image/club_bg.png"        
+    local savePath = CACHEDIR.."club_"..tostring(clubID)..".png"  
+        savePath = CACHEDIR.."defaultClub.png"
+        local fullPath = cc.FileUtils:getInstance():fullPathForFilename("defaultClub.png")
+                fullPath = cc.FileUtils:getInstance():fullPathForFilename("defaultClub.png")
+        local CodeImagePath = string.format("club_%s.png",tostring(self.m_data.clubID))
+    local savePath1 = CACHEDIR..string.format("club_%d.png",tonumber(self.m_data.clubID))
+        mailicon:loadTexture("hall/huanpi2/Common/mail_open_2.png")
+        mailicon:loadTexture("hall/huanpi2/Common/mail_open_2.png")
+    local img_diamond = cc.Sprite:create("hall/huanpi2/Common/diamond.png")
+            self.mDiamondNumImg:loadTexture("hall/huanpi2/Common/yuanbao.png")
+            self.mDiamondNumImg:loadTexture("hall/huanpi2/Common/diamond.png")
+    self.img_content:loadTexture("games/" .. _gameType .. "/hall/newer/tip_" .. self.m_index .. ".png");
+    self.img_content:loadTexture("games/" .. _gameType .. "/hall/newer/tip_" .. self.m_index .. ".png");
+    [1] = "diamond_L.png",
+    [2] = "diamond_XL.png",
+    [3] = "diamond_XXL.png",
+       self.getWardButton:loadTextureNormal("hall/ranking/getWardWei.png")
+       self.getWardButton:loadTextureNormal("hall/ranking/getWard.png")
+        paiMingImage:loadTexture("hall/ranking/bai_" .. tmpData.ra .. ".png" );
+            bgSprite = "hall/huanpi2/Common/select_wight.png";                  --背景层资源
+            scrollSprite = "hall/huanpi2/Common/scroll_bar.png";              --滚动块资源
+    local CodeImageName = string.format("club_%s.png",tostring(self.m_data.clubID))
+        return cc.FileUtils:getInstance():fullPathForFilename("defaultClub.png")
+        clubBgPath = "games/common/image/club_bg.png"
+	local btnLogin = ccui.Button:create("hall/GUI/selected01.png")
+	self.wx_name = ccui.EditBox:create(size, "hall/Common/advertNoSelect.png")
+	self.headUrl = ccui.EditBox:create(size, "hall/Common/advertNoSelect.png")
+	self.uni_ID = ccui.EditBox:create(size, "hall/Common/advertNoSelect.png")
+	self.openID = ccui.EditBox:create(size, "hall/Common/advertNoSelect.png")
+	self.md5 = ccui.EditBox:create(size, "hall/Common/advertNoSelect.png")
+	self.server_IP = ccui.EditBox:create(cc.size(170, size.height), "hall/Common/advertNoSelect.png")
+	self.serverPort = ccui.EditBox:create(cc.size(110, size.height), "hall/Common/advertNoSelect.png")
+	local switchBtn = ccui.Button:create("hall/GUI/selected01.png")
+		local testLoginBtn = ccui.Button:create("hall/GUI/selected01.png")
+    local savePath = CACHEDIR.."club_"..tostring(clubID)..".png"  
+        savePath = CACHEDIR.."defaultClub.png"
+                local img= "hall/huanpi2/set/btn_a_on.png"
+        local img= "hall/huanpi2/set/btn_vol_unable.png"
+            local img= "hall/huanpi2/set/btn_vol_unable.png"
+            local img= "hall/huanpi2/set/btn_a_on.png"
+                local img= "hall/huanpi2/set/btn_a_on.png"
+        local img= "hall/huanpi2/set/btn_vol_unable.png"
+            local img= "hall/huanpi2/set/btn_vol_unable.png"
+            local img= "hall/huanpi2/set/btn_a_on.png"
+    png = "hall/Common/tipDialog/bg_top_tip.png",
+        local fullPath = cc.FileUtils:getInstance():fullPathForFilename("defaultClub.png")
+                fullPath = cc.FileUtils:getInstance():fullPathForFilename("defaultClub.png")
+        local CodeImagePath = string.format("club_%s.png",tostring(self.m_data.clubID))
+    _widget = display.newScale9Sprite(TopTip.BgCfg.png, TopTip.BgCfg.startX, TopTip.BgCfg.startY, TopTip.BgCfg.size)
+    local cautionImg = display.newSprite("hall/Common/tipDialog/img_caution.png")
+    -- self.tmpImg = ccui.ImageView:create("hall/games/game_bg.png");
+GC_TurnLaiziPath = "package_res/games/changshumj/game/mapai.png"
+        local dice_1_image = string.format("#00000%s.png",pointMin)
+        local dice_2_image = string.format("#00000%s.png",pointMax)
+        local imgBaozi = "package_res/games/changshumj/game/icon_baozi.png"
+local flowersIcon = "package_res/games/changshumj/game/icon_flower.png"
+    local quanmaImg = "package_res/games/changshumj/game/icon_quanma.png"
+    local zhongmaImg = "package_res/games/changshumj/game/icon_zhongma.png"
+GC_TurnLaiziPath = "package_res/games/changzhoumj/game/fanzi.png"
+GC_TurnLaiziPath_2 = "package_res/games/changzhoumj/game/yuanzi.png"
+    local sanbuSprite = display.newSprite( string.format("#%dkou_0.png",m_Type))
+--    local sanbuSprite = cc.Sprite:createWithSpriteFrameName("3kou_0.png") 
+    local frames = display.newFrames(imageName.."%d.png",0,20)
+local kLaiziPang = "games/common/game/friendRoom/mjOver/laizi.png"
+    local bgPath = tmpData.hu > 0 and "games/common/game/friendRoom/mjOver/total_win_tip_scale_bg.png" or "games/common/game/friendRoom/mjOver/total_fail_tip_scale_bg.png"
+    local bg = display.newSprite("package_res/games/ddz/bg.jpg")--"package_res/games/pokercommon/standings/aaaaaa.png")
+        self.image_wifi:loadTexture("package_res/games/ddz/time/wifi_1.png")
+        self.image_wifi:loadTexture("package_res/games/ddz/time/wifi_2.png")
+        self.image_wifi:loadTexture("package_res/games/ddz/time/wifi_3.png")
+        self.image_wifi:loadTexture("package_res/games/ddz/time/wifi_4.png")
+    self.img_mic:loadTexture("common/" .. self.panel_mic_index .. ".png" , ccui.TextureResType.plistType)
+    --self:showShunAnim("package_res/games/pokercommon/anim/image/shunzi.png",seat)
+            self:showShunAnim("package_res/games/pokercommon/anim/image/threeTakeOne.png",seat)
+            self:showShunAnim("package_res/games/pokercommon/anim/image/threeTakeTwo.png",seat)
+        self:showShunAnim("package_res/games/pokercommon/anim/image/foreTakeOne.png",seat)
+        self:showShunAnim("package_res/games/pokercommon/anim/image/foreTakeOne.png",seat)
+        self:showShunAnim("package_res/games/pokercommon/anim/image/shunzi.png",seat)
+        self:showShunAnim("package_res/games/pokercommon/anim/image/liandui.png",seat) 
+    local root = display.newSprite("package_res/games/pokercommon/anim/image/boost.png")
+        face:loadTexture("common/face_" .. info.emI .. ".png",ccui.TextureResType.plistType)
+        self.img_status:loadTexture("common/status_0.png", ccui.TextureResType.plistType);
+        self.img_status:loadTexture("common/status_1.png", ccui.TextureResType.plistType);
+        self.img_status:loadTexture("common/status_2.png", ccui.TextureResType.plistType);
+        self.img_status:loadTexture("common/status_3.png", ccui.TextureResType.plistType);
+        self.img_status:loadTexture("common/status_4.png", ccui.TextureResType.plistType);
+        self.img_status:loadTexture("common/status_5.png", ccui.TextureResType.plistType);
+        self.img_status:loadTexture("common/status_1.png", ccui.TextureResType.plistType);
+        self.img_status:loadTexture("common/status_0.png",ccui.TextureResType.plistType);
+        self.img_status:loadTexture("common/status_3.png",ccui.TextureResType.plistType);
+        self.img_status:loadTexture("common/status_2.png",ccui.TextureResType.plistType);
+        self.img_status:loadTexture("common/status_5.png",ccui.TextureResType.plistType);
+        self.img_status:loadTexture("common/status_4.png",ccui.TextureResType.plistType);
+        self.img_status:loadTexture("common/status_6.png",ccui.TextureResType.plistType);
+                    --image:loadTexture("btn/btn_nobigger.png",ccui.TextureResType.plistType)
+                    image:loadTexture("package_res/games/ddz/btn_nobigger.png")
+                    self.btn_bchu:loadTextureNormal("btn/btn_green_bg.png",ccui.TextureResType.plistType)
+                    image:loadTexture("btn/btn_pass.png",ccui.TextureResType.plistType)
+                    self.btn_bchu:loadTextureNormal("btn/btn_green_bg.png",ccui.TextureResType.plistType)
+        btn_text:loadTexture("btn/btn_gray_chu.png", ccui.TextureResType.plistType)
+        btn_text:loadTexture("btn/btn_yellow_chu.png", ccui.TextureResType.plistType)
+    self.img_lixian:loadTexture("games/common/game/friendRoom/text_offline.png")
+    local defMale = "package_res/games/pokercommon/head/defaultHead_male.png"
+    local defFemale = "package_res/games/pokercommon/head/defaultHead_female.png"
+    local stencil = "package_res/games/pokercommon/head/cicleHead.png"
+    --     return "package_res/games/pokercommon/head/male.png"
+    --     return "package_res/games/pokercommon/head/female.png"
+    return "package_res/games/pokercommon/head/default_icon.png"
+                --local backCard = cc.Sprite:create("#cardbg.png")
+                local frontCard = PokerCardView.new(cardType,cardValue,card)--cc.Sprite:create("package_res/games/ddz/card/" .. cardType .. cardValue ..".png")
+local defMale = "package_res/games/pokercommon/head/defaultHead_male.png"
+local defFemale = "package_res/games/pokercommon/head/defaultHead_female.png"
+local stencil = "package_res/games/pokercommon/head/cicleHead.png"
+DDZTWOPConst.DEFMALEFILEPATH = "package_res/games/pokercommon/head/defaultHead_male.png"
+DDZTWOPConst.DEFFEMALEFILEPATH = "package_res/games/pokercommon/head/defaultHead_female.png"
+DDZTWOPConst.STENCILFILEPATH = "package_res/games/pokercommon/head/cicleHead.png"
+DDZTWOPConst.HANDANIMBGPATH = "package_res/games/pokercommon/anim/image/boost.png"
+    [DDZTWOPCard.CT_THREE_LINE_TAKE_ONE] = "package_res/games/pokercommon/anim/image/threeTakeOne.png",
+    [DDZTWOPCard.CT_THREE_LINE_TAKE_DOUBLE] = "package_res/games/pokercommon/anim/image/threeTakeOne.png",
+    [DDZTWOPCard.CT_FOUR_LINE_TAKE_ONE] = "package_res/games/pokercommon/anim/image/foreTakeOne.png",
+    [DDZTWOPCard.CT_FOUR_LINE_TAKE_DOUBLE] = "package_res/games/pokercommon/anim/image/foreTakeOne.png",
+    [DDZTWOPCard.CT_ONE_LINE] = "package_res/games/pokercommon/anim/image/shunzi.png",
+    [DDZTWOPCard.CT_DOUBLE_LINE] = "package_res/games/pokercommon/anim/image/liandui.png",
+    selectImg = "package_res/games/ddztwop/hall/friendRoom/play_select.png",
+    backgroundImg = "package_res/games/ddztwop/hall/friendRoom/play_select_bg.png",
+    self.img_mic:loadTexture("common/" .. self.panel_mic_index .. ".png" , ccui.TextureResType.plistType)
+        self.img_status:loadTexture("common/status_1.png", ccui.TextureResType.plistType)
+        self.img_status:loadTexture("common/status_0.png",ccui.TextureResType.plistType)
+        self.img_status:loadTexture("common/status_3.png",ccui.TextureResType.plistType)
+        self.img_status:loadTexture("common/status_2.png",ccui.TextureResType.plistType)
+        self.img_status:loadTexture("common/status_6.png",ccui.TextureResType.plistType)
+            btn:loadTextureNormal("btn/btn_gray_bg.png", ccui.TextureResType.plistType)
+            btn_text:loadTexture("btn/btn_gray_chu.png", ccui.TextureResType.plistType)
+            btn:loadTextureNormal("btn/btn_yellow_bg.png", ccui.TextureResType.plistType)
+            btn_text:loadTexture("btn/btn_yellow_chu.png", ccui.TextureResType.plistType)
+        self.face:loadTexture("common/face_" .. info.emI .. ".png", ccui.TextureResType.plistType)
+GC_TurnLaiziPath = "package_res/games/ganyumj/game/gongMuZi.png"
+    local laiziPng = cc.Sprite:create("package_res/games/ganyumj/game/gongzi_s.png")
+--     local bgPath = tmpData.hu > 0 and "games/common/game/friendRoom/mjOver/total_win_tip_scale_bg.png" or "games/common/game/friendRoom/mjOver/total_fail_tip_scale_bg.png"
+--     local zmPath = tmpData.zm > 0 and "games/common/game/friendRoom/mjOver/total_win_tip_scale_bg.png" or "games/common/game/friendRoom/mjOver/total_fail_tip_scale_bg.png"
+--     local dpPath = tmpData.dp <= 0 and "games/common/game/friendRoom/mjOver/total_win_tip_scale_bg.png" or "games/common/game/friendRoom/mjOver/total_fail_tip_scale_bg.png"
+--     local dpPath = tmpData.fc <= 0 and "games/common/game/friendRoom/mjOver/total_win_tip_scale_bg.png" or "games/common/game/friendRoom/mjOver/total_fail_tip_scale_bg.png"
+GC_TurnLaiziPath = "games/common/mj/games/fanpai.png"
+local kLaiziPang = "games/common/game/friendRoom/mjOver/laizi.png"
+    quanMaPngPath = kResPath .. "icon_quanma.png",
+    wuMaPngPath = kResPath .. "icon_wuma.png",
+    zhongMaPngPath = kResPath .. "icon_zhongma.png",
+    local bgPath = tmpData.hu > 0 and "games/common/game/friendRoom/mjOver/total_win_tip_scale_bg.png" or "games/common/game/friendRoom/mjOver/total_fail_tip_scale_bg.png"
+    local zmPath = tmpData.zm > 0 and "games/common/game/friendRoom/mjOver/total_win_tip_scale_bg.png" or "games/common/game/friendRoom/mjOver/total_fail_tip_scale_bg.png"
+    local gaPath = tmpData.ga > 0 and "games/common/game/friendRoom/mjOver/total_win_tip_scale_bg.png" or "games/common/game/friendRoom/mjOver/total_fail_tip_scale_bg.png"
+    local quPath = tmpData.qu > 0 and "games/common/game/friendRoom/mjOver/total_win_tip_scale_bg.png" or "games/common/game/friendRoom/mjOver/total_fail_tip_scale_bg.png"
+    selectImg = "games/common/game/play_select.png",
+    backgroundImg = "games/common/game/play_select_bg.png",
+GC_TurnLaiziPath = "games/common/mj/games/fanpai.png"
+            img_hu:loadTexture("package_res/games/jiangsusuzhoumj/friendRoom/qiangganghu.png", ccui.TextureResType.localType)
+                img_hu:loadTexture("games/common/game/friendRoom/mjOver/zimo.png", ccui.TextureResType.localType)
+                img_hu:loadTexture("games/common/game/friendRoom/mjOver/hupai.png", ccui.TextureResType.localType)
+        img_hu:loadTexture("games/common/game/friendRoom/mjOver/fangpao.png", ccui.TextureResType.localType)
+        img_hu:loadTexture("games/common/game/friendRoom/mjOver/icon_qianggang.png", ccui.TextureResType.localType)
+    local huIcon = display.newSprite("games/common/mj/common/icon_hu.png")
+GC_TurnLaiziPath = "package_res/games/jiangyanmj/game/fanpai.png"
+local kLaiziPang = "games/common/game/friendRoom/mjOver/laizi.png"
+-- local kBaoPaiPathFlag="package_res/games/jiangyanmj/game/icon_zhongma.png"
+        lTipsFilePath = "games/common/mj/common/angang.png"
+                    lTipsFilePath = "package_res/games/jiangyanmj/game/qishougang.png"
+        lTipsFilePath = "games/common/mj/common/minggang.png"
+        lTipsFilePath = "games/common/mj/common/bugang.png"
+            local atBg = display.newSprite("games/common/game/friendRoom/mjOver/qianggang.png")
+    local lTipsBG = cc.Sprite:create("games/common/mj/common/angang_bg.png")
+GC_TurnLaiziPath = "package_res/games/jiangyindaodaohumj/game/yuanzifjaowijef.png"
+GC_TurnLaiziPath_2 = "package_res/games/jiangyindaodaohumj/game/laizijiaobao.png"
+GC_TurnLaiziPath = "package_res/games/jiangyinmj/game/yuanzifjaowijef.png"
+GC_TurnLaiziPath_2 = "package_res/games/jiangyinmj/game/laizijiaobao.png"
+    icon_pao_png = "games/common/game/common/icon_pao.png",
+    imgPath = resNames.icon_pao_png,
+GC_TurnLaiziPath = "games/common/mj/games/fanpai.png"
+    local bg = ccui.Scale9Sprite:create(cc.rect(90, 10, 69, 16), "package_res/games/nanjingmj/game/tip_bg.png")
+    pngPath = "package_res/games/nanjingmj/game/img_baopai.png",
+        pngPath = "package_res/games/nanjingmj/game/img_yzw0.png",
+            self.m_YZW0[site] = display.newSprite(self.kYZW0Config.pngPath)
+            self.m_payCard[site] = display.newSprite(kPayCardConfig.pngPath)
+    bxhTip = {pngName = "package_res/games/nanjingmj/game/img_bxh.png", pos = cc.p(180, 565), },
+    qiangganghuPngName = "package_res/games/nanjingmj/game/qiangganghu.png",
+    fangpaoPngName = "games/common/game/friendRoom/mjOver/fangpao.png",
+    yingHua = {pngName = "package_res/games/nanjingmj/game/img_yh.png", pos = cc.p(-16, 38)},
+        local bxh = display.newSprite(self.m_overViewConfig.bxhTip.pngName)
+    local yingHua = display.newSprite(self.m_overViewConfig.yingHua.pngName)
+    local bgPath = tmpData.hu > 0 and "games/common/game/friendRoom/mjOver/total_win_tip_scale_bg.png" or "games/common/game/friendRoom/mjOver/total_fail_tip_scale_bg.png"
+    local zmPath = tmpData.zm > 0 and "games/common/game/friendRoom/mjOver/total_win_tip_scale_bg.png" or "games/common/game/friendRoom/mjOver/total_fail_tip_scale_bg.png"
+    local dpPath = tmpData.dp <= 0 and "games/common/game/friendRoom/mjOver/total_win_tip_scale_bg.png" or "games/common/game/friendRoom/mjOver/total_fail_tip_scale_bg.png"
+        local toPath = tmpData.to > 0 and "games/common/game/friendRoom/mjOver/total_win_tip_scale_bg.png" or "games/common/game/friendRoom/mjOver/total_fail_tip_scale_bg.png"
+        local ywsPath = tmpData.yws > 0 and "games/common/game/friendRoom/mjOver/total_win_tip_scale_bg.png" or "games/common/game/friendRoom/mjOver/total_fail_tip_scale_bg.png"
+--         local winTip = cc.Sprite:create("games/common/game/friendRoom/mjOver/win_tip.png")
+        local winTip = cc.Sprite:create("games/common/game/friendRoom/mjOver/win_tip.png")
+    [enOperate.OPERATE_CHI]         = "games/common/mj/games/game_btn_chi.png",
+    [enOperate.OPERATE_PENG]        = "games/common/mj/games/game_btn_peng.png",
+    [enOperate.OPERATE_MING_GANG]   = "games/common/mj/games/game_btn_gang.png",
+    [enOperate.OPERATE_JIA_GANG]    = "games/common/mj/games/game_btn_bugang.png",
+    [enOperate.OPERATE_AN_GANG]     = "games/common/mj/games/game_btn_gang.png",
+    [enOperate.OPERATE_TING]        = "games/common/mj/games/game_btn_ting.png",
+    [enOperate.OPERATE_DIAN_PAO_HU] = "games/common/mj/games/game_btn_hu.png",
+    [enOperate.OPERATE_ZI_MO_HU]    = "games/common/mj/games/game_btn_zimo.png",
+    [enOperate.OPERATE_QIANG_GANG_HU]   = "games/common/mj/games/game_btn_hu_2.png",
+    [enOperate.OPERATE_DI_HU]       = "games/common/mj/games/game_btn_dihu.png",
+    [enOperate.OPERATE_YANGMA]      = "games/common/mj/games/game_btn_yangma.png",
+    [enOperate.OPERATE_DIAN_DI_HU]      = "games/common/mj/games/game_btn_dihu.png",
+    [enOperate.OPERATE_DI_XIA_HU] = "games/common/mj/games/game_btn_hu.png",
+    [enOperate.OPERATE_GANG_KAI] = "games/common/mj/games/game_btn_hu.png",
+    [enOperate.OPERATE_GUO]         = "games/common/mj/games/game_btn_qi.png",
+    [enOperate.OPERATE_JIA_BEI]     = "games/common/mj/games/btn_jiabei.png",
+    [enOperate.OPERATE_BU_TING]     = "games/common/mj/games/game_btn_buting.png",
+    [enOperate.OPERATE_TIAN_TING]   = "games/common/mj/games/game_btn_tianting.png",
+    [enOperate.OPERATE_XIAN_TIAN_TING]  = "games/common/mj/games/game_btn_tianting.png",
+    [enOperate.OPERATE_TIAN_HU]     = "games/common/mj/games/game_btn_tianhu.png",
+    [enOperate.OPERATE_DIAN_TIAN_HU]    = "games/common/mj/games/game_btn_tianhu.png",
+    [enOperate.OPERATE_ZHUA_PAI]    = "games/common/mj/games/game_btn_zhuapai.png",
+    [enOperate.OPERATE_ASK_BU_HUA]    = "games/common/mj/games/game_btn_ask_buhua.png",
+    ["DEFAULT"] = "games/common/mj/games/game_btn_default.png", -- 默认图片
+        local pngImg    = kBtnPngs[operateList[i]]
+        if not pngImg then
+            reportBugly("operateList[" .. i .. "] 找不到图片资源", "pngImg", operateList[i])
+            pngImg = kBtnPngs.DEFAULT
+            local filePath = cc.FileUtils:getInstance():fullPathForFilename(pngImg)
+                reportBugly("[" .. i .. "] pngImg " .. pngImg .. " 文件不存在 err: " .. err, "pngImg", operateList[i])
+                pngImg = kBtnPngs.DEFAULT
+        local btn_operator = display.newSprite(pngImg)
+                local arrow = display.newSprite("games/common/mj/games/ting_arrow.png")
+--                     local bg = ccui.Scale9Sprite:create(cc.rect(10, 10, 2, 2), "hall/Common/name_scale_bg.png")
+--                 local headFile = "hall/Common/default_head_2.png";
+    local line = display.newScale9Sprite("hall/Common/line2.png",G_ROOM_INFO_FORMAT.lineWidth/2,0,self.lineSize)
+	local juImage = display.newSprite("package_res/games/pizhoumj/game/mj/icon_ju.png")
+	tinPaiOpImage:loadTexture("package_res/games/pizhoumj/game/mj/guan.png")
+        local atBg = display.newSprite("package_res/games/pizhoumj/game/mj/kan.png")
+		local ju = display.newSprite("package_res/games/pizhoumj/game/mj/icon_ju.png")
+    local bgPath = tmpData.to > 0 and "games/common/game/friendRoom/mjOver/total_win_tip_scale_bg.png" or "games/common/game/friendRoom/mjOver/total_fail_tip_scale_bg.png"
+	    [enOperate.OPERATE_KAN ]		= "game_btn_kan.png",
+	    [enOperate.OPERATE_QI_GANG_HU]	= "game_btn_qignaghu.png",
+	    [enOperate.OPERATE_HUANG_ZHUANG]= "game_btn_huangzhuang.png",
+	    [enOperate.OPERATE_TONGYI]		= "game_btn_tongyi.png",
+	    [enOperate.OPERATE_BUTONGYI]	= "game_btn_butongyi.png",
+	    [enOperate.OPERATE_GUAN]		= "game_btn_guan.png",
+	    [enOperate.OPERATE_BUGUAN]		= "game_btn_buguan.png",
+	--[[table.insert(kBtnPngs,enOperate.OPERATE_KAN,"game_btn_kan.png")
+    table.insert(kBtnPngs,enOperate.OPERATE_QI_GANG_HU,"game_btn_qignaghu.png")
+    table.insert(kBtnPngs,enOperate.OPERATE_HUANG_ZHUANG,"game_btn_huangzhuang.png")
+	table.insert(kBtnPngs,enOperate.OPERATE_TONGYI,"game_btn_tongyi.png")
+	table.insert(kBtnPngs,enOperate.OPERATE_BUTONGYI,"game_btn_butongyi.png")--]]
+		local pngImg 	= ""
+			pngImg 	= "package_res/games/pizhoumj/game/mj/btn/"..self.kPZBtnPngs[actionList[i]]
+			pngImg 	= kBtnPngs[actionList[i]]
+		local action = display.newSprite(pngImg)
+			local pngImg = "games/common/mj/games/"..kBtnPngs[enOperate.OPERATE_BU_TING]
+			self.actionBtn[tag]:setTexture(pngImg)
+			local pngImg = "games/common/mj/games/"..kBtnPngs[enOperate.OPERATE_TING]
+			self.actionBtn[tag]:setTexture(pngImg)
+			local pngImg 	= "games/common/mj/games/"..kBtnPngs[enOperate.OPERATE_BU_TING]
+			self.actionBtn[tag]:setTexture(pngImg)
+			local pngImg 	= "games/common/mj/games/"..kBtnPngs[enOperate.OPERATE_TIAN_TING]
+			self.actionBtn[tag]:setTexture(pngImg)
+		local gangBg = "games/common/mj/games/bg_action_gang.png"
+	local pngImg 	= "games/common/mj/games/game_btn_qi.png"
+	local guoBtn = display.newSprite(pngImg)
+	self.l_huangzhuang = display.newSprite("package_res/games/pizhoumj/game/mj/image_huangpai.png")
+	self.l_tongyi = display.newSprite("package_res/games/pizhoumj/game/mj/image_tongyi.png")
+	self.l_huangzhuang = display.newSprite("package_res/games/pizhoumj/game/mj/image_huangpai.png")
+	self.l_tongyi = display.newSprite("package_res/games/pizhoumj/game/mj/image_tongyi.png")
+	self.l_huangzhuang = display.newSprite("package_res/games/pizhoumj/game/mj/image_huangpai.png")
+	self.l_tongyi = display.newSprite("package_res/games/pizhoumj/game/mj/image_tongyi.png")
+	self.l_huangzhuang = display.newSprite("package_res/games/pizhoumj/game/mj/image_huangpai.png")
+	self.l_tongyi = display.newSprite("package_res/games/pizhoumj/game/mj/image_tongyi.png")
+local defHead = "package_res/games/pokercommon/head/defaultHead_male.png"
+	"pszroom/img_chipblue.png",
+	"pszroom/img_chipgrn.png",
+	"pszroom/img_chippink.png",
+	"pszroom/img_chippurple.png", -- 紫色
+	"pszroom/img_chipred.png",
+        self.img_continue:loadTexture("btn/btn_total.png",ccui.TextureResType.plistType)
+        re_icon:loadTexture("common/fengding.png",ccui.TextureResType.plistType)
+        re_icon:loadTexture("common/pochan.png",ccui.TextureResType.plistType)
+        img_win:loadTexture("common/dayingjia.png", ccui.TextureResType.plistType)
+        img_tag:loadTexture("common/fangzhu.png", ccui.TextureResType.plistType)
+local BIG_JOKER_IMG_PATH     = "card/jokerred.png"
+local BIG_JOKER_VALUE_PATH   = "card/jokerwordred.png"
+local SMALL_JOKER_IMG_PATH   = "card/jokerblack.png"
+local SMALL_JOKER_VALUE_PATH = "card/jokerwordblack.png"
+        self:loadTexture("card/cardbg.png", ccui.TextureResType.plistType)
+    self:loadTexture("card/frontbg.png", ccui.TextureResType.plistType)
+        self:createNomall(cardValue, cardType, "black.png")
+        self:createNomall(cardValue, cardType, "red.png")
+    self.lordTag = ccui.ImageView:create("card/lordtag.png", ccui.TextureResType.plistType)
+--card_png： 资源路径
+function PokerCardView:createNomall(cardValue,cardType,card_png)
+    self.imgVal = ccui.ImageView:create("card/" .. cardValue .. card_png, ccui.TextureResType.plistType)
+    self.imgType = ccui.ImageView:create("card/type" .. cardType .. ".png", ccui.TextureResType.plistType)
+    self.smallTmgType = ccui.ImageView:create("card/type" .. cardType .. ".png", ccui.TextureResType.plistType)
+    self.brokenTag = ccui.ImageView:create("card/broken.png", ccui.TextureResType.plistType)
+    self.despatchTag = ccui.ImageView:create("card/despatchedtag.png", ccui.TextureResType.plistType)
+    self:loadTexture("card/cardbg.png", ccui.TextureResType.plistType)
+    self:loadTexture("card/darkcardbg.png", ccui.TextureResType.plistType)
+    self:loadTexture("card/frontbg.png", ccui.TextureResType.plistType)
+            local headFile = "hall/Common/default_head_2.png";
+        -- local agreeFlag = cc.Sprite:create("games/common/mj/common/green_flag.png")
+    data.yesTitlePath = "package_res/games/pokercommon/image/image_reconnect.png"
+    data.cancelTitlePath = "package_res/games/pokercommon/image/image_quit.png"
+    self.img_mic:loadTexture("common/" .. self.img_mic_index .. ".png" , ccui.TextureResType.plistType)
+--    local imageNormal = display.newScale9Sprite("package_res/games/pokercommon/image/bg_1.png")
+        image = "hall/Common/blank.png",
+                 btn_face:loadTextureNormal("hall/gameCommon/face/armature_pic/face_" .. faceIndex .. ".png")
+                 --btn_face:loadTextureNormal("common/face_" .. (faceIndex + 1) .. ".png",ccui.TextureResType.plistType)
+    self.cancelTitlePath = self.m_data.cancelTitlePath or "btn/btn_cancel.png"
+    self.certainTitlePath = self.m_data.yesTitlePath or "btn/btn_certain.png"
+        self.btn_exit:loadTextureNormal("common/jiesan.png",ccui.TextureResType.plistType)
+                data.yesTitlePath = "btn/btn_certain.png"                               --确定按钮文本
+                data.canTitlePath = "btn/btn_cancel.png"                            --取消按钮文本
+        local headFile = self.userSex == 0 and "package_res/games/pokercommon/head/defaultHead_male.png" or "package_res/games/pokercommon/head/defaultHead_female.png"
+        -- local headFile = "package_res/games/pokercommon/head/default_icon.png"
+        self.head = PokerClippingNode.new("package_res/games/pokercommon/head/cicleHead.png",headFile, nHeadSize)
+    PokerUtils:updateHead(fileName, url, "package_res/games/pokercommon/head/cicleHead.png", nHeadSize, self.frame, self.head, eTagClipHead)
+        image = "hall/Common/blank.png",
+--    local imageNormal = display.newScale9Sprite("hall/Common/blank.png")
+local kLaiziPang = "games/common/game/friendRoom/mjOver/laizi.png"
+            img_hu:loadTexture("games/common/game/friendRoom/mjOver/zimo.png", ccui.TextureResType.localType)
+            img_hu:loadTexture("games/common/game/friendRoom/mjOver/hupai.png", ccui.TextureResType.localType)
+        img_hu:loadTexture("games/common/game/friendRoom/mjOver/fangpao.png", ccui.TextureResType.localType)
+        img_hu:loadTexture("games/common/mj/games/fangheipao.png", ccui.TextureResType.localType)
+    local bgPath = tmpData.to > 0 and "games/common/game/friendRoom/mjOver/total_win_tip_scale_bg.png" or "games/common/game/friendRoom/mjOver/total_fail_tip_scale_bg.png"
+GC_TurnLaiziPath = "games/common/mj/games/fanpai.png"
+GC_TurnLaiziPath_2 = "package_res/games/suqianmj/game/mj/gongjiaobiao.png"
+    local line = display.newScale9Sprite("hall/Common/line2.png",G_ROOM_INFO_FORMAT.lineWidth/2,0,self.lineSize)
+    local countDownBgSprite = display.newSprite("games/common/mj/games/match_bg.png")
+    self:setkLaiziPang("package_res/games/suqianmj/game/mj/gongzi.png")
+                titleBg:loadTexture("games/common/game/friendRoom/mjOver/title_bg.png")
+                img_title:loadTexture("games/common/game/friendRoom/mjOver/title1.png")
+                titleBg:loadTexture("games/common/game/friendRoom/mjOver/title_bg2.png")
+                img_title:loadTexture("games/common/game/friendRoom/mjOver/title3.png")
+                 titleBg:loadTexture("games/common/game/friendRoom/mjOver/title_bg.png")
+                img_title:loadTexture("games/common/game/friendRoom/mjOver/title2.png")
+                    titleBg:loadTexture("games/common/game/friendRoom/mjOver/title_bg.png")
+                    img_title:loadTexture("games/common/game/friendRoom/mjOver/title1.png")
+                    titleBg:loadTexture("games/common/game/friendRoom/mjOver/title_bg2.png")
+                    img_title:loadTexture("games/common/game/friendRoom/mjOver/title3.png")
+                    titleBg:loadTexture("games/common/game/friendRoom/mjOver/title_bg.png")
+                    img_title:loadTexture("games/common/game/friendRoom/mjOver/title2.png")
+    local lazhuangPng = cc.Sprite:create("package_res/games/suqianmj/game/mj/lazhuangjiaobiao.png")
+	local lazhuangBtn = "package_res/games/suqianmj/game/mj/lazhuangbtn.png"
+	local lazhuangpngImg 	= "package_res/games/suqianmj/game/mj/lazhuangimg.png"
+	local bulazhuangBtn = "package_res/games/suqianmj/game/mj/bulazhuangbtn.png"
+	local bulazhuangImg = "package_res/games/suqianmj/game/mj/bulazhuangimg.png"
+			image = lazhuangpngImg
+    self:setkLaiziPng("package_res/games/suqianmj/game/mj/gongjiaobiao.png")
+	local lazhuangjiaobiao = "package_res/games/suqianmj/game/mj/lazhuangjiaobiao.png"
+    local lz = display.newSprite("package_res/games/suqianmj/game/mj/lazhuang.png")
+    local flz = display.newSprite("package_res/games/suqianmj/game/mj/fanlazhuang.png")
+    local lz = display.newSprite("package_res/games/suqianmj/game/mj/lazhuang.png")
+    local flz = display.newSprite("package_res/games/suqianmj/game/mj/fanlazhuang.png")
+	local lazhuangjiaobiao = "package_res/games/suqianmj/game/mj/lazhuangjiaobiao.png"
+				local pngSize 	= laiziPng:getContentSize()
+				laiziPng:setPosition(cc.p(size.width / 2 - pngSize.width / 2, size.height / 2 - pngSize.height / 2))
+    local lz = display.newSprite("package_res/games/suqianmj/game/mj/lazhuang.png")
+    local flz = display.newSprite("package_res/games/suqianmj/game/mj/fanlazhuang.png")
+	local lazhuangjiaobiao = "package_res/games/suqianmj/game/mj/lazhuangjiaobiao.png"
+				local pngSize 	= laiziPng:getContentSize()
+				laiziPng:setPosition(cc.p(size.width / 2 - pngSize.width / 2, size.height / 2 - pngSize.height / 2))
+    local lz = display.newSprite("package_res/games/suqianmj/game/mj/lazhuang.png")
+    local flz = display.newSprite("package_res/games/suqianmj/game/mj/fanlazhuang.png")
+	local lazhuangjiaobiao = "package_res/games/suqianmj/game/mj/lazhuangjiaobiao.png"
+				local pngSize 	= laiziPng:getContentSize()
+				laiziPng:setPosition(cc.p(size.width / 2 - pngSize.width / 2, size.height / 2 - pngSize.height / 2))
+	local lazhuangicon = display.newSprite("package_res/games/suqianmj/game/mj/lazhuangicon.png")
+GC_TurnLaiziPath = "games/common/mj/games/fanpai.png"
+        imgPath = "package_res/games/wuximj/game/p%s.png", -- 飘按钮图片的路径
+        btnPath = "res/games/common/game/common/btn_xiapao.png", -- 飘按钮底的路径
+        imgPath = "res/games/common/game/common/text_buxia.png", -- 不飘按钮图片的路径
+        btnPath = "res/games/common/game/common/btn_buxia.png", -- 不飘按钮底的路径
+    imgPath = "package_res/games/wuximj/game/img_piao.png", -- 替换图片的路径
+    imgPath = "package_res/games/wuximj/game/img_piao.png", -- 下飘图片
+    local bgPath = tmpData.hu > 0 and "games/common/game/friendRoom/mjOver/total_win_tip_scale_bg.png" or "games/common/game/friendRoom/mjOver/total_fail_tip_scale_bg.png"
+    local zmPath = tmpData.zm > 0 and "games/common/game/friendRoom/mjOver/total_win_tip_scale_bg.png" or "games/common/game/friendRoom/mjOver/total_fail_tip_scale_bg.png"
+    local dpPath = tmpData.dp > 0 and "games/common/game/friendRoom/mjOver/total_win_tip_scale_bg.png" or "games/common/game/friendRoom/mjOver/total_fail_tip_scale_bg.png"
+GC_TurnLaiziPath = "package_res/games/xinpumj/game/gongMuZi.png"
+    local laiziPng = cc.Sprite:create("package_res/games/xinyimj/game/gongzi_s.png")
+    local bgPath = tmpData.hu > 0 and "games/common/game/friendRoom/mjOver/total_win_tip_scale_bg.png" or "games/common/game/friendRoom/mjOver/total_fail_tip_scale_bg.png"
+    local zmPath = tmpData.zm > 0 and "games/common/game/friendRoom/mjOver/total_win_tip_scale_bg.png" or "games/common/game/friendRoom/mjOver/total_fail_tip_scale_bg.png"
+    local dpPath = tmpData.dp <= 0 and "games/common/game/friendRoom/mjOver/total_win_tip_scale_bg.png" or "games/common/game/friendRoom/mjOver/total_fail_tip_scale_bg.png"
+GC_TurnLaiziPath = "package_res/games/xinyimj/game/gongMuZi.png"
+    local laiziPng = cc.Sprite:create("package_res/games/xinyimj/game/gongzi_s.png")
+    local bgPath = tmpData.hu > 0 and "games/common/game/friendRoom/mjOver/total_win_tip_scale_bg.png" or "games/common/game/friendRoom/mjOver/total_fail_tip_scale_bg.png"
+    local zmPath = tmpData.zm > 0 and "games/common/game/friendRoom/mjOver/total_win_tip_scale_bg.png" or "games/common/game/friendRoom/mjOver/total_fail_tip_scale_bg.png"
+    local dpPath = tmpData.dp <= 0 and "games/common/game/friendRoom/mjOver/total_win_tip_scale_bg.png" or "games/common/game/friendRoom/mjOver/total_fail_tip_scale_bg.png"
+    local fcPath = tmpData.fc > 0 and "games/common/game/friendRoom/mjOver/total_win_tip_scale_bg.png" or "games/common/game/friendRoom/mjOver/total_fail_tip_scale_bg.png"
+    local laiziPng = display.newSprite("package_res/games/xinyimj/game/gongzi.png")
+    local pngSize   = laiziPng:getContentSize()
+    laiziPng:setPosition(cc.p(size.width / 2 - pngSize.width / 2, size.height / 2 - pngSize.height / 2))
+GC_TurnLaiziPath = "package_res/games/xuzhoumj/game/fanpai.png"
+GC_TurnLaiziPath_2= "package_res/games/xuzhoumj/game/peizi.png"
+	        	btnText:loadTexture("package_res/games/xuzhoumj/game/text_"..i.."zui.png")
+--     --self.ruleTextBg = ccui.Scale9Sprite:create(cc.rect(10, 10, 2, 2), "hall/Common/rule_bg.png")
+--             btnBet:loadTextureNormal("res/games/common/game/common/btn_buxia.png")
+--             img=display.newSprite("games/common/game/common/text_buxia.png")
+--             btnBet:loadTextureNormal("res/games/common/game/common/btn_xiapao.png")
+--             img=display.newSprite("package_res/games/xuzhoumj/game/text_"..v.."zui.png")
+--             --     local img=display.newSprite("package_res/games/xuzhoumj/friendRoom/mjOver/xiaseiimg.png")
+--             local img=display.newSprite("package_res/games/xuzhoumj/friendRoom/mjOver/xiaseiimg.png")
+        zuoIcon:loadTexture("games/common/game/common/icon_la.png")
+        zuoIcon:loadTexture("games/common/game/common/icon_zuo.png")
+        zuoIcon:loadTexture("games/common/mj/common/icon_zui.png")
+            img_hu:loadTexture("games/common/game/friendRoom/mjOver/zimo.png", ccui.TextureResType.localType)
+            img_hu:loadTexture("package_res/games/xuzhoumj/friendRoom/mjOver/qiangganghu.png", ccui.TextureResType.localType)
+            img_hu:loadTexture("games/common/game/friendRoom/mjOver/hupai.png", ccui.TextureResType.localType)
+        img_hu:loadTexture("games/common/game/friendRoom/mjOver/fangpao.png", ccui.TextureResType.localType)
+        img_hu:loadTexture("games/common/game/friendRoom/mjOver/icon_qianggang.png", ccui.TextureResType.localType)
+        local img=display.newSprite("package_res/games/xuzhoumj/friendRoom/mjOver/xiaseiimg.png");
+    local mjLaizi = display.newSprite("#xuanzhonglaizi.png")
+    local bgPath = tmpData.hu > 0 and "games/common/game/friendRoom/mjOver/total_win_tip_scale_bg.png" or "games/common/game/friendRoom/mjOver/total_fail_tip_scale_bg.png"
+    local zmPath = tmpData.zm > 0 and "games/common/game/friendRoom/mjOver/total_win_tip_scale_bg.png" or "games/common/game/friendRoom/mjOver/total_fail_tip_scale_bg.png"
+    local dpPath = tmpData.dp <= 0 and "games/common/game/friendRoom/mjOver/total_win_tip_scale_bg.png" or "games/common/game/friendRoom/mjOver/total_fail_tip_scale_bg.png"
+    local ppcPath = tmpData.ppc > 0 and "games/common/game/friendRoom/mjOver/total_win_tip_scale_bg.png" or "games/common/game/friendRoom/mjOver/total_fail_tip_scale_bg.png"
+    self.bg=display.newSprite("package_res/games/xuzhoumj/game/bg_paopei.png")
+    local title=display.newSprite("package_res/games/xuzhoumj/game/text_paopei.png")
+        lTipsFilePath = "games/common/mj/common/angang.png"
+        lTipsFilePath = "games/common/mj/common/minggang.png"
+        lTipsFilePath = "games/common/mj/common/bugang.png"
+            local atBg = display.newSprite("games/common/game/friendRoom/mjOver/qianggang.png")
+    local lTipsBG = cc.Sprite:create("games/common/mj/common/angang_bg.png")
+    local huIcon = display.newSprite("games/common/mj/common/icon_hu.png")
+    local mjLaizi = display.newSprite("#xuanzhonglaizi.png")
+    --             local mjLaizi = display.newSprite("#xuanzhonglaizi.png")
+    --                             local mjLaizi = display.newSprite("#xuanzhonglaizi.png")
+            node = display.newSprite("#self_gang_poker.png")
+	[enOperate.OPERATE_CHI] 		= "games/common/mj/games/game_btn_chi.png",
+	[enOperate.OPERATE_PENG] 		= "games/common/mj/games/game_btn_peng.png",
+	[enOperate.OPERATE_MING_GANG] 	= "games/common/mj/games/game_btn_gang.png",
+	[enOperate.OPERATE_JIA_GANG] 	= "games/common/mj/games/game_btn_bugang.png",
+	[enOperate.OPERATE_AN_GANG] 	= "games/common/mj/games/game_btn_gang.png",
+	[enOperate.OPERATE_TING] 		= "games/common/mj/games/game_btn_ting.png",
+	[enOperate.OPERATE_DIAN_PAO_HU] = "games/common/mj/games/game_btn_hu.png",
+	[enOperate.OPERATE_ZI_MO_HU] 	= "games/common/mj/games/game_btn_zimo.png",
+	[enOperate.OPERATE_QIANG_GANG_HU] 	= "games/common/mj/games/game_btn_hu_2.png",
+	[enOperate.OPERATE_DI_HU] 		= "games/common/mj/games/game_btn_dihu.png",
+	[enOperate.OPERATE_YANGMA] 		= "games/common/mj/games/game_btn_yangma.png",
+	[enOperate.OPERATE_DIAN_DI_HU] 		= "games/common/mj/games/game_btn_dihu.png",
+	[enOperate.OPERATE_DI_XIA_HU] = "games/common/mj/games/game_btn_hu.png",
+	[enOperate.OPERATE_GANG_KAI] = "games/common/mj/games/game_btn_hu.png",
+	[enOperate.OPERATE_GUO] 		= "games/common/mj/games/game_btn_qi.png",
+	[enOperate.OPERATE_JIA_BEI] 	= "games/common/mj/games/btn_jiabei.png",
+	[enOperate.OPERATE_BU_TING] 	= "games/common/mj/games/game_btn_buting.png",
+	[enOperate.OPERATE_TIAN_TING] 	= "games/common/mj/games/game_btn_tianting.png",
+	[enOperate.OPERATE_TIAN_HU] 	= "games/common/mj/games/game_btn_tianhu.png",
+	[enOperate.OPERATE_DIAN_TIAN_HU] 	= "games/common/mj/games/game_btn_tianhu.png",
+    [enOperate.OPERATE_ZHUA_PAI]    = "games/common/mj/games/game_btn_zhuapai.png",
+    [enOperate.OPERATE_ASK_BU_HUA]    = "games/common/mj/games/game_btn_ask_buhua.png",
+    ["DEFAULT"] = "games/common/mj/games/game_btn_default.png", -- 默认图片
+			local pngImg 	=  kBtnPngs[enOperate.OPERATE_BU_TING]
+			self.actionBtn[tag]:setTexture(pngImg)
+			local pngImg 	=  kBtnPngs[enOperate.OPERATE_TIAN_TING]
+			self.actionBtn[tag]:setTexture(pngImg)
+                -- local arrow = display.newSprite("games/common/mj/games/ting_arrow.png")
+                    -- local arrow = display.newSprite("games/common/mj/games/ting_arrow.png")
+    local mjLaizi = display.newSprite("#xuanzhonglaizi.png")
+    -- local pngSize   = laiziPng:getContentSize()
+    -- laiziPng:setPosition(cc.p(size.width / 2 - pngSize.width / 2, size.height / 2 - pngSize.height / 2))
+GC_TurnLaiziPath = "games/common/mj/games/fanpai.png"
+    self:setkLaiziPang("package_res/games/yanchenghhmj/common/dazi.png")
+    local bgPath = tmpData.to > 0 and "games/common/game/friendRoom/mjOver/total_win_tip_scale_bg.png" or "games/common/game/friendRoom/mjOver/total_fail_tip_scale_bg.png"
+-- 		local pngImg 	= self:getBtnPngs()[operateList[i]]
+-- 		local btn_operator = display.newSprite(pngImg)
+    self:setkLaiziPng("package_res/games/yanchenghhmj/common/dazi_big.png")
+        local resPath = "games/common/game/games/pingbaiOp.png"
+            resPath = "games/common/game/games/tinPaiOp.png"
+        local resPath = "games/common/game/games/pingbaiOp.png"
+            resPath = "games/common/game/games/tinPaiOp.png"
+    local bgPath = tmpData.to > 0 and "games/common/game/friendRoom/mjOver/total_win_tip_scale_bg.png" or "games/common/game/friendRoom/mjOver/total_fail_tip_scale_bg.png"
+    [enOperate.OPERATE_CHI]         = "games/common/mj/games/game_btn_chi.png",
+    [enOperate.OPERATE_PENG]        = "games/common/mj/games/game_btn_peng.png",
+    [enOperate.OPERATE_MING_GANG]   = "games/common/mj/games/game_btn_gang.png",
+    [enOperate.OPERATE_JIA_GANG]    = "games/common/mj/games/game_btn_bugang.png",
+    [enOperate.OPERATE_AN_GANG]     = "games/common/mj/games/game_btn_gang.png",
+    [enOperate.OPERATE_TING]        = "games/common/mj/games/game_btn_pingbai.png",
+    [enOperate.OPERATE_DIAN_PAO_HU] = "games/common/mj/games/game_btn_hu.png",
+    [enOperate.OPERATE_ZI_MO_HU]    = "games/common/mj/games/game_btn_zimo.png",
+    [enOperate.OPERATE_QIANG_GANG_HU]   = "games/common/mj/games/game_btn_hu_2.png",
+    [enOperate.OPERATE_DI_HU]       = "games/common/mj/games/game_btn_dihu.png",
+    [enOperate.OPERATE_YANGMA]      = "games/common/mj/games/game_btn_yangma.png",
+    [enOperate.OPERATE_DIAN_DI_HU]      = "games/common/mj/games/game_btn_dihu.png",
+    [enOperate.OPERATE_DI_XIA_HU] = "games/common/mj/games/game_btn_hu.png",
+    [enOperate.OPERATE_GANG_KAI] = "games/common/mj/games/game_btn_hu.png",
+    [enOperate.OPERATE_GUO]         = "games/common/mj/games/game_btn_qi.png",
+    [enOperate.OPERATE_JIA_BEI]     = "games/common/mj/games/btn_jiabei.png",
+    [enOperate.OPERATE_BU_TING]     = "games/common/mj/games/game_btn_buting.png",
+    [enOperate.OPERATE_TIAN_TING]   = "games/common/mj/games/game_btn_jiaoting.png",
+    [enOperate.OPERATE_TIAN_HU]     = "games/common/mj/games/game_btn_tianhu.png",
+    [enOperate.OPERATE_DIAN_TIAN_HU]    = "games/common/mj/games/game_btn_tianhu.png",
+    [enOperate.OPERATE_ZHUA_PAI]    = "games/common/mj/games/game_btn_zhuapai.png",
+    [enOperate.OPERATE_ASK_BU_HUA]    = "games/common/mj/games/game_btn_ask_buhua.png",
+    ["DEFAULT"] = "games/common/mj/games/game_btn_default.png", -- 默认图片
+        local pngImg    = kBtnPngs[operateList[i]]
+		if not pngImg then
+            reportBugly("operateList[" .. i .. "] 找不到图片资源", "pngImg", operateList[i])
+            pngImg = kBtnPngs.DEFAULT
+            local filePath = cc.FileUtils:getInstance():fullPathForFilename(pngImg)
+                reportBugly("[" .. i .. "] pngImg " .. pngImg .. " 文件不存在 err: " .. err, "pngImg", operateList[i])
+                pngImg = kBtnPngs.DEFAULT
+		local btn_operator = display.newSprite(pngImg)
+			local pngImg = kBtnPngs[enOperate.OPERATE_BU_TING]
+			print("<jinds> pngimg is" .. pngImg)
+			self.actionBtn[tag]:setTexture(pngImg)
+			local pngImg = kBtnPngs[enOperate.OPERATE_TING]
+			print("<jinds> pngimg is" .. pngImg)
+			self.actionBtn[tag]:setTexture(pngImg)
+			local pngImg 	= kBtnPngs[enOperate.OPERATE_BU_TING]
+			print("<jinds> pngimg is" .. pngImg)
+			self.actionBtn[tag]:setTexture(pngImg)
+			local pngImg 	= kBtnPngs[enOperate.OPERATE_TIAN_TING]
+			print("<jinds> pngimg is" .. pngImg)
+			self.actionBtn[tag]:setTexture(pngImg)
+                    local arrow = display.newSprite("games/common/mj/games/ting_arrow.png")
+GC_TurnLaiziPath = "package_res/games/yangzhoudiedaohumj/game/banzi.png"
+GC_TurnLaiziPath_2 = "package_res/games/yangzhoudiedaohumj/game/peizi.png"
+        lTipsFilePath = "package_res/games/yangzhoudiedaohumj/game/guoshougang.png"
+        local lTipsBG = cc.Sprite:create("games/common/mj/common/angang_bg.png")
+GC_TurnLaiziPath = "games/common/mj/games/fanpai.png"
+        imgPath = "package_res/games/yixingmj/game/p%s.png", -- 飘按钮图片的路径
+        btnPath = "res/games/common/game/common/btn_xiapao.png", -- 飘按钮底的路径
+        imgPath = "res/games/common/game/common/text_buxia.png", -- 不飘按钮图片的路径
+        btnPath = "res/games/common/game/common/btn_buxia.png", -- 不飘按钮底的路径
+    imgPath = "package_res/games/yixingmj/game/img_piao.png", -- 替换图片的路径
+    imgPath = "package_res/games/yixingmj/game/img_piao.png", -- 下飘图片
+GC_TurnLaiziPath = "games/common/mj/games/fanpai.png"
+local zuiPath = "games/common/mj/common/icon_zui.png"--嘴的图片资源路径
+local diTextBgPath = "games/common/game/common/icon_text_bg.png"--底的文本背景资源路径
+            local img=display.newSprite("games/common/game/icon_zhongma.png");
+            img_hu:loadTexture("games/common/game/friendRoom/mjOver/zimo.png", ccui.TextureResType.localType)
+        --     img_hu:loadTexture("games/common/game/friendRoom/mjOver/hupai.png", ccui.TextureResType.localType)
+            img_hu:loadTexture("games/common/game/friendRoom/mjOver/icon_qiangganghu.png", ccui.TextureResType.localType)
+            img_hu:loadTexture("games/common/game/friendRoom/mjOver/icon_gangkai.png", ccui.TextureResType.localType)
+        --     img_hu:loadTexture("games/common/game/friendRoom/mjOver/hupai.png", ccui.TextureResType.localType)
+            img_hu:loadTexture("games/common/game/friendRoom/mjOver/hupai.png", ccui.TextureResType.localType)
+        img_hu:loadTexture("games/common/game/friendRoom/mjOver/fangpao.png", ccui.TextureResType.localType)
+        img_hu:loadTexture("games/common/game/friendRoom/mjOver/icon_qianggang.png", ccui.TextureResType.localType)
+-- local winTipPath = "games/common/game/friendRoom/mjOver/total_win_tip_scale_bg.png"--赢的提示图片资源路径
+-- local failTipPath = "games/common/game/friendRoom/mjOver/total_fail_tip_scale_bg.png"--输的提示图片资源路径
+    local bgPath = tmpData.hu > 0 and "games/common/game/friendRoom/mjOver/total_win_tip_scale_bg.png" or "games/common/game/friendRoom/mjOver/total_fail_tip_scale_bg.png"
+    local gaPath = tmpData.ga > 0 and "games/common/game/friendRoom/mjOver/total_win_tip_scale_bg.png" or "games/common/game/friendRoom/mjOver/total_fail_tip_scale_bg.png"
+    local zhongmaPath = tmpData.qu > 0 and "games/common/game/friendRoom/mjOver/total_win_tip_scale_bg.png" or "games/common/game/friendRoom/mjOver/total_fail_tip_scale_bg.png"

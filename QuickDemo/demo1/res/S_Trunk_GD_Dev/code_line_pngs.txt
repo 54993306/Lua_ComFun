@@ -1332,3 +1332,5 @@ local kLaiziPang = "games/common/game/friendRoom/mjOver/laizi.png"
 	    -- item:loadTextureNormal("package_res/games/zhongshanmj/friendRoom/button.png")
             local line=display.newSprite("hall/main/linellae.png")
 		local line=display.newSprite("hall/Common/line2.png")
+    local filename = "screenshot.png"
+                cb({screendata, 'png'})
