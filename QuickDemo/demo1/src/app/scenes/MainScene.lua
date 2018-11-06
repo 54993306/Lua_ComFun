@@ -28,13 +28,10 @@ function MainScene:ctor()
     tools:ctor()
 
     resource:ctor()
-    -- self:initJsonAndCsbFile()
-
-    -- self:initTextures()
 
     -- self:initDeleteFile()
 
-    -- self:excuteDeleteFile()
+    self:excuteDeleteFile()
 end
 
 -- 初始化json文件和csb文件相关
@@ -125,6 +122,9 @@ end
 
 -- 初始化将要删除的图片
 function MainScene:initDeleteFile()
+    self:initJsonAndCsbFile()
+
+    self:initTextures()
     local str = ""
     local delete_path = io.open(r_delete_pngs, "w+")
     local textures = tools:fileSaveToTable(r_fodel_Images)           -- 所有图片
@@ -179,8 +179,13 @@ function MainScene:initDeleteFile()
             end
         end
 
-        if surplus then  -- 判断要删除的文件文件名是否出现在代码中，如出现则记录，手动查询
-
+        if surplus then  -- 直接以文件名来间判断
+            for _,png in pairs(M_DontDeletePath) do
+                if string.find(fodelpath , png ) then
+                    surplus = false  -- 判断在代码中是否使用
+                    print("-------not deletepath file " , fodelpath)
+                end
+            end
         end
 
         if surplus then
@@ -292,6 +297,7 @@ function MainScene:initCodeFilePngs()
     local code_fnt = io.open(r_code_fnt , "w+")
     local plist_lines = io.open(r_code_line_plist , "w+")
     local fnt_lines = io.open(r_code_line_fnt , "w+")
+    local hand_lines = io.open(r_hand_lines , "w+")
     local code_file_texture = {}                                -- 存储代码文件中的png图
     local code_file_plist = {}
     local code_Single_pngs = {}
@@ -302,6 +308,10 @@ function MainScene:initCodeFilePngs()
                 assert(image_lines:write(line , "\n"))
                 self:matchstr(code_pngs,line,code_file_texture , "[\"]([%w%.%-%s_/]*.png)[\"]")
                 self:matchstr(code_single_pngs,line,code_Single_pngs , "([%w%s_]+.png)[\"]")
+                if string.find(line , "%.%.") or string.find(line , "%%s") then -- 包含.png和连接符的行要单独抽出来手工判断
+                    -- 可以排除掉一些路径，上次筛查过的内容可以屏蔽掉。如果是已经被筛查过则不再显示出来
+                    hand_lines:write(string.gsub(line," ","") ,"\n")
+                end
             end
 
             if string.find(line , ".plist") then
@@ -323,6 +333,7 @@ function MainScene:initCodeFilePngs()
     io.close(code_fnt)
     io.close(fnt_lines)
     io.close(code_single_pngs)
+    io.close(hand_lines)
     print("----------- code file has png num : " .. #code_file_texture)
     print("----------- code file has plist num : " .. #code_file_plist)
     print("----------- code file has single png num : " .. #code_Single_pngs)

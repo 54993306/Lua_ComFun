@@ -22,7 +22,7 @@ function tools:uniqInsert(tab , value)
     return true
 end
 
---
+-- 形成json文件的文件夹包含内容报告
 function tools:initResourceTypeNum(tab , path)
     local file = io.open(path , "w+")
     local strs = {}
