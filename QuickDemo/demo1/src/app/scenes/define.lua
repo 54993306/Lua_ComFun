@@ -9,7 +9,7 @@ require "lfs"
 
 -- ProjectPath = "S_Trunk_GD_Dev"
 ProjectPath = "S_Trunk_GD"
-ProjectPath = "H_HN_3.6.1"
+ProjectPath = "H_HN_3.6.1"    -- 带点号的文件夹会对文件类型的判断造成干扰
 -- ProjectPath = "S_JS_tishen"
 
 -- json UI工程文件的路径

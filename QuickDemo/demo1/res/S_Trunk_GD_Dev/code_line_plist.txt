@@ -60,6 +60,7 @@ UI_TEX_TYPE_PLIST                      = ccui.TextureResType.plistType
     cc.SpriteFrameCache:getInstance():addSpriteFrames("package_res/games/pokercommon/pokercommon.plist")
     -- cc.SpriteFrameCache:getInstance():addSpriteFrames("package_res/games/pokercommon/pokercommon1.plist")
     cc.SpriteFrameCache:getInstance():addSpriteFrames("package_res/games/ddz/ddz0.plist")
+            cc.SpriteFrameCache:getInstance():addSpriteFrames("package_res/games/pokercommon/pokercommon.plist")
     self.img_mic:loadTexture("common/" .. self.panel_mic_index .. ".png" , ccui.TextureResType.plistType)
         face:loadTexture("common/face_" .. info.emI .. ".png",ccui.TextureResType.plistType)
         self.img_status:loadTexture("common/status_0.png", ccui.TextureResType.plistType);
@@ -177,6 +178,7 @@ local lightPath = "package_res/games/maomingmj/game/fanmalight.plist"           
     cc.SpriteFrameCache:getInstance():addSpriteFrames("package_res/games/pokercommon/pokercommon.plist")
     -- cc.SpriteFrameCache:getInstance():addSpriteFrames("package_res/games/pokercommon/pokercommon1.plist")
     cc.SpriteFrameCache:getInstance():addSpriteFrames("package_res/games/ddz/ddz0.plist")
+            cc.SpriteFrameCache:getInstance():addSpriteFrames("package_res/games/pokercommon/pokercommon.plist")
     self.img_mic:loadTexture("common/" .. self.panel_mic_index .. ".png" , ccui.TextureResType.plistType)
         face:loadTexture("common/face_" .. info.emI .. ".png",ccui.TextureResType.plistType)
         self.img_status:loadTexture("common/status_0.png", ccui.TextureResType.plistType);

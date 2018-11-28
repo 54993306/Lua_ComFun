@@ -279,6 +279,7 @@ hall/huanpi2/set/btn_a_on.png
 hall/huanpi2/set/btn_vol_unable.png
 hall/Common/tipDialog/bg_top_tip.png
 hall/Common/tipDialog/img_caution.png
+package_res/games/pokercommon/standings/aaaaaa.png
 package_res/games/ddz/time/wifi_1.png
 package_res/games/ddz/time/wifi_2.png
 package_res/games/ddz/time/wifi_3.png
@@ -387,6 +388,7 @@ games/common/game/play_select_bg.png
 package_res/games/huaijimj/common/hunzi_big.png
 package_res/games/huaijimj/common/baoma_tag.png
 package_res/games/huaijimj/common/hunzi.png
+hall/huanpi2/jiesuan/btn_back.png
 package_res/games/huaijimj/common/site_detail.png
 package_res/games/huaijimj/game/ma_sign.png
 package_res/games/huaijimj/common/qiangganghu.png
@@ -497,6 +499,8 @@ games/guangdongjihumj/game/zhongma.png
 package_res/games/shaoguanzpmj/game/fanma_text.png
 package_res/games/shaoguanzpmj/game/quanma_text.png
 package_res/games/shaoguanzpmj/game/qiangganghuicon.png
+package_res/games/shaoguanzpmj/game/quanma_icon.png
+package_res/games/shaoguanzpmj/game/zhongma.png
 package_res/games/zhaoqingmj/games/gui.png
 package_res/games/zhaoqingmj/games/img_baoma.png
 package_res/games/zhaoqingmj/games/img_baoma_v.png

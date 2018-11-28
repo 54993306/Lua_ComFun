@@ -7,7 +7,67 @@ local json = require("framework.json")
 
 -- 类的入口函数
 function tools:ctor()
+    -- local str = "D:\\Svn_2d\\H_HN_3.6.1\\res\\hall\\about_us.csb"   -- 带点号的文件夹会对文件类型获取造成干扰
 
+    -- print("===========>>> " ..  string.match(str , "[.]([%w]+)"))
+    -- print("===========>>> " ..  string.match(str , "[.]([%w]+)"))
+end
+
+function tools:CacheCollect()
+    -- 性能监测
+    Log.i("CacheCollect begin")
+    local files = io.open("out.txt" , "w+")
+    local memory = io.open("memory.txt" , "w+")
+    if not files then return end
+    local sharedTextureCache = cc.Director:getInstance():getTextureCache()
+    FrameProcesser = scheduler.scheduleUpdateGlobal(function()
+        -- Log.i(cc.Director:getInstance():getFrameRate())
+        if cc.Director:getInstance():getFrameRate() < 30 then
+            local outstr = ""
+            outstr = string.format("Frame rate = %.1f \n %s \n %s \n %s \n============================= %s ============================= \n",
+                tostring(cc.Director:getInstance():getFrameRate()),
+                string.format("LUA VM MEMORY USED: %0.2f KB", collectgarbage("count")),
+                debug.traceback(),
+                sharedTextureCache:getCachedTextureInfo(),
+                os.date()
+                )
+            files:write(outstr)
+        end
+    end);
+
+    MemoryProcesser = scheduler.scheduleGlobal(function()
+        memory:write(
+            string.format("%.1f|%.3f|%.3f" ,
+                cc.Director:getInstance():getFrameRate() ,
+                cc.Director:getInstance():getSecondsPerFrame() ,
+                collectgarbage("count")),
+            "\n")
+    end, 0.5)
+    -- files:close()
+end
+
+-- 异步图片加载方案
+function tools:syncLoadSpriteFrame()
+    local t_btn = ccui.Button:create("hall/GUI/selected01.png")
+    t_btn:setPosition(cc.p((i - 1) % 4 * 130 + 100, 430 - math.floor((i - 1) / 4) * 120)) -- 按钮位置(相对于父节点)
+    t_btn:addTo(lay)
+    t_btn:setTitleFontSize(18) -- 按钮文字的字体大小
+    t_btn:setTitleText("666")
+    t_btn:setColor(display.COLOR_RED)
+    -- cc.SpriteFrameCache:getInstance():addSpriteFrames("hall/Common/test.plist")
+    t_btn:addTouchEventListener( function(pWidget,touchType)   -- 使用异步加载精灵帧的方式来判断，合集图片是否会影响界面创建
+        if touchType ==ccui.TouchEventType.ended then
+            display.addSpriteFrames("hall/Common/test.plist" , "hall/Common/test.png" , function(plist, image)
+                local layc = class("layc", UIWndBase)
+                function layc:ctor(...)
+                    self.super.ctor(self, "hall/lay_test.csb", ...);    -- 使用的是大图来进行的界面拼装
+                end
+
+                Log.i("===========>>>" , plist , image)
+                UIManager:getInstance():pushWnd(layc)
+            end)
+        end
+    end)
 end
 
 -- 去重插入
@@ -27,8 +87,8 @@ function tools:initResourceTypeNum(tab , path)
     local file = io.open(path , "w+")
     local strs = {}
     for _, v in pairs(tab) do
-        if string.match(v , "([.][%w]+)") then
-            local key = string.match(v , "([.][%w]+)")
+        if string.match(v , "[.]([%w]+)") then
+            local key = string.match(v , "[.]([%w]+)")
             if key then
                 if strs[key] then
                     strs[key].num = strs[key].num + 1

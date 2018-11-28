@@ -25,13 +25,23 @@ local MainScene = class("MainScene", function()
 end)
 
 function MainScene:ctor()
-    tools:ctor()
+    -- tools:ctor()
 
-    resource:ctor()
+    -- resource:ctor()
 
     -- self:initDeleteFile()
 
-    self:excuteDeleteFile()
+    -- self:excuteDeleteFile()
+
+    local languageString = { }
+
+
+    languageString.Lxc_DDZ =
+    {
+        ddzrule1d = "游戏规则",
+    }
+
+    print("string : " .. languageString.Lxc_DDZ.ddzrule1d)
 end
 
 -- 初始化json文件和csb文件相关

@@ -293,6 +293,7 @@ btn_a_on.png
 btn_vol_unable.png
 bg_top_tip.png
 img_caution.png
+aaaaaa.png
 wifi_1.png
 wifi_2.png
 wifi_3.png
@@ -351,6 +352,7 @@ icon_wuma.png
 hunzi_big.png
 baoma_tag.png
 hunzi.png
+btn_back.png
 site_detail.png
 ma_sign.png
 img_bao_da_ge_head.png

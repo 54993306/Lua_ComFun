@@ -1,0 +1,72 @@
+		png=info.dirname..info.basename..".png"
+		png=info.basename..".png"
+		png=info.dirname..info.basename..".png"
+		png=info.basename..".png"
+--localdice_1_image=string.format("#00000%s.png",pointMin)
+--localdice_2_image=string.format("#00000%s.png",pointMax)
+localdice_1_image=string.format("#00000%s.png",pointMin)
+localdice_2_image=string.format("#00000%s.png",pointMax)
+btn_face:loadTextureNormal("hall/gameCommon/face/face_"..(index+1)..".png");
+		localbeiNum=cc.LabelAtlas:_create(string.format("%s",tostring(data.number)),"mj/game/desk_task_nuber.png",30,37,string.byte("0"))
+	localtaskNum=cc.LabelAtlas:_create(string.format("x:%s",tostring(data.multiple)),"mj/game/game_task_num.png",27,38,string.byte("2"))
+self.img_mic:loadTexture("hall/friendRoom/mic/"..self.img_mic_index..".png");
+--titlePng="games/".._gameType.."/game/fanmaTitle.png",--标题图片
+--titlePng="games/".._gameType.."/game/fanmaTitle.png",--标题图片
+localfamaNum=display.newSprite("games/common/game/fanma/maCount"..(#v>4and4or#v)..".png")
+--famaNum:setTexture("games/common/game/fanma/maCount"..num..".png")
+reportBugly("operateList["..i.."]找不到图片资源","pngImg",operateList[i])
+reportBugly("["..i.."]pngImg"..pngImg.."文件不存在err:"..err,"pngImg",operateList[i])
+		localpngPath=kPngPath..kPngName[i]--默认是吃
+		localpngPath=kPngPath..kPngName[i]--默认是吃
+self.speakingImg:loadTexture("hall/friendRoom/speaking_"..self.speaking_img_index..".png");
+self.speakingImg:loadTexture("hall/friendRoom/speaking_"..self.speaking_img_index..".png");
+self.img_mic:loadTexture("hall/friendRoom/mic/"..self.img_mic_index..".png");
+--locallogo=display.newSprite(GC_GameHallLogoPathorstring.format("games/%s/hall/login/logo.png",GC_GameTypes[CONFIG_GAEMID]))
+locallogoPath=GC_GameHallLogoPathorstring.format("games/%s/hall/login/logo.png",GC_GameTypes[CONFIG_GAEMID])
+localadvertView_deletePath=CACHEDIR..advertView_expPath..i..pngPath
+advertView_deletePath=CACHEDIR..advertView_smallPath..i..pngPath
+localadvertView_exp_removePath=advertView_expPath..i..pngPath
+locallogoPath=GC_GameHallLogoPathorstring.format("games/%s/hall/login/logo.png",GC_GameTypes[CONFIG_GAEMID])
+localframes=display.newFrames(imageName.."%02d.png",0,frame)
+--locallogo=display.newSprite(GC_GameHallLogoPathorstring.format("games/%s/hall/login/logo.png",GC_GameTypes[CONFIG_GAEMID]))
+locallogoPath=GC_GameHallLogoPathorstring.format("games/%s/hall/login/logo.png",GC_GameTypes[CONFIG_GAEMID])
+btn_face:loadTextureNormal("hall/gameCommon/face/armature_pic/face_"..face_pic_list[index+1]..".png");
+localCodeImageName=string.format("club_%s.png",tostring(self.m_data.clubID))
+localsavePath=CACHEDIR.."club_"..tostring(clubID)..".png"
+savePath=CACHEDIR.."defaultClub.png"
+localCodeImagePath=string.format("club_%s.png",tostring(self.m_data.clubID))
+localsavePath1=CACHEDIR..string.format("club_%d.png",tonumber(self.m_data.clubID))
+paiMingImage:loadTexture("hall/ranking/bai_"..tmpData.ra..".png");
+self.img_mic:loadTexture("common/"..self.panel_mic_index..".png",ccui.TextureResType.plistType)
+face:loadTexture("common/face_"..info.emI..".png",ccui.TextureResType.plistType)
+localfrontCard=PokerCardView.new(cardType,cardValue,card)--cc.Sprite:create("package_res/games/ddz/card/"..cardType..cardValue..".png")
+self.img_mic:loadTexture("common/"..self.panel_mic_index..".png",ccui.TextureResType.plistType)
+self.face:loadTexture("common/face_"..info.emI..".png",ccui.TextureResType.plistType)
+							--famaNum:setTexture("package_res/games/guangdongjihumj/game/fama/maCount"..num..".png")
+img_hu:loadTexture(kResPath.."qiangganghuicon.png",ccui.TextureResType.localType)
+ma=display.newSprite(kResPath.."icon_quanma.png")
+ma=display.newSprite(kResPath.."icon_wuma.png")
+ma=display.newSprite(kResPath.."icon_zhongma.png")
+reportLog("operateList["..i.."]找不到图片资源","pngImg",operateList[i])
+reportLog("["..i.."]pngImg"..pngImg.."文件不存在err:"..err,"pngImg",operateList[i])
+self.img_mic:loadTexture("common/"..self.panel_mic_index..".png",ccui.TextureResType.plistType)
+face:loadTexture("common/face_"..info.emI..".png",ccui.TextureResType.plistType)
+localfrontCard=PokerCardView.new(cardType,cardValue,card)--cc.Sprite:create("package_res/games/ddz/card/"..cardType..cardValue..".png")
+self.imgVal=ccui.ImageView:create("card/"..cardValue..card_png,ccui.TextureResType.plistType)
+self.imgType=ccui.ImageView:create("card/type"..cardType..".png",ccui.TextureResType.plistType)
+self.smallTmgType=ccui.ImageView:create("card/type"..cardType..".png",ccui.TextureResType.plistType)
+self.img_mic:loadTexture("common/"..self.img_mic_index..".png",ccui.TextureResType.plistType)
+btn_face:loadTextureNormal("hall/gameCommon/face/armature_pic/face_"..faceIndex..".png")
+--btn_face:loadTextureNormal("common/face_"..(faceIndex+1)..".png",ccui.TextureResType.plistType)
+self.img_mic:loadTexture("common/"..self.panel_mic_index..".png",ccui.TextureResType.plistType)
+self.face:loadTexture("common/face_"..info.emI..".png",ccui.TextureResType.plistType)
+self.imgVal=ccui.ImageView:create("card/"..cardValue..card_png,ccui.TextureResType.plistType)
+self.imgType=ccui.ImageView:create("card/type"..cardType..".png",ccui.TextureResType.plistType)
+self.smallTmgType=ccui.ImageView:create("card/type"..cardType..".png",ccui.TextureResType.plistType)
+self.img_mic:loadTexture("common/"..self.img_mic_index..".png",ccui.TextureResType.plistType)
+btn_face:loadTextureNormal("hall/gameCommon/face/armature_pic/face_"..faceIndex..".png")
+--btn_face:loadTextureNormal("common/face_"..(faceIndex+1)..".png",ccui.TextureResType.plistType)
+localdiceImg=ccui.ImageView:create("package_res/games/shantoumj/common/dice_"..diceList[i]..".png")
+localdice_1_image=string.format("#00000%s.png",pointMin)
+localdice_2_image=string.format("#00000%s.png",pointMax)
+						localfamaNum=display.newSprite("package_res/games/shanweimj/game/fama/maCount"..(#v>4and4or#v)..".png")

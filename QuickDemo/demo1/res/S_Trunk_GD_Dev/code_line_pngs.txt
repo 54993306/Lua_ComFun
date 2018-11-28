@@ -516,6 +516,7 @@ local pngPath=".png"
     _widget = display.newScale9Sprite(TopTip.BgCfg.png, TopTip.BgCfg.startX, TopTip.BgCfg.startY, TopTip.BgCfg.size)
     local cautionImg = display.newSprite("hall/Common/tipDialog/img_caution.png")
     -- self.tmpImg = ccui.ImageView:create("hall/games/game_bg.png");
+    local bg = display.newSprite("package_res/games/ddz/bg.jpg")--"package_res/games/pokercommon/standings/aaaaaa.png")
         self.image_wifi:loadTexture("package_res/games/ddz/time/wifi_1.png")
         self.image_wifi:loadTexture("package_res/games/ddz/time/wifi_2.png")
         self.image_wifi:loadTexture("package_res/games/ddz/time/wifi_3.png")
@@ -795,6 +796,7 @@ GC_TurnLaiziPath_2 = "package_res/games/huaijimj/common/hunzi_big.png"
     self.baomaBg4 = display.newSprite("package_res/games/huaijimj/common/baoma_tag.png")
     self:setkLaiziPang("package_res/games/huaijimj/common/hunzi.png")
         startImage:loadTexture("games/common/game/friendRoom/mjOver/text_total_score.png")
+        startImage:loadTexture("hall/huanpi2/jiesuan/btn_back.png")
             local imgZuiDetail = display.newSprite("package_res/games/huaijimj/common/site_detail.png")
             -- local maSign = display.newSprite("package_res/games/huaijimj/game/ma_sign.png")
                 local maSign = ccui.ImageView:create("package_res/games/huaijimj/game/ma_sign.png")
@@ -819,6 +821,7 @@ local pai_png = {
 GC_TurnLaiziPath = "games/common/mj/games/fanpai.png"
     local imgPath = "package_res/games/huizhoumj/games/img_bao_da_ge_head.png"
         startImage:loadTexture("games/common/game/friendRoom/mjOver/text_total_score.png")
+        startImage:loadTexture("hall/huanpi2/jiesuan/btn_back.png")
             local imgZuiDetail = display.newSprite("package_res/games/huizhoumj/games/site_detail.png")
             img_hu:loadTexture("games/common/game/friendRoom/mjOver/zimo.png", ccui.TextureResType.localType)
             img_hu:loadTexture("package_res/games/huizhoumj/games/qiangganghu.png", ccui.TextureResType.localType)
@@ -916,6 +919,7 @@ GC_TurnLaiziPath_2 =  "package_res/games/jieyangmj/common/icon_guipai.png"
         -- gmPng = "games/common/game/horizonGreenmask.png"
 local kLaiziPang = "package_res/games/jieyangmj/game/laizi.png"
         startImage:loadTexture("games/common/game/friendRoom/mjOver/text_total_score.png")
+        startImage:loadTexture("hall/huanpi2/jiesuan/btn_back.png")
         local atIcon = display.newSprite("package_res/games/jieyangmj/common/angang.png")
         local atIcon = display.newSprite("package_res/games/jieyangmj/common/minggang.png")
         local atIcon = display.newSprite("package_res/games/jieyangmj/common/bugang.png")
@@ -976,6 +980,7 @@ local quanmaTextPath = "package_res/games/maomingmj/game/quanma_text.png"      -
         local zhongma = display.newSprite("package_res/games/maomingmj/game/quanma_icon.png")
             local zhongma = display.newSprite("package_res/games/maomingmj/game/zhongma.png")
     local bgPath = tmpData.to > 0 and "games/common/game/friendRoom/mjOver/total_win_tip_scale_bg.png" or "games/common/game/friendRoom/mjOver/total_fail_tip_scale_bg.png"
+    local bg = display.newScale9Sprite("package_res/games/ddz/bg.jpg",display.width/2,display.height/2,cc.size(display.width,display.height))--"package_res/games/pokercommon/standings/aaaaaa.png")
     self.paodekuaiTitle:loadTexture("package_res/games/pokercommon/paodekuai/pdklogo.png")
         self.image_wifi:loadTexture("package_res/games/ddz/time/wifi_1.png")
         self.image_wifi:loadTexture("package_res/games/ddz/time/wifi_2.png")
@@ -1170,6 +1175,7 @@ GC_TurnLaiziPath = "games/common/mj/games/fanpai.png"
             -- gmPng = "games/common/game/verticalGreenmask.png"
         -- gmPng = "games/common/game/horizonGreenmask.png"
         startImage:loadTexture("games/common/game/friendRoom/mjOver/text_total_score.png")
+        startImage:loadTexture("hall/huanpi2/jiesuan/btn_back.png")
             local imgZuiDetail = display.newSprite("package_res/games/shantoumj/common/site_detail.png")
             local maimaImg = ccui.ImageView:create("package_res/games/shantoumj/game/mjover_maima.png")
             local jiangmaImg = ccui.ImageView:create("package_res/games/shantoumj/game/mjover_jiangma.png")
@@ -1230,12 +1236,6 @@ local kLaiziPang = "games/common/game/friendRoom/mjOver/laizi.png"
 		local gangBg = "games/common/mj/games/bg_action_gang.png"
 	local pngImg 	= "games/common/mj/games/game_btn_qi.png"
 	local guoBtn = display.newSprite(pngImg)
-local kLaiziPng  = "games/common/mj/games/laizijiaobiao.png"
-	self.img_pass = display.newSprite("games/common/guopai.png")
-function HandCardsPanel:setkLaiziPng(png)
-    kLaiziPng = png
-	local pngSize 	= laiziPng:getContentSize()
-	laiziPng:setPosition(cc.p(size.width / 2 - pngSize.width / 2, size.height / 2 - pngSize.height / 2))
 				local pngSize 	= laiziPng:getContentSize()
 				laiziPng:setPosition(cc.p(size.width / 2 - pngSize.width / 2, size.height / 2 - pngSize.height / 2))
 	-- self.m_showMjBg = display.newSprite("games/common/mj/games/bg_big_out_poker.png")
@@ -1283,8 +1283,8 @@ function HandCardsPanel:setkLaiziPng(png)
                 img_hu:loadTexture("games/common/game/friendRoom/mjOver/hupai.png", ccui.TextureResType.localType)
             img_hu:loadTexture("games/common/game/friendRoom/mjOver/fangpao.png", ccui.TextureResType.localType)
             img_hu:loadTexture("games/common/game/friendRoom/mjOver/icon_qianggang.png", ccui.TextureResType.localType)
-        local zhongma = display.newSprite("games/guangdongjihumj/game/quanma_icon.png")
-            local zhongma = display.newSprite("games/guangdongjihumj/game/zhongma.png")
+        local zhongma = display.newSprite("package_res/games/shaoguanzpmj/game/quanma_icon.png")
+            local zhongma = display.newSprite("package_res/games/shaoguanzpmj/game/zhongma.png")
     local bgPath = tmpData.to > 0 and "games/common/game/friendRoom/mjOver/total_win_tip_scale_bg.png" or "games/common/game/friendRoom/mjOver/total_fail_tip_scale_bg.png"
 GC_TurnLaiziPath = "games/common/mj/games/fanpai.png"
 GC_TurnLaiziPath_2 = "package_res/games/zhaoqingmj/games/gui.png"
@@ -1294,6 +1294,7 @@ GC_TurnLaiziPath_2 = "package_res/games/zhaoqingmj/games/gui.png"
     self.baomaBg4 = display.newSprite("package_res/games/zhaoqingmj/games/img_baoma_v.png")
     self:setkLaiziPang("package_res/games/zhaoqingmj/games/gui_tag.png")
         startImage:loadTexture("games/common/game/friendRoom/mjOver/text_total_score.png")
+        startImage:loadTexture("hall/huanpi2/jiesuan/btn_back.png")
             local imgZuiDetail = display.newSprite("package_res/games/zhaoqingmj/games/site_detail.png")
             img_hu:loadTexture("games/common/game/friendRoom/mjOver/zimo.png", ccui.TextureResType.localType)
             img_hu:loadTexture("package_res/games/zhaoqingmj/games/qiangganghu.png", ccui.TextureResType.localType)
