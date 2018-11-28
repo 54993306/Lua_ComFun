@@ -73,6 +73,11 @@ function HallMain:onClose()
     if self.setMorenHeadThread then
         scheduler.unscheduleGlobal(self.setMorenHeadThread);
     end
+
+    table.walk(self.Events,function(event)
+        cc.Director:getInstance():getEventDispatcher():removeEventListener(event)
+    end)
+    self.Events = {}
 end
 function HallMain:setIP(str)
     self.label_ip:setString("IP:".. str)
@@ -192,7 +197,7 @@ function HallMain:onInit()
         kPlaybackInfo:setVideoReturn(false)
     end
     ------------------------------------
-
+    self.Events = {}
     local listener = cc.EventListenerCustom:create(IosScheme, handler(self, self.JoinRoomByXianLaiScheme))
     table.insert(self.Events,listener)
     cc.Director:getInstance():getEventDispatcher():addEventListenerWithFixedPriority(listener, 1)
@@ -444,6 +449,9 @@ function HallMain:repUserInfo2(info)
             self:addQinyouquan()
         end
     end
+    self:joinRoomByScheme()
+    self:JoinRoomByXianLaiScheme()
+    Log.i("============ >>>>>>>> repUserInfo2")
 end
 
 --个人账户信息
