@@ -86,14 +86,14 @@ CONFIG_SCREEN_AUTOSCALE = "FIXED_HEIGHT";
 IMEI = "100000037";
 MAC  = "abcdedfff";
 MODEL = "sengle-pc";
-OS = 4;-- 操作系统：2:ios, 1:android, 3:mac, 4:windows 
+OS = 4;-- 操作系统：2:ios, 1:android, 3:mac, 4:windows
 SPID = 10000; -- 测试：10000， 应用宝:10001, ios：10002
-VERSION = "1.0.35";
+VERSION = "1.0.36";
 NETMODE = 1;
 
 
 --WX_APP_ID = "wx72b73f58661aca79"; --常州
-WX_OPENID = "ouZDGwwrsxjvajAjW7pS6dCpHizU_1";
+WX_OPENID = "ouZDGwwrsxjvajAjW7pS6dCpHizU_12";
 WX_NAME = "4号";
 WX_SEX = 1;
 WX_PR = "广东";
@@ -107,12 +107,12 @@ IS_IOS = false;
 IS_IOS_PRODUCT = false
 --徐州
 -- _gameType = "huaibeimj"
--- WX_APP_ID = "wx72b73f58661aca79"; 
+-- WX_APP_ID = "wx72b73f58661aca79";
 
 --常州
 -- CONFIG_GAEMID = 10008;--游戏ID
 -- _gameType = "changzhoumj"
--- WX_APP_ID = "wxbb66358e8d2117bb"; 
+-- WX_APP_ID = "wxbb66358e8d2117bb";
 
 --红中
 --_gameType = "hongzhongmj"
@@ -162,8 +162,8 @@ G_OPEN_CHARGE = true
 --     _WhiteListConfigUrlRoot = "http://pre-client-download-cdn.stevengame.com"
 --     _WeChatSharedBaseUrl = "http://pre-app75.stevengame.com/Api/getConfig"    -- 请求微信分享数据后台链接
 --     _WeCharSHaredBaseFeedBackUrl = "http://pre-client-sharedata-upload.stevengame.com/Api/shareFeeback"    -- 反馈分享结果链接
---     _WechatSharedClicksNumberUrl = "http://pre-client-sharedata-upload.stevengame.com/Api/shareLandFeeback"   ---预发布分享次数统计调用 
-    
+--     _WechatSharedClicksNumberUrl = "http://pre-client-sharedata-upload.stevengame.com/Api/shareLandFeeback"   ---预发布分享次数统计调用
+
 -- else
     _WhiteListConfigUrlRoot = "http://client-download-cdn.stevengame.com"
     _WeChatSharedBaseUrl = "http://app75.stevengame.com/Api/getConfig"    -- 请求微信分享数据后台链接
@@ -176,4 +176,6 @@ DEBUG_SHIELD_VALUE = {
     "openFileLog", -- 是否开启日志上传
 }
 GC_GameName = "来来淮北麻将"
+SCHEME_HOST_NAME = "lailaihuaibei"
+DEBUG = 1
 DEBUG_MODE = type(DEBUG) == "number" and DEBUG > 0

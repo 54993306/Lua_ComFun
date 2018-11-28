@@ -9,8 +9,19 @@ function HallLogin:ctor(info)
     SocketManager.getInstance():addSocketProcesser(self.m_socketProcesser);
     --登陆之前先把数据清除
     self.m_socketProcesser:clearUserData()
-    self.m_AutomaticLogin = false 
+    self.m_AutomaticLogin = false
     SocketManager.getInstance().pause = false
+    self:initCompatible()
+end
+
+-- 获取兼容版本号
+function HallLogin:initCompatible()
+    -- COMPATIBLE_VERSION
+    local data = {}
+    data.cmd = NativeCall.CMD_GET_COMPATIBLE
+    NativeCall.getInstance():callNative(data,function(info)
+        COMPATIBLE_VERSION = info.version
+    end)
 end
 
 function HallLogin:onShow()
@@ -32,7 +43,7 @@ function HallLogin:onShow()
                         --LoadingView.getInstance():show("正在检测版本更新，请稍后...", 120);
                     end
                 end
-            end 
+            end
         end
     else
        -- 以上代码为正常的自动登录流程, self:addTestLoginBtn()可以添加4个不同的帐号, 方便登录
@@ -45,7 +56,7 @@ function HallLogin:onShow()
         self.btn_login:loadTextureNormal("hall/loginUI/btn_login.png");
         self.isVisitor = false;
     end
-    
+
 end
 -- 加入四个测试用的登录按钮
 function HallLogin:addTestLoginBtn()
@@ -64,7 +75,7 @@ function HallLogin:addTestLoginBtn()
         testLoginBtn:setColor(display.COLOR_GREEN)
         testLoginBtn:setScale(2.0)
         if GC_TestID ==nil then
-            GC_TestID = "userid_39"
+            GC_TestID = "userid_391"
         end
         table.insert(self.testLoginBtns, testLoginBtn)
         table.insert(self.testWXIDs, GC_TestID .. i)
@@ -126,7 +137,7 @@ function HallLogin:onInit()
 	--软件著作权
 	local softTitle = ccui.Helper:seekWidgetByName(self.m_pWidget, "softTitle");
     softTitle:setString(_gameSoftTitle);
-	
+
     self.pan_server = ccui.Helper:seekWidgetByName(self.m_pWidget, "pan_server");
     if DEBUG > 1 then
         self.pan_server:setVisible(true);
@@ -150,21 +161,21 @@ function HallLogin:onClickButton(pWidget, EventType)
                 kLoginInfo:getPhoneInfoAndLink();
             else
                 self:login();
-            end 
+            end
         elseif pWidget == self.btn_login_visitor then
             self.isVisitor = true;
             if not self.cb_agreement:isSelected() then
                 Toast.getInstance():show("请勾选用户协议");
                 return;
-            end 
+            end
             self:setVistorAccount();
             kLoginInfo:getPhoneInfoAndLink();
-            
-        elseif pWidget == self.btn_user then 
+
+        elseif pWidget == self.btn_user then
             if device.platform == "android" or device.platform == "ios" then
                 local data = {};
                 data.cmd = NativeCall.CMD_USER_AGREEMENT;
-                NativeCall.getInstance():callNative(data); 
+                NativeCall.getInstance():callNative(data);
             else
                 Toast.getInstance():show("用户协议");
             end
@@ -182,7 +193,7 @@ function HallLogin:onClickButton(pWidget, EventType)
                 end
             end
         end;
-    end 
+    end
 end
 
 function HallLogin:setVistorAccount()
@@ -193,7 +204,7 @@ function HallLogin:setVistorAccount()
     else
        WX_OPENID = kLoginInfo:getVisitorAccount();
     end
-    
+
     WX_NAME = device.model;
 end
 
@@ -202,7 +213,7 @@ function HallLogin:login()
     LoadingView.getInstance():show("正在连接服务器，请稍后...", 1000);
     local FileLog = require("app.common.FileLog")
     FileLog.init(CACHEDIR)
-    
+
     if device.platform == "ios" or device.platform == "android" then
 --    if device.platform == "ios" then
         WX_OPENID = cc.UserDefault:getInstance():getStringForKey("openid");
@@ -219,7 +230,7 @@ function HallLogin:login()
         if WX_NAME and WX_NAME ~= "" then
             kLoginInfo:getPhoneInfoAndLink();
             if refresh_token  and refresh_token ~= "" then
-               
+
                 local info = {};
                 info.openid = openid;
                 info.refresh_token = refresh_token;
@@ -280,14 +291,14 @@ function HallLogin:showServerView()
         else
             self.cb_server2:setSelected(true);
         end
-    end) 
+    end)
 end
 
 --返回
 function HallLogin:keyBack()
     local data = {}
     data.type = 2;
-    data.title = "提示";                        
+    data.title = "提示";
     data.yesTitle  = "退出";
     data.cancelTitle = "取消";
     data.content = "确定要退出游戏吗？";
@@ -328,7 +339,7 @@ function HallLogin:onRepLogin(info)
             data.cmd = NativeCall.CMD_UMENG_LOGIN_OFF;
             data.usI = info.usI .. "";
             data.type = 1;
-            NativeCall.getInstance():callNative(data);  
+            NativeCall.getInstance():callNative(data);
         end
 
         if self.isVisitor then

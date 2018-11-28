@@ -90,8 +90,8 @@ function Log.format(...)
 end
 
 function Log.decomposeTable(_table)
-  
-    if not _table then 
+
+    if not _table then
         return "nil"
     end
     local str = "{ "
@@ -106,7 +106,7 @@ function Log.decomposeTable(_table)
             str = str .. tostring(v)
         else
         if type(v) == "table" then
-            str = str .. Log.decomposeTable(v)  
+            str = str .. Log.decomposeTable(v)
         else
             str = str .. tostring(v) .. " "
 
@@ -132,10 +132,10 @@ if PLUGIN_LOG == nil then
 end
 
 Log.base = function(tagPrefix, tag, ...)
-    if DEBUG < 1 then 
+    if DEBUG < 1 then
         return;
     end
-    
+
     local strInfo = Log.getStrInfo(tagPrefix, tag, ...);
 
     local bufCount=8*1024
@@ -143,6 +143,7 @@ Log.base = function(tagPrefix, tag, ...)
         local count = math.ceil(#strInfo / bufCount)
         for i=1,count do
             local str=string.sub(strInfo, 1+(i-1)*bufCount, i*bufCount)
+            -- print(debug.traceback()
             PLUGIN_LOG(str)
         end
     else
@@ -162,7 +163,7 @@ Log.getData = function(tagPrefix, tag, ...)
     local strArr = {};
     table.insert(strArr, "");
     for _, v in pairs({...}) do
-        local tempType = type(v); 
+        local tempType = type(v);
         if tempType == "table" then
             table.insert(strArr, Log.loadTable(v));
         else
@@ -176,38 +177,38 @@ Log.getData = function(tagPrefix, tag, ...)
 end
 
 Log.loadTable = function(t)
-    if type(t) ~= "table" then 
+    if type(t) ~= "table" then
         return t;
-    end 
+    end
 
     local tab = Log.s_tab;
     Log.s_tab = Log.s_tab .. "    ";
     local strArr = {};
     table.insert(strArr, "");
-    for k, v in pairs(t) do 
-        if v ~= nil then 
+    for k, v in pairs(t) do
+        if v ~= nil then
             local key = Log.s_tab;
             if type(k) == "string" then
                 -- key = key .. "[\""..tostring(k).."\"] = ";
                 key =  string.format("%s[\"%s\"] = ", key, tostring(k) );
-            else 
+            else
                 -- key = key.."["..tostring(k).."] = ";
                 key =  string.format("%s[%s] = ", key, tostring(k) );
-            end 
-            
+            end
+
             table.insert(strArr, key);
-            if type(v) == "table" then 
+            if type(v) == "table" then
                 -- temp = temp..key..Log.loadTable(v);
                 table.insert(strArr, Log.loadTable(v) );
-            else 
+            else
                 -- temp = temp..key..tostring(v)..";\n";
                 table.insert(strArr, tostring(v) .. ";\n" );
-            end 
-        end 
-    end 
+            end
+        end
+    end
     Log.s_tab = tab;
     local str = string.format("\n%s{\n%s%s};\n", Log.s_tab, table.concat(strArr), Log.s_tab);
     -- temp = "\n"..Log.s_tab.."{\n"..temp..Log.s_tab.."};\n";
-    
+
     return str;
 end

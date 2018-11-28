@@ -4,6 +4,8 @@ local quickpayment = require("app.hall.wnds.quickpay.quickpayment")
 
 HallMain = class("HallMain", UIWndBase);
 
+local IosScheme = 109
+
 function HallMain:ctor(info)
     self.super.ctor(self, "hall/hall.csb", info);
     self.m_socketProcesser = HallSocketProcesser.new(self);
@@ -41,6 +43,8 @@ end
 
 function HallMain:onResume()
     self:updateUserInfo();
+    self:joinRoomByScheme()
+    self:JoinRoomByXianLaiScheme()
 end
 
 function HallMain:onClose()
@@ -54,13 +58,13 @@ function HallMain:onClose()
         self.m_timer_wechat:finalizer()
         self.m_timer_wechat:removeTimer("reachre_wechatId_update_timer");
         self.m_timer_wechat=nil
-    end 
+    end
 
     if(self.m_timer_marquee~=nil) then
         self.m_timer_marquee:finalizer()
         self.m_timer_marquee:removeTimer("marquee_wechatId_update_timer");
         self.m_timer_marquee=nil
-    end 
+    end
 
     if self.m_socketProcesser then
         SocketManager.getInstance():removeSocketProcesser(self.m_socketProcesser);
@@ -125,10 +129,10 @@ function HallMain:onInit()
     self.btn_exchange = ccui.Helper:seekWidgetByName(self.m_pWidget, "btn_exchange");
     self.btn_exchange:addTouchEventListener(handler(self, self.onClickButton));
     self.btn_exchange:setVisible(cc.UserDefault:getInstance():getBoolForKey("btn_exchange", false))
-	
+
 	local gameType = kFriendRoomInfo:getGameType();
     self.btn_ad:loadTexture(_gameHallAdPath);
-    
+
 	local title = ccui.Helper:seekWidgetByName(self.m_pWidget, "title");
     title:loadTexture(_gameTitlePath);
 
@@ -136,7 +140,7 @@ function HallMain:onInit()
     local particleSys = cc.ParticleSystemQuad:create("hall/main/particleDiamond.plist");
     pan_free_diamond:addChild(particleSys);
     particleSys:setPosition(50, 50);
-	
+
     self.btn_diamond = ccui.Helper:seekWidgetByName(self.m_pWidget, "btn_diamond");
     self.btn_diamond:addTouchEventListener(handler(self, self.onClickButton));
     local sequence = transition.sequence({
@@ -188,6 +192,50 @@ function HallMain:onInit()
         kPlaybackInfo:setVideoReturn(false)
     end
     ------------------------------------
+
+    local listener = cc.EventListenerCustom:create(IosScheme, handler(self, self.JoinRoomByXianLaiScheme))
+    table.insert(self.Events,listener)
+    cc.Director:getInstance():getEventDispatcher():addEventListenerWithFixedPriority(listener, 1)
+end
+
+function HallMain:joinRoomByScheme()
+    Log.i("HallMain:joinRoomByScheme()")
+
+    local data = {}
+    data.cmd = NativeCall.CMD_PULL_SCHEMEDATA
+    NativeCall.getInstance():callNative(data, function(scheme)
+
+        if kFriendRoomInfo:getRoomId() then
+            Toast.getInstance():show("您已进入房间", 3)
+            return
+        end
+        Log.i("--------------获取 SchemeData 成功" , scheme)
+        if scheme.model == "room" and tonumber(scheme.param) then
+            self.m_enterRoomNum = scheme.param;
+            local tmpData={}
+            tmpData.pa = tonumber(self.m_enterRoomNum);
+            FriendRoomSocketProcesser.sendRoomEnter(tmpData)
+        end
+    end)
+end
+
+function HallMain:JoinRoomByXianLaiScheme()
+    Log.i("HallMain:JoinRoomByXianLaiScheme()")
+    local data = {}
+    data.cmd = NativeCall.CMD_PULL_XIANLIAO_DATA
+    NativeCall.getInstance():callNative(data, function(scheme)
+        Log.i("==================== HallMainJoinRoomByXianLaiScheme")
+        if kFriendRoomInfo:getRoomId() then
+            Toast.getInstance():show("您已进入房间", 3)
+            return
+        end
+        if tonumber(scheme.roomId) == 0 then return end
+        Log.i("--------------获取XianLaiScheme 成功2 :" , scheme)
+        self.m_enterRoomNum = scheme.roomId;
+        local tmpData={}
+        tmpData.pa = tonumber(self.m_enterRoomNum);
+        FriendRoomSocketProcesser.sendRoomEnter(tmpData)
+    end)
 end
 
 function HallMain:getMarqueeWechat(str)
@@ -201,13 +249,13 @@ function HallMain:getMarqueeWechat(str)
     local wechat_id_list = string.split(wechat_list,",")
     self.wechat_id_list = wechat_id_list
     self.marqueeTime = wechat_id_list[1] or 60
-    
+
     local index = self.index or math.random(2,#wechat_id_list)
     if wechat_id_list[index] == nil then
         wechat_id_list[index] = "测试跑马灯"
     end
     local contentTab = wechat_str[1]..wechat_id_list[index]..content[2]
-    return contentTab 
+    return contentTab
 end
 
 --更新电量
@@ -223,9 +271,9 @@ function HallMain:showBrocast()
     local showTime = -moveX/100;
         transition.execute(self.lb_notice, cc.MoveBy:create(showTime, cc.p(moveX, 0)), {
             onComplete = function()
-                self:showBrocast(); 
+                self:showBrocast();
             end
-        }); 
+        });
 
     if(self.m_timer_marquee == nil) then
 
@@ -234,7 +282,7 @@ function HallMain:showBrocast()
             while index == self.index and #self.wechat_id_list ~= 2 do
                 index = math.random(2,#self.wechat_id_list)
             end
-            self.index = index            
+            self.index = index
         end
        self.m_timer_marquee = require ("app.common.TimerProxy").new();
        self.m_timer_marquee:addTimer("marquee_wechatId_update_timer",updateMarqueeWechat, tonumber(self.marqueeTime), -1);
@@ -246,7 +294,7 @@ end
 function HallMain:keyBack()
     local data = {}
     data.type = 2;
-    data.title = "提示";                        
+    data.title = "提示";
     data.yesTitle  = "退出";
     data.cancelTitle = "取消";
     data.content = "确定要退出游戏吗？";
@@ -267,14 +315,14 @@ function HallMain:onResponseNetImg(fileName)
         local headFile = cc.FileUtils:getInstance():fullPathForFilename(fileName);
         if io.exists(headFile) then
             self.img_head:loadTexture(headFile);
-        end 
+        end
     elseif kServerInfo:getMainAdUrl1() == fileName then
         local imgFile = cc.FileUtils:getInstance():fullPathForFilename(fileName);
         if io.exists(imgFile) then
             if IS_YINGYONGBAO == false then
                 self.btn_ad:loadTexture(imgFile);
             end
-        end 
+        end
     end
 end
 
@@ -305,9 +353,9 @@ end
 --个人基本信息
 function HallMain:repUserInfo1(info)
     if info.code == CODE_TYPE_INSERT then
-       
+
     elseif info.code == CODE_TYPE_UPDATE then
-        
+
     end
     self:updateUserInfo(info)
 end
@@ -323,13 +371,13 @@ function HallMain:updateUserInfo(info)
     local createTime = kUserInfo:getUserCreateTime()
     local osTime = os.time()
     local updateTime = tonumber(osTime) - (tonumber(createTime)/1000)
-   
+
     --先设置框的层级然后把默认头像放到层级之下头像之上
     local head_frame = ccui.Helper:seekWidgetByName(self.img_head,"head_frame")
     head_frame:setLocalZOrder(2)
     self:removeMoRneHead()
     if createTime ~= 0 and updateTime < GAME_HEAD_UPDATE_TIME then
-        
+
         local moren_head_img = "hall/Common/moren_man_head.png"
 --        Toast.getInstance():show("kUserInfo:getUserSex()......."..kUserInfo:getUserSex())
         if kUserInfo:getUserSex() == 2 then
@@ -341,7 +389,7 @@ function HallMain:updateUserInfo(info)
         self.moren_head:setScale(0.6)
         self.moren_head:addTo(self.img_head,1)
         self.moren_head:setPosition(cc.p(frameSize.width/2,frameSize.height/2))
-        
+
         self.setMorenHeadThread = scheduler.performWithDelayGlobal(function ()
             self:removeMoRneHead();
         end, GAME_HEAD_UPDATE_TIME-updateTime);
@@ -368,7 +416,7 @@ function HallMain:updateUserInfo(info)
             self.img_head:loadTexture(headFile);
         end
     end
-	
+
 	if(kFriendRoomInfo:isFreeActivities()) then --如果有活动
 	    self.activeLable:setVisible(true)
 	else --"N"
@@ -390,7 +438,7 @@ function HallMain:repUserInfo2(info)
     if info and info.content and info.content[1].preferredCity then
         local cityId = info.content[1].preferredCity
         SettingInfo.getInstance():setSelectAreaPlaceID(cityId)
-        if cityId == 0 then            
+        if cityId == 0 then
             SettingInfo.getInstance():setClubGuidance(true) -- 新用户不显示亲友圈提示
         else -- 选择过城市, 提示亲友圈
             self:addQinyouquan()
@@ -420,10 +468,10 @@ function HallMain:onClickButton(pWidget, EventType)
 				data.type = 1;
 				local content =kFriendRoomInfo:getRoomBaseInfo().roomFeeTip; --kServerInfo:getRechargeInfo();
                 data.content = self.diamond_str_data.content or content
-				UIManager.getInstance():pushWnd(CommonDialog, data); 
-            else 
+				UIManager.getInstance():pushWnd(CommonDialog, data);
+            else
 				UIManager:getInstance():pushWnd(FriendRoomCreate);
-				
+
             end
 		elseif pWidget == self.btn_join then
             if not IS_YINGYONGBAO and kLoginInfo:getIsReview() and not kLoginInfo:getLastAccount() then
@@ -465,7 +513,7 @@ function HallMain:onClickButton(pWidget, EventType)
             if IS_YINGYONGBAO then
                 return
             end
-            if IS_IOS_PRODUCT 
+            if IS_IOS_PRODUCT
                 and G_OPEN_CHARGE and type(IosChargeList) == "table" and ChargeIdTool.checkIosLocalConfig() then
                 UIManager.getInstance():pushWnd(quickpayment);
 --                local data = {}
@@ -493,12 +541,12 @@ function HallMain:onClickButton(pWidget, EventType)
 --                    end
 --                    NativeCall.getInstance():callNative(data, GameManager.getInstance().sendIOSCharge, GameManager.getInstance());
 --                end
---                UIManager.getInstance():pushWnd(CommonDialog, data); 
+--                UIManager.getInstance():pushWnd(CommonDialog, data);
             else
                 -- local data = self.data
                 local data = self:resetRechargeInfo(kFriendRoomInfo:getRoomBaseInfo().roomFeeTip)
                 -- Log.i("AddMoneyDialog..............",data)
-                UIManager.getInstance():pushWnd(AddMoneyDialog, data); 
+                UIManager.getInstance():pushWnd(AddMoneyDialog, data);
             end
         elseif pWidget == self.btn_kefu then
             local data = self.data
@@ -515,21 +563,21 @@ function HallMain:resetRechargeInfo(str_data)
 
     local data = {}
     local str = str_data or kServerInfo:getRechargeInfo()
-    Log.i("str.......",str)
+    -- Log.i("resetRechargeInfo.......",str)
     data.type = 1;
     data.content = "";
     local contentTab = string.split(str, "|");
     if not contentTab then
-        return data 
+        return data
     end
 
     local str = ""
-    for k,v in pairs(contentTab) do 
+    for k,v in pairs(contentTab) do
         local value = self:getRechargeWechat(v,k)
         str = str .. value  .. "\n"
     end
-    data.content = str 
-    return data 
+    data.content = str
+    return data
 end
 
 function HallMain:getRechargeWechat(str,wechat_tag)
@@ -544,7 +592,7 @@ function HallMain:getRechargeWechat(str,wechat_tag)
     local weixinhao1 = weixinlist[#weixinlist]
     weixinhao1 = string.sub(weixinhao1,1,-2)
     weixinlist[#weixinlist] = weixinhao1
-  
+
     self.updateTime = weixinlist[1]
     local selectWechatId = math.random(2,#weixinlist)
 
@@ -556,7 +604,7 @@ function HallMain:getRechargeWechat(str,wechat_tag)
     else
         while self.daiLiWechatId == selectWechatId and #weixinlist ~= 2 do
             selectWechatId = math.random(2,#weixinlist);
-        end          
+        end
         self.daiLiWechatId = selectWechatId
     end
 
@@ -566,7 +614,7 @@ end
 
 function HallMain:updateRechargeWechat()
     local updateTime = self.updateTime or 5
-    local function updateWechatId() 
+    local function updateWechatId()
         local data = self:resetRechargeInfo()
         updateTime = self.updateTime
         self.data = data
@@ -577,7 +625,7 @@ function HallMain:updateRechargeWechat()
 
         local diamond_str_data = self:resetRechargeInfo(kFriendRoomInfo:getRoomBaseInfo().roomFeeTip)
         self.diamond_str_data = diamond_str_data
-    end    
+    end
 
     if(self.m_timer_wechat == nil) then
        self.m_timer_wechat = require ("app.common.TimerProxy").new();
@@ -591,10 +639,10 @@ function HallMain:enterGame(data)
     local gameInfo = kGameManager:getGameInfo(data.gaI);
     ----------暂时用来测试---------------
     local pathName = gameInfo.clP;
-    
-    
+
+
     local gameName = string.upper(pathName);
-    
+
     local gameConfig = "app.games." .. pathName .. "/GameConfig";
     package.loaded[gameConfig] = nil;
 
@@ -651,7 +699,7 @@ function HallMain:repBrocast(packetInfo)
         data.contentType = COMNONDIALOG_TYPE_KICKED;
         data.content = "您的账号在其它设备登录，您被迫下线。如果这不是您本人的操作，您的密码可能已泄露，建议您修改密码或联系客服处理";
         data.closeCallback = function ()
-            if UIManager.getInstance():getWnd(HallMain) then 
+            if UIManager.getInstance():getWnd(HallMain) then
                 -- 在大厅
                 local info = {};
                 info.isExit = true;
@@ -682,14 +730,14 @@ function HallMain:onClickFriendRoom(pWidget, EventType)
 	    self.m_startGameType=2;--标示点击了开始朋友开房游戏
 		local tmpData={}
 		HallSocketProcesser.sendPlayerGameState(tmpData)
-    end 
+    end
 end
 
 --接收朋友开房信息
 function HallMain:recvFriendRoomStartGame(packetInfo)
  	Log.i("游戏恢复对局中。。。。。")
 	kFriendRoomInfo.m_isFriendRoom = StartGameType.FIRENDROOM --设置游戏是从朋友开房进入
-	
+
 	local data = {};
 	data.plI = packetInfo.plI;
 	SocketManager.getInstance():send(CODE_TYPE_GAME, HallSocketCmd.CODE_SEND_RESUMEGAME, data);
@@ -716,7 +764,7 @@ end
 function HallMain:startFriendRoomGame()
 	--如果当前玩家在开房过程中，没有等当局游戏结束，刚进入到开房进行游戏状态
 	local tmpData={}
-    FriendRoomSocketProcesser.sendFriendRoomStartGame(tmpData);	
+    FriendRoomSocketProcesser.sendFriendRoomStartGame(tmpData);
 end
 
 --恢复游戏对局UI点击确定按钮回调
@@ -724,12 +772,12 @@ function HallMain:recoveryCallBackFun(packetInfo)
    --##  self.m_gameType  游戏类型(0:大厅  1:普通子游戏 2:朋友开房 3:比赛)
    self.m_isRecovery = true;
    LoadingView.getInstance():show();
-   if(packetInfo.gaT == 1) then 
+   if(packetInfo.gaT == 1) then
 		local roomListInfo = kGameManager:getRoomListInfo(packetInfo.gaI);
 		if roomListInfo and #roomListInfo <=0 then
 			local data = {};
 			data.gaI = packetInfo.gaI;
-			SocketManager.getInstance():send(CODE_TYPE_ROOM, HallSocketCmd.CODE_SEND_ROOMLIST, data);--请求房间信息	
+			SocketManager.getInstance():send(CODE_TYPE_ROOM, HallSocketCmd.CODE_SEND_ROOMLIST, data);--请求房间信息
         else
             local data = {};
             data.plI = packetInfo.plI;
@@ -737,7 +785,7 @@ function HallMain:recoveryCallBackFun(packetInfo)
 		end
 	elseif(packetInfo.gaT == 2 )then --请求朋友开房信息
 	    local tmpData={}
-	    FriendRoomSocketProcesser.sendFriendRoomStartGame(tmpData);	
+	    FriendRoomSocketProcesser.sendFriendRoomStartGame(tmpData);
 	end
 end
 
@@ -745,14 +793,14 @@ end
 function HallMain:showRecoveryDialog(packetInfo)
 	local data = {}
     data.type = 2;
-    data.title = "提示";                        
+    data.title = "提示";
     data.yesTitle  = "继续游戏";
     data.cancelTitle = "关闭";
     data.content = "您有未结束的的游戏对局，是否继续游戏？";
     data.yesCallback = function()
 	    self:recoveryCallBackFun(packetInfo)
     end
-	
+
     UIManager.getInstance():pushWnd(CommonDialog, data);
     self.m_gaI = packetInfo.gaI;
     self.m_roI = packetInfo.roI;
@@ -766,7 +814,7 @@ function HallMain:recvPlayerGameState(packetInfo)
 	if(4 == packetInfo.gaT) then--房间内
         if UIManager.getInstance():getWnd(FriendRoomScene) then
             UIManager.getInstance():popToWnd(HallMain);
-        end 
+        end
         self:removeMoRneHead()
         UIManager:getInstance():pushWnd(FriendRoomScene);
 	elseif(5 == packetInfo.gaT) then--游戏内
@@ -774,7 +822,7 @@ function HallMain:recvPlayerGameState(packetInfo)
         self.m_roI = packetInfo.roI;
         self.m_plI = packetInfo.plI;
 	    local tmpData={}
-	    FriendRoomSocketProcesser.sendFriendRoomStartGame(tmpData);	
+	    FriendRoomSocketProcesser.sendFriendRoomStartGame(tmpData);
     else
         self:getEnterCode();
 	end
@@ -788,7 +836,7 @@ function HallMain:repServerInfo(packetInfo)
     if kLoginInfo:getIsReview() and imgName and string.len(imgName) > 4 then
         local imgFile = cc.FileUtils:getInstance():fullPathForFilename(imgName);
         if io.exists(imgFile) then
-            if IS_YINGYONGBAO == false then 
+            if IS_YINGYONGBAO == false then
                 self.btn_ad:loadTexture(imgFile);
             end
         else
@@ -812,7 +860,7 @@ function HallMain:recvRoomSceneInfo(packetInfo)
     else
         LoadingView.getInstance():show("正在进入房间，请稍后...");
     end
-    
+
 end
 
 --邀请房配置
@@ -824,8 +872,8 @@ function HallMain:recvRoomConfig(packetInfo)
 	        self.activeLable:setVisible(false)
 	    end
     end
-    
-    
+
+
     --不是正在提审的包
     if kFriendRoomInfo:getReViewVersion() ~= VERSION then
         kLoginInfo:setIsReview();
@@ -954,13 +1002,13 @@ end
 
 function HallMain:exchangeWechatId(arr, interval, wechatIdStrLb)
     -- 更新数据计时器
-    local function updateWechatId() 
+    local function updateWechatId()
         --解析随机获取微信号组
         local index = math.random(#arr);
         if #arr > 1 then
             while (kWechatId1.."&"..kWechatId2) == arr[index] do
                 index = math.random(#arr);
-            end            
+            end
         end
 
 
@@ -974,7 +1022,7 @@ function HallMain:exchangeWechatId(arr, interval, wechatIdStrLb)
         if friendRoomRedPacket then
             friendRoomRedPacket:updateWechatId();
         end
-    end    
+    end
 
     if(self.m_timerProxy == nil) then
        self.m_timerProxy = require ("app.common.TimerProxy").new();
@@ -991,7 +1039,7 @@ HallMain.s_socketCmdFuncMap = {
     [HallSocketCmd.CODE_USERDATA_POINT]         = HallMain.repUserInfo3;
     [HallSocketCmd.CODE_USERDATA_QUEST]         = HallMain.onRecvGiftInfo;
     [HallSocketCmd.CODE_REC_SERVERINFO]         = HallMain.repServerInfo;
-    
+
     [HallSocketCmd.CODE_REC_RESUMEGAME]     = HallMain.repResumeGame;
     [HallSocketCmd.CODE_REC_GAMESTART]      = HallMain.repGameStart;
     [HallSocketCmd.CODE_REC_BROCAST]        = HallMain.repBrocast;

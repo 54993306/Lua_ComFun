@@ -54,14 +54,45 @@ NativeCall.CMD_UPDATE_VERSION = 1024;
 NativeCall.CMD_UMENG_LOGIN_OFF = 1025;
 --打开一个url
 NativeCall.CMD_OPEN_URL = 1026;
-
+--打开客服
+NativeCall.CMD_KE_FU = 1027;
+--注册客服消息数量提示
+NativeCall.CMD_KE_FU_REFRESH = 1028;
+--打开微信
+NativeCall.CMD_OPEN_WEIXIN = 1029;
+--获取定位
+NativeCall.CMD_GET_LOCATION = 1030;
 --分享图片
 NativeCall.CMD_SHARE_PICTURE = 1031;
-
+-- 拉取微下载链接
+NativeCall.CMD_PULL_SCHEMEDATA = 1032;
+-- 闲聊分享分享图片
+NativeCall.CMD_XIANLIAO_SHARE_PICTURE = 1033;
+-- 闲聊分享分享房间
+NativeCall.CMD_XIANLIAO_SHARE_ROOM = 1034;
+-- 闲聊分享分享文字
+NativeCall.CMD_XIANLIAO_SHARE_TEXT = 1035;
+-- 拉取闲聊房间数据
+NativeCall.CMD_PULL_XIANLIAO_DATA = 1036;
+-- 获取兼容版本号
+NativeCall.CMD_GET_COMPATIBLE = 1037;
 --检查文件是否存在
-NativeCall.CMD_CHECKFILEEXIST = 1050   
+NativeCall.CMD_CHECKFILEEXIST = 1050
 -- 微信系统分享
 NativeCall.CMD_WECHAT_SHARE_SYSTEM = 1051
+-- 获取MiPush ID
+NativeCall.CMD_GET_XIAOMI_ID = 1052
+
+NativeCall.CDM_JS_WEB_INTERFACE = 1053
+
+--停止播放录音
+NativeCall.CMD_YY_STOP_PLAY = 1060
+
+NativeCall.Events = {
+    NetStateChange = "onNetStateChange", -- 网络改变
+    YYCallFuncChange = "isYYCallFuncChange",    --丫丫语音监听
+    YYCallFuncFinish = "isYYCallFuncFinish",    --丫丫结束监听
+}
 
 NativeCall.getInstance = function()
     if not NativeCall.s_instance then
@@ -83,7 +114,7 @@ function NativeCall:callNative(data, callback, obj)
         func_obj.obj = obj;
         self.m_callbacks[data.cmd] = func_obj;
     end
-    
+
     if device.platform == "android" then
         -- Java 类的名称
         local className = "org/cocos2dx/lua/AppActivity";
@@ -99,7 +130,7 @@ function NativeCall:callNative(data, callback, obj)
         end
 
         if callback then
-            table.insert(args, NativeCallLua);
+            table.insert(args, PlatformCallLua);
             -- 调用 Java 方法
             luaj.callStaticMethod(className, "luaCall", args);
         else
@@ -108,15 +139,14 @@ function NativeCall:callNative(data, callback, obj)
 
     elseif device.platform == "windows" or device.platform == "mac" then
         if callback then
-            self:windowsCallLua(data, callback, obj);
+            self:windowsCallLua(data, callback, obj);                    -- 在windows上模拟调用实现
         end
     elseif device.platform == "ios" then
         if data.cmd == NativeCall.CMD_GET_PHONEINFO then
             if callback then
---                self:windowsCallLua(data, callback, obj);
                 scheduler.performWithDelayGlobal(function()
-                    data.callback = NativeCallLua
-                    luaoc.callStaticMethod("RootViewController", "getLocation", data);  
+                    data.callback = PlatformCallLua
+                    luaoc.callStaticMethod("RootViewController", "getLocation", data);
                 end, 0.5);
             end
         elseif data.cmd == NativeCall.CMD_CHANGE_ORIENTAION then
@@ -125,7 +155,7 @@ function NativeCall:callNative(data, callback, obj)
                 data1.orient = 1;
                 luaoc.callStaticMethod("RootViewController", "changeRootViewControllerV", data1);
                 luaoc.callStaticMethod("RootViewController", "changeRootViewControllerH", data);
-                
+
             elseif data.orient == 2 then
                 local data1 = {};
                 data1.orient = 2;
@@ -133,61 +163,64 @@ function NativeCall:callNative(data, callback, obj)
                 luaoc.callStaticMethod("RootViewController", "changeRootViewControllerV", data);
             end
         elseif data.cmd == NativeCall.CMD_WECHAT_SHARE then
-            data.callback = NativeCallLua
+            data.callback = PlatformCallLua
             luaoc.callStaticMethod("SendMsgWXRequest", "sendWXShard", data);
         elseif data.cmd == NativeCall.CMD_CHANGE_HEADIMG then
             Log.i("开始选择图片......")
             luaoc.callStaticMethod("SendMsgWXRequest", "sendPictureView", data);
         elseif data.cmd == NativeCall.CMD_CHARGE then
-            data.callback = NativeCallLua;
+            data.callback = PlatformCallLua
             luaoc.callStaticMethod("SendMsgWXRequest", "recharge", data);
         elseif data.cmd == NativeCall.CMD_USER_AGREEMENT then
             luaoc.callStaticMethod("AppController", "showUserAgreement", data);
         elseif data.cmd == NativeCall.CMD_GETBATTERY then
-            data.callback = NativeCallLua
+            data.callback = PlatformCallLua
             luaoc.callStaticMethod("AppController", "deviceLevel", data);
         elseif data.cmd == NativeCall.CMD_WECHAT_SIGNAL then
-            data.callback = NativeCallLua
+            data.callback = PlatformCallLua
             luaoc.callStaticMethod("AppController", "getNetWorkState", data);
         elseif data.cmd == NativeCall.CMD_WECHAT_LOGIN then
-            data.callback = NativeCallLua
+            data.callback = PlatformCallLua
             luaoc.callStaticMethod("SendMsgWXRequest", "sendWXLogin", data);
         elseif data.cmd == NativeCall.CMD_WECHAT_SHARE_SCREEN then
-            data.callback = NativeCallLua
+            data.callback = PlatformCallLua
             data.path = CACHEDIR .. "screen.jpg";
             luaoc.callStaticMethod("SendMsgWXRequest", "sendWXShareScreen", data);
         elseif data.cmd == NativeCall.CMD_LOCATION then
-            data.callback = NativeCallLua
+            scheduler.performWithDelayGlobal(function()
+                data.callback = PlatformCallLua
+                luaoc.callStaticMethod("RootViewController", "getLocation", data);
+            end, 0.5);
         elseif data.cmd == NativeCall.CMD_GET_ENTERCODE then
-            data.callback = NativeCallLua
+            data.callback = PlatformCallLua
             luaoc.callStaticMethod("AppController", "getEnterCode", data);
         elseif data.cmd == NativeCall.CMD_YY_LOGIN then
             local func_obj = {};
             func_obj.func = NativeCallyyLogin;
             self.m_callbacks[NativeCall.CMD_YY_LOGIN] = func_obj;
 
-            data.callback = NativeCallLua
+            data.callback = PlatformCallLua
             luaoc.callStaticMethod("AppController", "yayaLogin", data);
         elseif data.cmd == NativeCall.CMD_YY_START then
-            data.callback = NativeCallLua
+            data.callback = PlatformCallLua
             luaoc.callStaticMethod("AppController", "yayaStart", data);
         elseif data.cmd == NativeCall.CMD_YY_STOP then
-            data.callback = NativeCallLua
+            data.callback = PlatformCallLua
             luaoc.callStaticMethod("AppController", "yayaStop", data);
         elseif data.cmd == NativeCall.CMD_YY_PLAY then
-            data.callback = NativeCallLua
+            data.callback = PlatformCallLua
             luaoc.callStaticMethod("AppController", "yayaPlay", data);
         elseif data.cmd == NativeCall.CMD_UPDATE_VERSION then
-            data.callback = NativeCallLua
+            data.callback = PlatformCallLua
             luaoc.callStaticMethod("AppController", "download", data);
         elseif data.cmd == NativeCall.CMD_YY_UPLOAD_SUCCESS then
-            data.callback = NativeCallLua
+            data.callback = PlatformCallLua
             luaoc.callStaticMethod("AppController", "getYYUploadStatus", data);
         elseif data.cmd == NativeCall.CMD_YY_PLAY_FINISH then
-            data.callback = NativeCallLua
+            data.callback = PlatformCallLua
             luaoc.callStaticMethod("AppController", "getYYPlayStatus", data);
         elseif data.cmd == NativeCall.CMD_UMENG_LOGIN_OFF then
-            data.callback = NativeCallLua;
+            data.callback = PlatformCallLua;
             luaoc.callStaticMethod("AppController", "getUMData", data);
         elseif data.cmd == NativeCall.CMD_SHAKE then
             data.callback = NativeCall;
@@ -195,18 +228,49 @@ function NativeCall:callNative(data, callback, obj)
         elseif data.cmd == NativeCall.CMD_CLIPBOARD_COPY then
             data.callback = NativeCall;
             luaoc.callStaticMethod("RootViewController","getCopy",data);
+        elseif data.cmd == NativeCall.CMD_OPEN_WEIXIN then
+            data.callback = NativeCall;
+            local res = luaoc.callStaticMethod("RootViewController","openWX",data);
+            if res == false then -- 兼容老麻将
+                device.openURL("weixin://")
+            end
+        elseif data.cmd == NativeCall.CMD_GET_LOCATION then
+            data.callback = NativeCall;
+            luaoc.callStaticMethod("SendMsgWXRequest","getLocation",data);
         elseif data.cmd == NativeCall.CMD_SHARE_PICTURE then
-            data.callback = NativeCallLua
-            luaoc.callStaticMethod("SendMsgWXRequest", "sendWXShareScreen", data);   
+            data.callback = PlatformCallLua
+            luaoc.callStaticMethod("SendMsgWXRequest", "sendWXShareScreen", data);
         elseif data.cmd == NativeCall.CMD_CHECKFILEEXIST then  --检查文件是否存在
-            data.callback = NativeCallLua 
+            data.callback = PlatformCallLua
             luaoc.callStaticMethod("RootViewController","imageIsExists",data);
         elseif data.cmd == NativeCall.CMD_GETCACHE then  --返回路径
-            data.callback = NativeCallLua 
+            data.callback = PlatformCallLua
             luaoc.callStaticMethod("RootViewController","getFilePath",data);
         elseif data.cmd == NativeCall.CMD_WECHAT_SHARE_SYSTEM then
             data.callback = NativeCall;
             luaoc.callStaticMethod("SendMsgWXRequest","iosShareWX",data);
+        elseif data.cmd == NativeCall.CMD_OPEN_URL then
+            if data.url then
+                data.callback = NativeCall;
+                device.openURL(data.url)
+            end
+        elseif data.cmd == NativeCall.CMD_XIANLIAO_SHARE_PICTURE then  -- 闲聊分享分享截图
+            -- shareUrlImage 分享网络图片
+            data.callback = {}
+            data.path = CACHEDIR .. "screen.jpg";
+            luaoc.callStaticMethod("XianLiaoController","shareDataImage",data);
+        elseif data.cmd == NativeCall.CMD_XIANLIAO_SHARE_ROOM then  -- 闲聊分享分享房间
+            data.callback = {}
+            luaoc.callStaticMethod("XianLiaoController","shareGame",data);
+        elseif data.cmd == NativeCall.CMD_XIANLIAO_SHARE_TEXT then  -- 闲聊分享分享文字
+            data.callback = {}
+            luaoc.callStaticMethod("XianLiaoController","shareText",data);
+        elseif data.cmd == NativeCall.CMD_PULL_XIANLIAO_DATA then  -- 拉取闲聊房间数据
+            data.callback = PlatformCallLua
+            luaoc.callStaticMethod("AppController","getXianLiaoScheme",data);
+        elseif data.cmd == NativeCall.CMD_GET_COMPATIBLE then       -- 获取兼容版本号
+            data.callback = PlatformCallLua
+            luaoc.callStaticMethod("AppController","getCompatibleVersion",data);
         end
 
     end
@@ -228,6 +292,12 @@ function NativeCall:callLua(args)
             else
                 func_obj.func(data);
             end
+        elseif data and data.cmd == NativeCall.CMD_GETCACHE then
+            if func_obj.obj then
+                func_obj.func(func_obj.obj, data);
+            else
+                func_obj.func(data);
+            end
         else
             scheduler.performWithDelayGlobal(function()
                 if func_obj.obj then
@@ -235,7 +305,7 @@ function NativeCall:callLua(args)
                 else
                     func_obj.func(data);
                 end
-                    
+
                 --self.m_callbacks[data.cmd] = nil;
                 --func_obj = nil;
 
@@ -244,11 +314,12 @@ function NativeCall:callLua(args)
     end
 end
 
+-- 在windows上模拟平台返回调用回调方法
 function NativeCall:windowsCallLua(data, callback, obj)
     --Log.i("------windowsCallLua", data);
     local args = {};
     if data.cmd == NativeCall.CMD_GET_PHONEINFO then
-        
+
         args.cmd = NativeCall.CMD_GET_PHONEINFO;
         args.imei = IMEI;
         args.model = MODEL;
@@ -256,29 +327,29 @@ function NativeCall:windowsCallLua(data, callback, obj)
         args.spid = SPID;
         args.version = VERSION;
         args.netmode = NETMODE;
-        args.latitude = WEIDU
-        args.longitude = JINDU
+        args.latitude = 120
+        args.longitude = 20
         args.packageName = "com.dashengzhangyou.pykf.huaibei"
         local argStr = json.encode(args);
 
-        NativeCallLua(argStr);
+        PlatformCallLua(argStr);
     elseif data.cmd == NativeCall.CMD_GETBATTERY then
         args.cmd = NativeCall.CMD_GETBATTERY;
         args.baPro = 80;
         local argStr = json.encode(args);
 
-        NativeCallLua(argStr);
+        PlatformCallLua(argStr);
     elseif data.cmd == NativeCall.CMD_WECHAT_SHARE then
         args.cmd = NativeCall.CMD_WECHAT_SHARE;
         args.errCode = 0;
         local argStr = json.encode(args);
 
-        NativeCallLua(argStr);
+        PlatformCallLua(argStr);
     elseif data.cmd == NativeCall.CMD_GETCACHE then
         args.cmd = NativeCall.CMD_GETCACHE
         args.path = WRITEABLEPATH .. "cache/"
         local argStr = json.encode(args);
-        NativeCallLua(argStr)
+        PlatformCallLua(argStr)
     elseif data.cmd == NativeCall.CMD_CHECKFILEEXIST then
         args.cmd = NativeCall.CMD_CHECKFILEEXIST
         local headFile = cc.FileUtils:getInstance():fullPathForFilename(data.filePath);
@@ -286,7 +357,7 @@ function NativeCall:windowsCallLua(data, callback, obj)
         args.ret = io.exists(headFile) and 1 or 0
         args.fileFullPath = headFile
         local argStr = json.encode(args);
-        NativeCallLua(argStr)
+        PlatformCallLua(argStr)
     elseif data.cmd == NativeCall.CMD_IS_PORTRAIT then
     elseif data.cmd == NativeCall.CMD_WECHAT_SIGNAL then
         args.cmd = NativeCall.CMD_WECHAT_SIGNAL;
@@ -294,28 +365,44 @@ function NativeCall:windowsCallLua(data, callback, obj)
         args.type = "Wi-Fi"
         local argStr = json.encode(args);
 
-        NativeCallLua(argStr);
+        PlatformCallLua(argStr);
     elseif data.cmd == NativeCall.CMD_YY_UPLOAD_SUCCESS then
         args.cmd = NativeCall.CMD_YY_UPLOAD_SUCCESS;
         args.fileUrl = "fileUrl"
         local argStr = json.encode(args);
 
-        NativeCallLua(argStr);
+        PlatformCallLua(argStr);
     elseif data.cmd == NativeCall.CMD_YY_PLAY_FINISH then
         args.cmd = NativeCall.CMD_YY_PLAY_FINISH;
         args.usI = kUserInfo:getUserId();
         local argStr = json.encode(args);
 
-        NativeCallLua(argStr);
-     elseif data.cmd == NativeCall.CMD_OPEN_URL then
+        PlatformCallLua(argStr);
+    elseif data.cmd == NativeCall.CMD_OPEN_URL then
         Log.i("url:".. data.url);
         device.openURL(data.url);
-        NativeCallLua(data.url);
+        PlatformCallLua(data);
+
+    elseif data.cmd == NativeCall.CMD_KE_FU_REFRESH then
+        args.cmd = NativeCall.CMD_KE_FU_REFRESH
+
+        args.count = math.random(0, 1)
+        local argStr = json.encode(args);
+        PlatformCallLua(argStr);
+
+    elseif data.cmd == NativeCall.CMD_LOCATION then
+        args.cmd = NativeCall.CMD_LOCATION
+
+        args.longitude = math.random(110, 120)
+        args.latitude  = math.random(15, 25)
+        local argStr = json.encode(args);
+        PlatformCallLua(argStr);
     end
 end
 
-NativeCallLua = function(args)
-    Log.i("------NativeCallLua", args);
+-- 从平台回调至Lua入口函数
+PlatformCallLua = function(args)
+    -- Log.i("------PlatformCallLua", args);
     NativeCall.getInstance():callLua(args);
 end
 

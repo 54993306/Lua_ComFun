@@ -7,7 +7,7 @@ cc.net 	= require("app.framework.cc.net.init")
 SocketManager = class("SocketManager")
 
 SocketManager.getInstance = function()
-	if not SocketManager.s_instance then 
+	if not SocketManager.s_instance then
 		SocketManager.s_instance = SocketManager.new();
 	end
 	return SocketManager.s_instance;
@@ -85,7 +85,7 @@ end
 function SocketManager:onConnected(event)
     Log.i("------SocketManager:onConnected ", "连通");
     self.m_status = NETWORK_NORMAL;
-    self.m_try_time = 0; 
+    self.m_try_time = 0;
     if #self.m_socketProcessers > 0 then
         if self.m_isReconnent then
             if self.m_socketProcessers[1] then
@@ -111,8 +111,8 @@ end
 
 function SocketManager:startHeartBeat()
     self:stopHeartBeat();
-    self.heatBeatThread = scheduler.scheduleGlobal(function() 
-        Log.i("心跳时间")
+    self.heatBeatThread = scheduler.scheduleGlobal(function()
+        -- Log.i("心跳时间")
         --发送心跳消息
         self:send(CODE_TYPE_SYS, CODE_HEARTBEAT);
         --
@@ -172,7 +172,7 @@ function SocketManager:onConnectFail(event)
     Log.i("链接失败....")
     Log.i("SocketManager:onConnectFail self.m_isReconnent", self.m_isReconnent);
     Log.i("SocketManager:onConnectFail self.m_reconnectTime", self.m_reconnectTime);
-    
+
     if self.m_isReconnent then
         if self.m_reconnectTime < self.m_maxReconnect_time then
             self:reconnetSocket();
@@ -189,7 +189,7 @@ function SocketManager:onConnectFail(event)
             if self.openNumber == nil then
                 self.openNumber = 0
             end
-            self.openNumber = self.openNumber + 1 
+            self.openNumber = self.openNumber + 1
             local index = 1
             if self.openNumber > 3 and self.openNumber < 6 then
                 index = 2
@@ -208,9 +208,9 @@ function SocketManager:onConnectFail(event)
             Log.i("重新链接.....")
             self:closeSocket();
             self:openSocket();
-        end    
+        end
     end
-    
+
 end
 
 function SocketManager:onConnectException(event)
@@ -234,7 +234,7 @@ end
 function SocketManager:onReceive(event)
 	self:stopCheckNetWorkThread();
 	--
-	local msgs = self.buf:parseMessage(event.data); 
+	local msgs = self.buf:parseMessage(event.data);
     for i = 1, #msgs do
         --开局或恢复对局消息需要等场景切换完成
         if (msgs[i].subcode > 30006  and msgs[i].subcode <= 40000 )
@@ -253,7 +253,7 @@ function SocketManager:onReceive(event)
         else
             table.insert(self.msgs, msgs[i]);
         end
-        
+
     end
 end
 
@@ -274,7 +274,7 @@ end
 local ts = 0
 function SocketManager:onReceivePacket(msg)
     if self.pause then return end
-   
+
     if not msg then
         if #self.msgs == 0 then
             return;
@@ -293,7 +293,7 @@ function SocketManager:onReceivePacket(msg)
         else
             msg = table.remove(self.msgs, 1);
         end
-        
+
     end
     local info = {}
     if msg.subcode ~= CODE_HEARTBEAT then
@@ -313,7 +313,7 @@ function SocketManager:onReceivePacket(msg)
         packetInfo = info;
     end
     for k, v in ipairs(self.m_socketProcessers) do
-        
+
         if v:onReceivePacket(msg.subcode, packetInfo) then
             break;
         end
@@ -351,7 +351,7 @@ end
 function SocketManager:send(code, subcode, msgContent)
 	if not self._socket then
 		return;
-	end 
+	end
     local data = (msgContent ~= nil) and json.encode(msgContent) or nil;
     if code > 0 then
         Log.i("------send msg code", code .. " subcode:" .. subcode);
@@ -365,7 +365,7 @@ end
 
 --打开连接
 function SocketManager:openSocket(index)
-    
+
     if index == nil then
         index = 1
     end
@@ -413,7 +413,7 @@ function SocketManager:reconnetSocket()
 end
 
 function SocketManager:getIndex(vtable, value)
-	for k, v in pairs(vtable or {}) do 
+	for k, v in pairs(vtable or {}) do
 		if v == value then
 			return k;
 		end

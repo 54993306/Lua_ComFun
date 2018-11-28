@@ -1,6 +1,6 @@
 local Deque = require("app.hall.common.Deque")
 local ShareToWX = require "app.hall.common.ShareToWX"
-
+local choiceShare = require("app.hall.common.share.choiceShare")
 --房间UI
 FriendRoomScene = class("FriendRoomScene", UIWndBase);
 
@@ -32,13 +32,13 @@ function FriendRoomScene:onClose()
     if self.m_getUploadThread then
         scheduler.unscheduleGlobal(self.m_getUploadThread);
     end
-	
+
     self:closeEditBox()
 end
 function FriendRoomScene:closeEditBox()
     local data = {};
     data.cmd = NativeCall.CMD_CLOSEEDITBOX;
-    NativeCall.getInstance():callNative(data); 
+    NativeCall.getInstance():callNative(data);
 end
 
 function FriendRoomScene:onInit()
@@ -76,10 +76,10 @@ function FriendRoomScene:onInit()
     self.beginSayTxt:setString("按住 说话");
 
     self.img_mic = ccui.Helper:seekWidgetByName(self.m_pWidget, "mic");
-   
+
     local title = ccui.Helper:seekWidgetByName(self.m_pWidget, "title");
     title:loadTexture(_gameTitlePath);
- 
+
     --手指动画
     local signImg = ccui.Helper:seekWidgetByName(self.m_pWidget, "signImg");
     local sequence = transition.sequence({
@@ -97,12 +97,12 @@ function FriendRoomScene:onInit()
     				cc.ScaleTo:create(0.5, 1)
     });
     self.redPackBtn:runAction(cc.RepeatForever:create(sequence));
-	
+
 	self.sayListView = ccui.Helper:seekWidgetByName(self.m_pWidget, "sayListView");
 	self.sayListView:removeAllChildren();
-	
+
     self.sayTextField = self:getWidget(self.m_pWidget, "sayTextField");
-	
+
 	--
 	self.playerListView = ccui.Helper:seekWidgetByName(self.m_pWidget, "playerListView");
 	self.playerListView:removeAllChildren()
@@ -117,7 +117,7 @@ function FriendRoomScene:onInit()
             self.playerPanel[i]:addTouchEventListener(handler(self, self.onClickPVButton));
       end
     end
-	
+
 	--
 	local exitRoomLabel= ccui.Helper:seekWidgetByName(self.m_pWidget, "exitRoomLabel");
 	local userID =kUserInfo:getUserId()
@@ -127,9 +127,9 @@ function FriendRoomScene:onInit()
 	else
 	   exitRoomLabel:setString("退出房间")
 	end
-	
+
     self:updateUI()
-    
+
 end
 function FriendRoomScene:setMoRenHead(playerInfo,index)
     if self.moren_head == nil then
@@ -164,7 +164,7 @@ function FriendRoomScene:setMoRenHead(playerInfo,index)
             end, GAME_HEAD_UPDATE_TIME-updateTime);
         end
     end
-    
+
 end
 function FriendRoomScene:removeMoRneHead(index)
     if self.moren_head ~= nil and self.moren_head[index] then
@@ -231,14 +231,14 @@ function FriendRoomScene:onShow()
     local playerInfos = kFriendRoomInfo:getRoomInfo();
     --自己不是房主，提示玩法信息
     if self.m_data.isFirstEnter and playerInfos.owI ~= kUserInfo:getUserId() then
-        UIManager:getInstance():pushWnd(FriendRoomEnterInfo); 
+        UIManager:getInstance():pushWnd(FriendRoomEnterInfo);
     end
 end
 
 function FriendRoomScene:onMsgButton(pWidget, EventType)
   if EventType == ccui.TouchEventType.ended then
         local content = self.sayTextField:getText();
-			
+
        if content and content ~= "" then
 			--[[ type = 2,code=23000, 私有房聊天
 			##  usI  int   玩家ＩＤ
@@ -258,7 +258,7 @@ function FriendRoomScene:onMsgButton(pWidget, EventType)
             Toast.getInstance():show("请输入聊天内容");
 	 	end
   end
- 
+
 end
 
 
@@ -278,18 +278,18 @@ function FriendRoomScene:onTouchSayButton(pWidget, EventType)
             --开始录音
             local data = {};
             data.cmd = NativeCall.CMD_YY_START;
-            NativeCall.getInstance():callNative(data); 
+            NativeCall.getInstance():callNative(data);
             self:showMic();
             self.beginSayTxt:setString("松开 发送");
         end
-        
+
     elseif EventType == ccui.TouchEventType.ended then
         if self.m_isTouchBegan then
             --停止录音
             local data = {};
             data.cmd = NativeCall.CMD_YY_STOP;
             data.send = 1;
-            NativeCall.getInstance():callNative(data); 
+            NativeCall.getInstance():callNative(data);
             self:hideMic();
             self.beginSayTxt:setString("按住 说话");
 
@@ -298,14 +298,14 @@ function FriendRoomScene:onTouchSayButton(pWidget, EventType)
             else
                 Toast.getInstance():show("功能未初始化完成，请稍后");
             end
-            
+
             self.m_isTouchBegan = false;
             self.m_isTouching = true;
             self.m_pWidget:performWithDelay(function ()
                 self.m_isTouching = false;
             end, 0.5);
         end
-        
+
     elseif EventType == ccui.TouchEventType.canceled then
         if  self.m_isTouchBegan then
             --停止录音
@@ -349,7 +349,7 @@ end
 
 function FriendRoomScene:onClickSoundButton(pWidget, EventType)
   if EventType == ccui.TouchEventType.ended then
-    if pWidget == self.soundBtn then 
+    if pWidget == self.soundBtn then
         self.sendPanel:setVisible(false);
         self.soundPanel:setVisible(true);
 	end
@@ -369,21 +369,27 @@ function FriendRoomScene:onClickButton(pWidget, EventType)
 			end
 			--type = 2,code=20015, 获取邀请房信息   client  <--> server
 			local tmpData={}
-			
+
 			--FriendRoomSocketProcesser.sendRoomGetRoomInfo(tmpData)
 		elseif(pWidget == self.redPackBtn) then--红包
 		    UIManager:getInstance():pushWnd(FriendRoomRedPacket);
-			
+
         elseif pWidget == self.dxBtn then
-		  
+
         elseif pWidget ==  self.shardBtn then
-			self:onWxLogic(2)
+            local shareToWechat = function()
+                self:onWxLogic(2)
+            end
+            local data = {}
+            data.shareToWechat = shareToWechat
+            data.type = "room" -- 房间等待界面的分享
+            UIManager.getInstance():pushWnd(choiceShare, data)
         elseif pWidget == self.frientBtn then
-		     self:onWxLogic(1) 
+		     self:onWxLogic(1)
         elseif pWidget == self.qqBtn then
 
         elseif pWidget == self.copyBtn then
-		
+
 	        local data = {};
 			data.cmd = NativeCall.CMD_CLIPBOARD_COPY;
 			data.content  = string.format("%d",self.m_roomInfo.pa)--
@@ -407,11 +413,11 @@ function FriendRoomScene:updateUI()
     local roomInfo=kFriendRoomInfo:getRoomBaseInfo()
     local playerInfos = kFriendRoomInfo:getRoomInfo();
 	local selectSetInfo =kFriendRoomInfo:getSelectRoomInfo();
-	
+
 	--房间号
 	local roomNumberLabel= ccui.Helper:seekWidgetByName(self.m_pWidget, "roomNumberLabel");
 	roomNumberLabel:setString(string.format("%d", playerInfos.pa));
-    self:playerListViewUpdate(); 
+    self:playerListViewUpdate();
 
     local copyBtnLayout = ccui.Layout:create()
     -- local copyBtnLayout = display.newColorLayer(cc.c4b(100,100,100,255))
@@ -437,17 +443,17 @@ function FriendRoomScene:updateUI()
     copyRoomIdLine:setSystemFontSize(28)
     copyRoomIdLine:setPosition(cc.p(copyBtnLayout:getContentSize().width/2,copyBtnLayout:getContentSize().height/2 - 5))
     copyBtnLayout:addChild(copyRoomIdLine)
-end	
-	
+end
+
 
 function FriendRoomScene:onCloseRoomButton(pWidget, EventType)
     if EventType == ccui.TouchEventType.ended then
 		local data = {}
 		data.type = 2;
-		data.title = "提示";                        
+		data.title = "提示";
 		data.yesTitle  = "确定";
 		data.cancelTitle = "取消";
-		
+
 		local userID =kUserInfo:getUserId()
 		local isRoom = kFriendRoomInfo:isRoomMain(userID)
 		if(isRoom) then--如果是房主
@@ -455,13 +461,13 @@ function FriendRoomScene:onCloseRoomButton(pWidget, EventType)
 		else
 		  data.content = "退出房间后如本房间仍有座位可重新进入房间!"
 		end
-		
+
 		data.yesCallback = function()
 		    local tmpData={}
 			tmpData.usI= kUserInfo:getUserId()
 		    FriendRoomSocketProcesser.sendRoomQuit(tmpData)
 		end
-		
+
 		UIManager.getInstance():pushWnd(CommonDialog, data);
 	end
 end
@@ -476,7 +482,7 @@ function FriendRoomScene:onLabelClickButton(pWidget,EventType)
         data.content  = string.format( "%s%s","【来来淮北麻将】",playerInfo.pa )
         Log.i("copy code",data.content)
         NativeCall.getInstance():callNative(data);
-        Toast.getInstance():show("复制成功"); 
+        Toast.getInstance():show("复制成功");
     end
 end
 
@@ -499,7 +505,7 @@ function FriendRoomScene:onWxLogic(shardType)
         --拼上房间号，用于直接进入房间
         -- data.url = roomInfo.shareLink .. "&code=" .. playerInfo.pa;
 
-        -- if device.platform == "ios" then            
+        -- if device.platform == "ios" then
         --     local subStrLength = string.find(roomInfo.shareLink, "?")
         --     local ioShareLink = string.sub( roomInfo.shareLink, 1,subStrLength )
         --     local iosUrl=ioShareLink .."open="..roomInfo.iosOpenurl.. CONFIG_GAEMID.."?code=" .. playerInfo.pa.. "&url="..roomInfo.iosurl..magicWindowUrl
@@ -579,22 +585,22 @@ function FriendRoomScene:shareToWx(data)
     LoadingView.getInstance():show("正在分享,请稍后...", 2)
     WeChatShared.getWechatShareInfo(WeChatShared.ShareType.FRIENDS, WeChatShared.ShareContentType.LINK, WeChatShared.SourceType.FRIEND_ROOM_FRIEND, callBack, ShareToWX.PaijuShareFriend, data)
 end
-    
+
 function FriendRoomScene:recvRoomQuit(packetInfo)
    --##  usI  long  玩家id
    --re  int  结果（-1 失败，1 成功）
     if(packetInfo.re == 1) then
-	
+
 		local exitUserID = packetInfo.usI
 		local localUserID = kUserInfo:getUserId()
-		
+
 		--如果是房主退出
 		if(kFriendRoomInfo:isRoomMain(exitUserID)) then
             --玩法界面显示时，先关闭
             if UIManager.getInstance():getWnd(FriendRoomEnterInfo) then
                 UIManager.getInstance():popToWnd(self);
             end
-		      
+
 			if(exitUserID == localUserID) then--如果是房主
 			   kFriendRoomInfo:clearData()
 			   self:closeRoomSceneUI();
@@ -611,13 +617,13 @@ function FriendRoomScene:recvRoomQuit(packetInfo)
 					self:closeRoomSceneUI();
 					return
 				end
-				
+
 				UIManager.getInstance():pushWnd(CommonDialog, data);
 			end
-		
-		else  
+
+		else
 			if(exitUserID ~= localUserID) then
-                --别的玩家退出 
+                --别的玩家退出
     		   local playerName = packetInfo.niN;
     		   local str = string.format("%s已退出房间", playerName)
     		   --加到消息系统列表中。
@@ -664,7 +670,7 @@ function FriendRoomScene:playerListViewUpdate()
             self:ipXiangTong(playerInfo,headImg)
             headImg:setVisible(true);
             playerName:setVisible(true);
-		
+
 		    local retName = ToolKit.subUtfStrByCn(playerInfo.niN,0,5,"")
             playerName:setString(retName);
             --玩家离线状态
@@ -674,7 +680,7 @@ function FriendRoomScene:playerListViewUpdate()
 			else
 			   leaveImg:setVisible(false)
 			end
-     
+
             --测试头像
             --playerInfo.heI = "http://wx.qlogo.cn/mmopen/ajNVdqHZLLCZHe0PtY7TzmVTYp94c8sDoyo9WN4FVmVz9iapgMqKjKCLWEdl6PU4ugBgwIu4j1wicKiaTpGdIcMqSpdDjRbF1SGdgPUiaJNWcWc/0";
             if playerInfo.heI and string.len(playerInfo.heI) > 4 then
@@ -706,7 +712,7 @@ function FriendRoomScene:playerListViewUpdate()
 
         self:setMoRenHead(playerInfo,i)
     end
-   
+
 end
 
 function FriendRoomScene:onResponseNetImg(imgName)
@@ -774,8 +780,8 @@ function FriendRoomScene:closeRoomSceneUI(tmpData)
 end
 
 function FriendRoomScene:recvAddNewPlayerToRoom(packetInfo)
-    local str = string.format("系统:玩家(%s)坐下", packetInfo.niN) 
-    self:insertSayText(str, cc.c3b(0, 255, 0));	
+    local str = string.format("系统:玩家(%s)坐下", packetInfo.niN)
+    self:insertSayText(str, cc.c3b(0, 255, 0));
 end
 
 --返回
@@ -792,7 +798,7 @@ function FriendRoomScene:recvSayMsg(packetInfo)
             if status and packetInfo.usI ~= kUserInfo:getUserId() then
 
             else
-                self:showSpeaking(packetInfo);            
+                self:showSpeaking(packetInfo);
             end
         end
     else
@@ -820,7 +826,7 @@ function FriendRoomScene:onUpdateUploadStatus(info)
         self.m_getUploadThread = nil;
         local matchStr = string.match(info.fileUrl,"http://");
         Log.i("--------onUpdateUploadStatus", matchStr);
-        
+
         --发送语音聊天
         if matchStr and kFriendRoomInfo:getRoomInfo().roI then
             local tmpData  ={};
@@ -831,7 +837,7 @@ function FriendRoomScene:onUpdateUploadStatus(info)
             tmpData.co = info.fileUrl;
             FriendRoomSocketProcesser.sendSayMsg(tmpData);
         end
-        
+
     end
 end
 
@@ -864,7 +870,7 @@ function FriendRoomScene:onUpdateSpeakingStatus(info)
 
         self:hideSpeaking(info.usI);
 
-        
+
     end
 end
 
@@ -903,7 +909,7 @@ function FriendRoomScene:showSpeaking(packetInfo)
             end
         end
     end
-    
+
 end
 
 --隐藏正在说话
@@ -942,19 +948,19 @@ function FriendRoomScene:insertSayText(strText,color)
 		local labelStr,str=LibFont.subString(strText,550,text:getFontName(), text:getFontSize());
 		strText = str;
 		if labelStr == nil or labelStr == "" then
-            break;						
-		else      
+            break;
+		else
             table.insert(strTable,labelStr);
-		end	
+		end
 		if strText == nil or strText == "" then
 			break;
 		end
 	end
-	
+
 	local cacheTable={}
 	local nlen = #strTable
     local currentLen =nlen
-	for i=1,nlen do 
+	for i=1,nlen do
 	    local str = strTable[currentLen]
 		local text = ccui.Text:create()
 		text:setString(str)
@@ -965,12 +971,12 @@ function FriendRoomScene:insertSayText(strText,color)
 
 		self.sayListView:insertCustomItem(text,0)
 		self.sayListView:doLayout()
-	
+
 		currentLen= currentLen-1
-		
+
 		table.insert(cacheTable,text);--聊天条数超过20，任然有继续显示
 	end
-	
+
 	--聊天条数超过20，任然有继续显示
 	self.m_sayQueue:pushFront(cacheTable)
 	if(self.m_sayQueue:size() >20) then

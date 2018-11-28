@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<userDefaultRoot>
+    <account>[{"pwd":"","act":"userid_3914"},{"act":"userid_3913","pwd":""},{"pwd":"","act":"userid_3912"},{"act":"userid_3914","pwd":"998108"},{"pwd":"583673","act":"userid_3913"},{"act":"userid_3912","pwd":"291742"},{"pwd":"","act":"userid_3911"},{"act":"userid_3911","pwd":"140525"},{"pwd":"","act":"userid_392"},{"act":"userid_391","pwd":""}]</account>
+    <cf_isNewer>false</cf_isNewer>
+    <btn_exchange>false</btn_exchange>
+    <btn_focusDiamond>false</btn_focusDiamond>
+    <gotExchangeCode>false</gotExchangeCode>
+    <reveiw_version>true</reveiw_version>
+    <roomNumberKey>499006</roomNumberKey>
+</userDefaultRoot>

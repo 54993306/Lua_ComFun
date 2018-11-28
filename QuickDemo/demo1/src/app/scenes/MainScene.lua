@@ -42,6 +42,8 @@ function MainScene:ctor()
     }
 
     print("string : " .. languageString.Lxc_DDZ.ddzrule1d)
+
+    print(os.time())
 end
 
 -- 初始化json文件和csb文件相关

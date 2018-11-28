@@ -157,6 +157,28 @@ function UserInfo:getCashGiftCard()
     end
 end
 
+function UserInfo:getKfUserInfo()
+    local uid = self:getUserId();
+    local uname = self:getUserName();
+    if uid == 0 then
+        local lastAccount = kLoginInfo:getLastAccount();
+        if lastAccount and lastAccount.usi then
+            uid = lastAccount.usi
+        end
+    end
+
+    if uname == "" or uname == nil then
+        if uid == nil or uid == 0 then
+            uname = "游客"
+        else
+            uname = "游客"..uid
+        end
+    end
+
+    --此时uid需要传入字符串类型.否则ios那边解析会出问题.
+    return ""..uid, uname
+end
+
 --头像（大640x640）
 function UserInfo:getHeadImg()
     local userInfo = kUserData_userInfo:getUserDataByKeyID(self:getUserId());

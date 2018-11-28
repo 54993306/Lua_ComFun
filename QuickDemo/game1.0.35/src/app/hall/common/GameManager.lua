@@ -1,7 +1,7 @@
 --子游戏管理
 local ChargeIdTool = require("app.PayConfig")
 GameManager = class("GameManager");
-
+local choiceShare = require("app.hall.common.share.choiceShare")
 GameManager.getInstance = function()
     if not GameManager.s_instance then
         GameManager.s_instance = GameManager.new();
@@ -37,8 +37,8 @@ function GameManager:enterGame(gameId, roomId)
 
     ----------暂时用来测试---------------
     local pathName = gameInfo.clP;
-    
-    
+
+
     -------------------------
     local gameConfig = "app.games." .. pathName .. "/GameConfig";
     package.loaded[gameConfig] = nil;
@@ -80,8 +80,8 @@ function GameManager:enterGame(gameId, roomId)
                 if tmpRoomInfo then
                     local data = {}
                     data.type = 2;
-                    data.title = "提示";                        
-                    data.yesTitle  = "去"; 
+                    data.title = "提示";
+                    data.yesTitle  = "去";
                     data.cancelTitle = "不去";
                     data.content = "您的金豆已超过本房间最高要求，将进入" .. tmpRoomInfo.na .. "游戏";
                     data.yesCallback = function()
@@ -110,7 +110,7 @@ function GameManager:enterGame(gameId, roomId)
 			end
 
         end
-          
+
     else
         --快速进入
         local tmpRoomInfo = self:getFastRoomInfo(gameId);
@@ -138,7 +138,7 @@ function GameManager:enterGame(gameId, roomId)
                 else
                     Toast.getInstance():show("金豆不足");
                 end
-                
+
             end
         end
     end
@@ -147,14 +147,14 @@ end
 --朋友开房间入口
 function GameManager:enterFriendRoomGame(packetInfo)
     Log.i("GameManager:enterFriendRoomGame", packetInfo);
-	
+
     if  packetInfo.re == 1 then
 		--changzhouMJ 常州麻将 xuzhou 徐州麻将
 		local gameType = kFriendRoomInfo:getGameType();
-		
+
 		local pathName = gameType
 		local gameName = string.upper(pathName);
-		
+
 		local gameConfig = "app.games." .. pathName .. "/GameConfig";
 		package.loaded[gameConfig] = nil;
 
@@ -167,12 +167,12 @@ function GameManager:enterFriendRoomGame(packetInfo)
 		local gameConfig = "app.games." .. pathName .. "." .. gameName .. "Config";
 		package.loaded[gameConfig] = nil;
 		require(gameConfig);
-		
+
 		kFriendRoomInfo.m_isFriendRoom = StartGameType.FIRENDROOM --设置游戏是从朋友开房进入
-		
+
 		enterGame(packetInfo);
     end
-	
+
     --LoadingView.getInstance():hide();
 
 end
@@ -207,7 +207,7 @@ function GameManager:getChargeItem(roomThm)
     local chargeItem = nil;
     local daList = kChargeListInfo:getChargeList();
     for k, v in pairs(daList) do
-        if v.trI then 
+        if v.trI then
             local kvTab = string.split(v.trI, ",");
             for k1, v1 in pairs(kvTab) do
                 local kvTab1 = string.split(v1, ":");
@@ -236,7 +236,7 @@ function GameManager:getGameRule(gameId)
     local pathName = gameInfo.clP;
     ----------暂时用来测试---------------
 
-    
+
     -------------------------
     local gameConfig = "app.games." .. pathName .. "/GameConfig";
     package.loaded[gameConfig] = nil;
@@ -246,7 +246,7 @@ function GameManager:getGameRule(gameId)
         --Toast.getInstance():show("玩命开发中！");
         return;
     else
-        
+
         return _gameRuleStr;
     end
 end
@@ -383,7 +383,7 @@ function GameManager:isHaveGame(data)
     local pathName = gameInfo.clP;
     ----------暂时用来测试---------------
 
-    
+
     -------------------------
 
     local gameConfig = "app.games." .. pathName .. "/GameConfig";
@@ -434,7 +434,7 @@ function GameManager:reCharge(info)
         end
     end
 
-end 
+end
 
 --苹果支付成功了，请求发货
 function GameManager:sendIOSCharge(info)
@@ -458,11 +458,17 @@ end
 
 --分享截屏
 function GameManager:shareScreen()
-    display.captureScreen(function()
-                local data = {};
-                data.cmd = NativeCall.CMD_WECHAT_SHARE_SCREEN;
-                NativeCall.getInstance():callNative(data); 
-            end , CACHEDIR .. "screen.jpg");
+    local shareToWechat = function()
+        display.captureScreen(function()
+            local data = {};
+            data.cmd = NativeCall.CMD_WECHAT_SHARE_SCREEN;
+            NativeCall.getInstance():callNative(data);
+        end , CACHEDIR .. "screen.jpg");
+    end
+    local data = {}
+    data.shareToWechat = shareToWechat
+    data.type = "roompicture"
+    UIManager.getInstance():pushWnd(choiceShare, data)
 end
 
 --进入房间完成

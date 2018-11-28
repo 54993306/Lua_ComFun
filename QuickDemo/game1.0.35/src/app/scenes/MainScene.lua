@@ -26,7 +26,7 @@ function MainScene:onEnter()
             UIManager.getInstance():changeToPortrait();
         end
     end
-    
+
     if not self.m_add then
         --刚启动游戏
         self.m_add = true;
@@ -50,7 +50,7 @@ function MainScene:onEnter()
             info.isExit = true;
             UIManager.getInstance():replaceWnd(HallLogin, info);
         end
-	    
+
         --释放ccs动画
         if _gameArmatureFileInfoCfg then
             for k, v in pairs(_gameArmatureFileInfoCfg) do
@@ -64,9 +64,9 @@ function MainScene:onEnter()
             cc.SpriteFrameCache:getInstance():removeSpriteFramesFromFile("games/common/mj/majiang_pai.plist")
             cc.SpriteFrameCache:getInstance():removeUnusedSpriteFrames();
             cc.Director:getInstance():getTextureCache():removeUnusedTextures();
-        end 
+        end
     end
-    
+
 end
 
 --[[
@@ -91,9 +91,8 @@ function MainScene:onEnterForeground()
     if not UIManager.getInstance():getWnd(FriendRoomScene) then
         local hallMain = UIManager.getInstance():getWnd(HallMain);
         if hallMain then
-            scheduler.performWithDelayGlobal(function ()
-                hallMain:getEnterCode();
-            end, 0.5);
+            hallMain:joinRoomByScheme()
+            hallMain:JoinRoomByXianLaiScheme()
         end
     end
 end
