@@ -12,7 +12,7 @@ function HallUpdate:onShow()
         data.cmd = NativeCall.CMD_UPDATE_VERSION;
         data.URL = self.m_data.neVDRL;
         data.path = WRITEABLEPATH .. "update/";
-        NativeCall.getInstance():callNative(data, HallUpdate.updatePro, self); 
+        NativeCall.getInstance():callNative(data, HallUpdate.updatePro, self);
     end
 end
 
@@ -22,7 +22,7 @@ function HallUpdate:updatePro(info)
         self.lb_percent:setString(info.pro .. "%");
         if info.pro == 100 then
             self.lb_status:setString("内容解压中，不消耗流量，请稍候");
-        end   
+        end
     elseif info.type == 3 then
         LoadingView.getInstance():hide();
 
@@ -30,14 +30,14 @@ function HallUpdate:updatePro(info)
         require("app.hall.HallConfig");
         package.loaded["app.config"] = nil;
         require("app.config");
-        
+
         package.loaded["app.common.FileLog"] = nil;
         local FileLog = require("app.common.FileLog")
         FileLog.init(CACHEDIR)
 
         UIManager.getInstance():pushWnd(HallLogin);
     elseif info.type == 4 then
-        Toast.getInstance().show("解压失败");
+        Toast.getInstance():show("解压失败");
     end
 end
 
@@ -46,7 +46,7 @@ function HallUpdate:onResume()
 end
 
 function HallUpdate:onClose()
-    
+
 end
 
 function HallUpdate:onInit()
@@ -60,10 +60,10 @@ function HallUpdate:onInit()
 
     self.lb_status = ccui.Helper:seekWidgetByName(self.m_pWidget, "lb_status");
     self.lb_status:setString("更新中");
-    
+
 end
 
 --返回
 function HallUpdate:keyBack()
-    
+
 end
